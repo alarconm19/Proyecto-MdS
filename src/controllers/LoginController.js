@@ -42,7 +42,6 @@ function storeUser(req, res) {
 		conn.query('SELECT * FROM users WHERE username = ?', [data.username], (err, userdata) => {
 			if (userdata.length > 0) {
 				res.render('login/register', { error: 'Error: Ese nombre de usuario ya existe.' });
-				console.log(data);
 			}
 			else {
 				bcrypt.hash(data.password, 10).then((hash) => {

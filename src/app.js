@@ -29,14 +29,6 @@ app.use(myconection(mysql, {
     database: 'pweb'
 }, 'single'));
 
-// app.use(myconection(mysql, {
-//     host: 'localhost',
-//     user: 'root',
-//     password: '1234',
-//     port: 3306,
-//     database: 'pweb'
-// }, 'single'));
-
 app.use(session({
     secret: 'secret',
     resave: true,
