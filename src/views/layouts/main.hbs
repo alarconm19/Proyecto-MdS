@@ -12,7 +12,6 @@
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/templatemo.css">
-    <link rel="stylesheet" href="css/custom.css">
 
     <!-- Load fonts style after rendering the layout styles -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
@@ -25,11 +24,41 @@
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
+    <!-- Load mobiscroll styles -->
+    <link href="css/mobiscroll.javascript.min.css" rel="stylesheet">
+    {{!-- <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,html {
+            height: 100%;
+        }
+
+        .md-calendar-booking .mbsc-calendar-text {
+            text-align: center;
+        }
+
+        .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {
+            flex: 1 1 0;
+            min-width: 300px;
+        }
+
+        .md-calendar-booking .mbsc-timegrid-item {
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+        }
+
+        .md-calendar-booking .mbsc-timegrid-container {
+            top: 30px;
+        }
+    </style> --}}
 </head>
 
 <body class="bg-gray-200">
 
-<!-- Start Top Nav -->
+{{!-- <!-- Start Top Nav -->
 <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
     <div class="container text-light">
         <div class="w-100 d-flex justify-content-between">
@@ -48,20 +77,20 @@
         </div>
     </div>
 </nav>
-<!-- Close Top Nav -->
+<!-- Close Top Nav --> --}}
 
 <!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
 
-        <a class="navbar-brand text-success logo h1 align-self-center" href="/index">Spa</a>
-        <a class="navbar-brand text-success logo h2 align-self-center" href="/index">Sentirse Bien</a>
+        <a class="navbar-brand text-success logo h1 align-self-center" href="/">Spa</a>
+        <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
 
         <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="/index">Quienes Somos</a>
+                        <a class="nav-link" href="/">Quienes Somos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/about">Servicios</a>
@@ -74,7 +103,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="navbar align-self-center d-flex">
+            {{!-- <div class="navbar align-self-center d-flex">
                 <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
                     <div class="input-group">
                         <label for="inputMobileSearch"></label><input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
@@ -88,9 +117,9 @@
                 </a>
                 <a class="nav-icon position-relative text-decoration-none" href="#">
                     <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">7</span>
+                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
                 </a>
-            </div>
+            </div> --}}
 
             <div class="navbar align-self-center" id="navbarNav">
                 <ul class="navbar d-flex justify-content-between mx-lg-auto">
@@ -117,7 +146,7 @@
 <!-- Close Header -->
 
 <!-- Modal -->
-<div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+{{!-- <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="w-100 pt-1 mb-5 text-right">
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -131,7 +160,7 @@
             </div>
         </form>
     </div>
-</div>
+</div> --}}
 <!-- End Modal -->
 
 {{{body}}}
@@ -175,7 +204,7 @@
             <div class="col-md-4 pt-5">
                 <h2 class="h2 text-light border-bottom pb-3 border-light">More info</h2>
                 <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="/index">Home</a></li>
+                    <li><a class="text-decoration-none" href="/">Home</a></li>
                     <li><a class="text-decoration-none" href="/about">About Us</a></li>
                     <li><a class="text-decoration-none" href="/shop">Noticias</a></li>
                     <li><a class="text-decoration-none" href="/contact">Empleos</a></li>
@@ -235,7 +264,132 @@
 <script src="js/jquery-migrate-1.2.1.min.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/templatemo.js"></script>
-<script src="js/custom.js"></script>
+
+<script src="js/mobiscroll.javascript.min.js"></script>
+<script>
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeEs,             // Specify language like: locale: mobiscroll.localePl or omit setting to use default
+        theme: 'material',                            // Specify theme like: theme: 'ios' or omit setting to use default
+        themeVariant: 'light'                  // More info about themeVariant: https://mobiscroll.com/docs/javascript/datepicker/api#opt-themeVariant
+    });
+
+    var min = '2024-09-13T08:00';
+    var max = '2024-12-31T15:30';
+
+    mobiscroll.datepicker('#demo-booking-datetime', {
+        display: 'inline',                       // Specify display mode like: display: 'bottom' or omit setting to use default
+        touchUi: 'false',
+        controls: ['calendar', 'timegrid'],      // More info about controls: https://mobiscroll.com/docs/javascript/datepicker/api#opt-controls
+        min: min,                                // More info about min: https://mobiscroll.com/docs/javascript/datepicker/api#opt-min
+        max: max,                                // More info about max: https://mobiscroll.com/docs/javascript/datepicker/api#opt-max
+        minTime: '08:00',
+        maxTime: '15:59',
+        stepMinute: 30,
+        width: 800,                             // More info about width: https://mobiscroll.com/docs/javascript/datepicker/api#opt-width
+        onPageLoading: function (event, inst) {  // More info about onPageLoading: https://mobiscroll.com/docs/javascript/datepicker/api#event-onPageLoading
+            getDatetimes(event.firstDay, function callback(bookings) {
+                inst.setOptions({
+                    labels: bookings.labels,           // More info about labels: https://mobiscroll.com/docs/javascript/datepicker/api#opt-labels
+                    invalid: bookings.invalid,         // More info about invalid: https://mobiscroll.com/docs/javascript/datepicker/api#opt-invalid
+                });
+            });
+        },
+    });
+
+    function getDatetimes(day, callback) {
+        var invalid = [];
+        var labels = [];
+
+        mobiscroll.getJson(
+            'https://trial.mobiscroll.com/getbookingtime/?year=' + day.getFullYear() + '&month=' + day.getMonth(),
+            function (bookings) {
+                for (var i = 0; i < bookings.length; ++i) {
+                    var booking = bookings[i];
+                    var bDate = new Date(booking.d);
+
+                    if (booking.nr > 0) {
+                        labels.push({
+                            start: bDate,
+                            title: booking.nr + ' SPOTS',
+                            textColor: '#e1528f',
+                        });
+                        invalid = invalid.concat(booking.invalid);
+                    }
+                    else {
+                        invalid.push(bDate);
+                    }
+                }
+                callback({ labels: labels, invalid: invalid });
+            },
+            'jsonp',
+        );
+    }
+
+    function getBookings(d, callback) {
+        var invalid = [];
+        var labels = [];
+
+        mobiscroll.getJson(
+            'https://trial.mobiscroll.com/getbookings/?year=' + d.getFullYear() + '&month=' + d.getMonth(),
+            function (bookings) {
+                for (var i = 0; i < bookings.length; ++i) {
+                    var booking = bookings[i];
+                    var d = new Date(booking.d);
+
+                    if (booking.nr > 0) {
+                        labels.push({
+                            start: d,
+                            title: booking.nr + ' SPOTS',
+                            textColor: '#e1528f',
+                        });
+                    }
+                    else {
+                        invalid.push(d);
+                    }
+                }
+                callback({ labels: labels, invalid: invalid });
+            },
+            'jsonp',
+        );
+    }
+</script>
+
+{{!-- <script>
+    mobiscroll.setOptions({
+        locale: mobiscroll.localeEs,             // Specify language like: locale: mobiscroll.localePl or omit setting to use default
+        theme: 'material',                            // Specify theme like: theme: 'ios' or omit setting to use default
+        themeVariant: 'light'                  // More info about themeVariant: https://mobiscroll.com/docs/javascript/datepicker/api#opt-themeVariant
+    });
+
+    var min = '2024-09-13T08:00';
+    var max = '2024-12-31T15:30';
+
+    mobiscroll.datepicker('#demo-booking-datetime', {
+        controls: ['calendar', 'timegrid'],
+        min: '2024-09-14T00:00',
+        max: '2025-03-14T00:00',
+        minTime: '08:00',
+        maxTime: '19:59',
+        stepMinute: 60,
+        // example for today's labels and invalids
+        labels: [{
+            start: '2024-09-13',
+            textColor: '#e1528f',
+            title: '4 SPOTS'
+        }],
+        invalid: [{
+            start: '2024-09-14T08:00',
+            end: '2024-09-14T13:00'
+        }, {
+            start: '2024-09-14T15:00',
+            end: '2024-09-14T17:00'
+        }, {
+            start: '2024-09-14T19:00',
+            end: '2024-09-14T20:00'
+        }]
+    });
+</script> --}}
+
 <!-- End Script -->
 
 </body>
