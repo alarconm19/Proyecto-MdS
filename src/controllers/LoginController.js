@@ -5,7 +5,7 @@ function login (req, res) {
 	else res.render('login/login');
 }
 
-function auth(req, res) {
+function auth(req, res) {	
 	const data = req.body;
 
 	req.getConnection((err, conn) => {

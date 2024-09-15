@@ -6,7 +6,7 @@ const session = require ('express-session');
 const bodyParser = require ('body-parser');
 const path = require('path');
 require('dotenv').config();
-
+const turnoRutas = require('./routes/turno');
 const loginRoutes = require('./routes/login');
 
 const app = express();
@@ -45,6 +45,7 @@ app.listen(app.get('port'), () => {
 });
 
 app.use('/', loginRoutes);
+app.use('/about', turnoRutas);
 
 app.get('/', (req, res) => {
     if(req.session.loggedin) res.render('index', { username: req.session.username });
