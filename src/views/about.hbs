@@ -1,123 +1,129 @@
 <!-- Start Services Section -->
-<section class="bg-light py-5">
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-lg-6 m-auto">
-                <h1 class="h1">Nuestros Servicios</h1>
-                <p>
-                    Descubre la amplia gama de servicios que ofrecemos para tu bienestar y belleza.
-                </p>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card border-0 shadow-sm">
-
-                    <div class="card-body text-center">
-                        <h2 class="h4 text-success">Masajes</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>Anti-stress</li>
-                            <li>Descontracturantes</li>
-                            <li>Masajes con piedras calientes</li>
-                            <li>Circulatorios</li>
-                        </ul>
-                    </div>
-
-
+<form action="" method="post">
+    <section class="bg-light py-5">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-6 m-auto">
+                    <h1 class="h1">Nuestros Servicios</h1>
+                    <p>
+                        Descubre la amplia gama de servicios que ofrecemos para tu bienestar y belleza.
+                    </p>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card border-0 shadow-sm">
-
-                    {{!-- <div class="card-body text-center">
-                        <h2 class="h4 text-success">Belleza</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>Lifting de pestaña</li>
-                            <li>Depilación facial</li>
-                            <li>Belleza de manos y pies</li>
-                        </ul>
-                    </div> --}}
-
-                    <div class="card-body text-center">
-                        <h2 class="h4 text-success">Belleza</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>Lifting de pestaña</li>
-                            <li>Depilación facial</li>
-                            <li>Belleza de manos y pies</li>
-                        </ul>
-                        <select class="form-select mt-3" id="selectTratBelleza" >
-                            <option value="">Seleccione un tratamiento</option>
-                            <option value="Lifting de pestaña">Lifting de pestaña</option>
-                            <option value="Depilación facial">Depilación facial</option>
-                            <option value="Belleza de manos y pies">Belleza de manos y pies</option>
-                        </select>
-                        {{!-- <button class="btn btn-primary mt-3" onclick="mostrarOpciones('TratBelleza')">Seleccionar</button> --}}
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <h2 class="h4 text-success">Tratamientos Faciales</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>Punta de Diamante: Microexfoliación</li>
-                            <li>Limpieza profunda + Hidratación</li>
-                            <li>Crio frecuencia facial: efecto lifting</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body text-center">
-                        <h2 class="h4 text-success">Tratamientos Corporales</h2>
-                        <ul class="list-unstyled mt-3">
-                            <li>VelaSlim: Reducción corporal y celulitis</li>
-                            <li>DermoHealth: drenaje linfático</li>
-                            <li>Criofrecuencia: efecto lifting instantáneo</li>
-                            <li>Ultracavitación: Técnica reductora</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Services Section -->
-
-<!-- Start Turnos Section -->
-
-<section class="bg-light py-5">
-
-    <div class="container">
-        <div class="row text-center">
-            <div class="col-lg-12 m-auto">
-                <h1 class="h1 text-black">Reserva tu turno</h1>
-                <p class="text-black">Reserva tu turno para disfrutar de nuestros servicios.</p>
-            </div>
-
-            <div class="container d-flex flex-column align-items-center mt-4">
-                <div class="calendar mb-3">
-                    <h5>Selecciona la fecha</h5>
-                    <input type="date" id="appointment-date" class="form-control custom-date-input">
-                </div>
-
-                <div class="time-picker-section">
-                    <h5>Elige un horario disponible</h5>
-                    <div id="timeSlotsContainer" class="grid-container"></div>
-                </div>
-            </div>
-
             <div class="row mt-4">
-                <div class="col-12 text-center">
-                    <button id="confirm-btn" class="btn btn-success" disabled>Confirmar Turno</button>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm">
+
+                        <div class="card-body text-center">
+                            <h2 class="h4 text-success">Masajes</h2>
+                            <ul class="list-unstyled mt-3">
+                                <li>Anti-stress</li>
+                                <li>Descontracturantes</li>
+                                <li>Masajes con piedras calientes</li>
+                                <li>Circulatorios</li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm">
+
+                        {{!-- <div class="card-body text-center">
+                            <h2 class="h4 text-success">Belleza</h2>
+                            <ul class="list-unstyled mt-3">
+                                <li>Lifting de pestaña</li>
+                                <li>Depilación facial</li>
+                                <li>Belleza de manos y pies</li>
+                            </ul>
+                        </div> --}}
+
+                        <div class="card-body text-center">
+                            <h2 class="h4 text-success">Belleza</h2>
+                            <ul class="list-unstyled mt-3">
+                                <li>Lifting de pestaña</li>
+                                <li>Depilación facial</li>
+                                <li>Belleza de manos y pies</li>
+                            </ul>
+                            <select class="form-select mt-3" name="selectTratBelleza" id="selectTratBelleza">
+                                <option value="">Seleccione un tratamiento</option>
+                                <option value="Lifting de pestaña">Lifting de pestaña</option>
+                                <option value="Depilación facial">Depilación facial</option>
+                                <option value="Belleza de manos y pies">Belleza de manos y pies</option>
+                            </select>
+                            {{!-- <button class="btn btn-primary mt-3" onclick="mostrarOpciones('TratBelleza')">Seleccionar</button> --}}
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h2 class="h4 text-success">Tratamientos Faciales</h2>
+                            <ul class="list-unstyled mt-3">
+                                <li>Punta de Diamante: Microexfoliación</li>
+                                <li>Limpieza profunda + Hidratación</li>
+                                <li>Crio frecuencia facial: efecto lifting</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <h2 class="h4 text-success">Tratamientos Corporales</h2>
+                            <ul class="list-unstyled mt-3">
+                                <li>VelaSlim: Reducción corporal y celulitis</li>
+                                <li>DermoHealth: drenaje linfático</li>
+                                <li>Criofrecuencia: efecto lifting instantáneo</li>
+                                <li>Ultracavitación: Técnica reductora</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
-    </div>
-</section>
+    </section>
+    <!-- End Services Section -->
+
+    <!-- Start Turnos Section -->
+
+    <section class="bg-light py-5">
+
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-lg-12 m-auto">
+                    <h1 class="h1 text-black">Reserva tu turno</h1>
+                    <p class="text-black">Reserva tu turno para disfrutar de nuestros servicios.</p>
+                </div>
+
+                <div class="container d-flex flex-column align-items-center mt-4">
+                    <div class="calendar mb-3">
+                        <h5>Selecciona la fecha</h5>
+                        <input type="date" name="appointment-date" id="appointment-date" class="form-control custom-date-input">
+                    </div>
+
+                    <div class="time-picker-section">
+                        <h5>Elige un horario disponible</h5>
+                        <div id="timeSlotsContainer" class="grid-container"></div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12 text-center">
+                        <button type="submit" id="confirm-btn" class="btn btn-success" disabled>Confirmar Turno</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Campos ocultos para almacenar los datos seleccionados -->
+    <input type="hidden" name="selectedtime" id="selectedtime">
+    <input type="hidden" name="selectedtreatment" id="selectedtreatment">
+    <input type="hidden" name="selecteddate" id="selecteddate">
+</form>
 
 <!-- End Turnos Section -->
 
@@ -156,124 +162,3 @@
     }
 </script> --}}
 
-<script>
-    // Obtener la fecha actual y sumar un día para establecer la fecha mínima
-    let min = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
-    let max = new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0];
-
-    // Establecer la fecha mínima y máxima en el input de fecha
-    document.getElementById('appointment-date').setAttribute('min', min);
-    document.getElementById('appointment-date').setAttribute('max', max);
-
-    // Establecer la fecha mínima en el input de fecha
-    document.addEventListener('DOMContentLoaded', function() {
-        const dateInput = document.getElementById('appointment-date');
-        dateInput.value = min; // Establecer el valor mínimo de la fecha
-    });
-
-    // Array que simula horarios reservados (lo ideal sería traer esta info de una base de datos)
-    const reservedSlots = {
-        '2024-09-20': ['09:00', '10:30', '13:00'], // Ejemplo de horas ya reservadas para una fecha
-        '2024-09-21': ['08:00', '14:00'],
-    };
-
-    // Array con los horarios disponibles
-    const timeSlots = [
-        '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-        '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'
-    ];
-
-    const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-    const dateInput = document.getElementById('appointment-date');
-    const confirmButton = document.getElementById('confirm-btn');
-    let selectedTime = null;
-
-    // Función para actualizar los horarios según la fecha seleccionada
-    function updateTimeSlots() {
-        const selectedDate = dateInput.value;
-        timeSlotsContainer.innerHTML = ''; // Limpiar los botones de horarios
-        selectedTime = null;
-        confirmButton.disabled = true;
-
-        if (selectedDate) {
-            const reservedForDate = reservedSlots[selectedDate] || [];
-
-            // Crear un contenedor de grilla solo si no existe
-            let grid = document.querySelector('.time-picker-section .grid-container');
-            if (!grid) {
-                grid = document.createElement('div');
-                grid.classList.add('grid-container');
-                timeSlotsContainer.appendChild(grid); // Añadir la grilla al contenedor principal
-            } else {
-                grid.innerHTML = ''; // Limpiar los botones si la grilla ya existe
-            }
-
-            timeSlots.forEach(time => {
-                const isReserved = reservedForDate.includes(time);
-                const button = document.createElement('button');
-                button.classList.add('btn', 'btn-outline-primary', 'time-slot-btn');
-                button.textContent = time;
-
-                if (isReserved) {
-                    button.classList.add('disabled');
-                    button.disabled = true;
-                } else {
-                    button.addEventListener('click', () => {
-                        // Deseleccionar el anterior botón si había uno seleccionado
-                        const selectedBtn = document.querySelector('.time-slot-btn.selected');
-                        if (selectedBtn) {
-                            selectedBtn.classList.remove('selected');
-                        }
-                        button.classList.add('selected');
-                        selectedTime = time;
-                        confirmButton.disabled = false; // Habilitar el botón de confirmar
-                    });
-                }
-                grid.appendChild(button);
-            });
-        }
-    }
-
-
-    // Al cambiar la fecha, se actualizan los horarios
-    dateInput.addEventListener('change', updateTimeSlots);
-
-    // Al cargar la página, se actualizan los horarios
-    document.addEventListener('DOMContentLoaded', updateTimeSlots);
-
-    // Obtén el elemento select por su ID
-    const selectElement = document.getElementById('selectTratBelleza');
-
-    // Función para obtener el valor seleccionado
-    function obtenerValorSeleccionado() {
-        const valorSeleccionado = selectElement.value; // Obtiene el valor del select
-        console.log(valorSeleccionado); // Muestra el valor en la consola
-        // Aquí puedes hacer lo que necesites con el valor seleccionado
-    }
-
-    // Confirmación del turno
-    confirmButton.addEventListener('click', () => {
-        if (selectedTime && selectElement.value && dateInput.value) {
-            alert(`Turno confirmado para el servicio ${selectElement.value} el día ${dateInput.value} a las ${selectedTime}`);
-
-            // Aquí puedes enviar los datos al servidor mediante fetch
-            fetch('/about', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        servicio: selectElement.value,
-                        fecha: dateInput.value,
-                        hora: selectedTime
-                    })
-                })
-                .catch(error => {
-                    console.error('Error al enviar el turno:', error);
-                });
-        }
-        selectedTime = null;
-        confirmButton.disabled = true;
-    });
-
-</script>

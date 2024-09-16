@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const profileController = require('../controllers/ProfileController');
+const databaseController = require('../controllers/DatabaseController');
 
 // Rutas
 router.get('/', (req, res) => {
@@ -35,6 +36,9 @@ router.get('/shop', (req, res) => {
     if(req.session.loggedin) res.render('shop', { username: req.session.username });
     else res.render('shop');
 });
+
+// Ruta para reservar un turno
+router.post('/about', databaseController.insertQuery);
 
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {
