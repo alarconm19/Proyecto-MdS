@@ -30,16 +30,16 @@ app.use(myconection(mysql, {
     database: 'pweb'
 }, 'single'));
 
+
 app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: true
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Cambia a true si usas HTTPS
 }));
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));

@@ -21,6 +21,7 @@ function auth(req, res) {
                         res.render('login/login', { error: 'Error: Contraseña incorrecta.' });
                     } else {
                         req.session.loggedin = true;
+                        req.session.user_id = userdata[0].user_id; // Guardar el ID de usuario en sesión
                         req.session.username = userdata[0].username; // Guardar el nombre de usuario en sesión
                         req.session.email = userdata[0].email; // Guardar el correo en sesión
                         req.session.direccion = userdata[0].direccion; // Guardar la dirección en sesión
@@ -59,7 +60,11 @@ function storeUser(req, res) {
                         // Insertar nuevo usuario con nombre de usuario, correo y contraseña
                         conn.query('INSERT INTO users SET ?', [data], (err, rows) => {
                             req.session.loggedin = true;
-                            req.session.username = data.username;
+                            req.session.user_id = userdata[0].user_id; // Guardar el ID de usuario en sesión
+                            req.session.username = userdata[0].username; // Guardar el nombre de usuario en sesión
+                            req.session.email = userdata[0].email; // Guardar el correo en sesión
+                            req.session.direccion = userdata[0].direccion; // Guardar la dirección en sesión
+                            req.session.telefono = userdata[0].telefono; // Guardar el teléfono en sesión
 
                             res.redirect('/');
                         });
