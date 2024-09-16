@@ -6,7 +6,6 @@
 
     <title>Spa Sentirse Bien</title>
 
-
     <link rel="apple-touch-icon" href="img/apple-icon.png">
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 
@@ -24,373 +23,240 @@
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
-    <!-- Load mobiscroll styles -->
-    <link href="css/mobiscroll.javascript.min.css" rel="stylesheet">
-    {{!-- <style type="text/css">
-        body {
-            margin: 0;
-            padding: 0;
+
+    <style>
+        /* Solo afecta a los elementos dentro de .time-picker-section */
+        .time-picker-section .grid-container {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr); /* Ajusta a 3 columnas fijas */
+            gap: 10px; /* Espaciado entre los botones */
+            margin-top: 20px;
         }
 
-        body,html {
-            height: 100%;
-        }
-
-        .md-calendar-booking .mbsc-calendar-text {
+        .time-picker-section .time-slot-btn {
+            width: 100%;
+            padding: 10px;
             text-align: center;
         }
 
-        .md-calendar-booking .booking-datetime .mbsc-datepicker-tab-calendar {
-            flex: 1 1 0;
-            min-width: 300px;
+        .custom-date-input {
+            width: 100%; /* Ajusta al 100% del contenedor */
+            max-width: 300px; /* Puedes cambiar el tamaño máximo aquí */
         }
-
-        .md-calendar-booking .mbsc-timegrid-item {
-            margin-top: 1.5em;
-            margin-bottom: 1.5em;
-        }
-
-        .md-calendar-booking .mbsc-timegrid-container {
-            top: 30px;
-        }
-    </style> --}}
+    </style>
 </head>
 
 <body class="bg-gray-200">
 
-{{!-- <!-- Start Top Nav -->
-<nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
-    <div class="container text-light">
-        <div class="w-100 d-flex justify-content-between">
-            <div>
-                <i class="fa fa-envelope mx-2"></i>
-                <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
-                <i class="fa fa-phone mx-2"></i>
-                <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-            </div>
-            <div>
-                <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
-                <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+    {{!-- <!-- Start Top Nav -->
+    <nav class="navbar navbar-expand-lg bg-dark navbar-light d-none d-lg-block" id="templatemo_nav_top">
+        <div class="container text-light">
+            <div class="w-100 d-flex justify-content-between">
+                <div>
+                    <i class="fa fa-envelope mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                    <i class="fa fa-phone mx-2"></i>
+                    <a class="navbar-sm-brand text-light text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                </div>
+                <div>
+                    <a class="text-light" href="https://fb.com/templatemo" target="_blank" rel="sponsored"><i class="fab fa-facebook-f fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://twitter.com/" target="_blank"><i class="fab fa-twitter fa-sm fa-fw me-2"></i></a>
+                    <a class="text-light" href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin fa-sm fa-fw"></i></a>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-<!-- Close Top Nav --> --}}
+    </nav>
+    <!-- Close Top Nav --> --}}
 
-<!-- Header -->
-<nav class="navbar navbar-expand-lg navbar-light shadow">
-    <div class="container d-flex justify-content-between align-items-center">
+    <!-- Header -->
 
-        <a class="navbar-brand text-success logo h1 align-self-center" href="/">Spa</a>
-        <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
+    <nav class="navbar navbar-expand-lg navbar-light shadow">
+        <div class="container d-flex justify-content-between align-items-center">
 
-        <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-            <div class="flex-fill">
-                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Quienes Somos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/about">Servicios</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/shop">Noticias</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/contact">Empleos</a>
-                    </li>
-                </ul>
-            </div>
-            {{!-- <div class="navbar align-self-center d-flex">
-                <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
-                    <div class="input-group">
-                        <label for="inputMobileSearch"></label><input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
-                        <div class="input-group-text">
-                            <i class="fa fa-fw fa-search"></i>
+            <a class="navbar-brand text-success logo h1 align-self-center " href="/">Spa</a>
+            <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
+
+            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                <div class="flex-fill">
+                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Quienes Somos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">Servicios</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/shop">Noticias</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/contact">Empleos</a>
+                        </li>
+                    </ul>
+                </div>
+                {{!-- <div class="navbar align-self-center d-flex">
+                    <div class="d-lg-none flex-sm-fill mt-3 mb-4 col-7 col-sm-auto pr-3">
+                        <div class="input-group">
+                            <label for="inputMobileSearch"></label><input type="text" class="form-control" id="inputMobileSearch" placeholder="Search ...">
+                            <div class="input-group-text">
+                                <i class="fa fa-fw fa-search"></i>
+                            </div>
                         </div>
                     </div>
+                    <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
+                        <i class="fa fa-fw fa-search text-dark mr-2"></i>
+                    </a>
+                    <a class="nav-icon position-relative text-decoration-none" href="#">
+                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
+                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
+                    </a>
+                </div> --}}
+
+                <div class="navbar align-self-center" id="navbarNav">
+                    <ul class="navbar d-flex justify-content-between mx-lg-auto">
+                        {{#if username}}
+                            <li class="nav-link">
+                                <a href="/profile" class="btn btn">{{username}}</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="/logout" class="btn btn-danger">Salir</a>
+                            </li>
+                        {{else}}
+                            <li class="nav-link">
+                                <a href="/login" class="btn btn-success">Acceder</a>
+                            </li>
+                            <li class="nav-link">
+                                <a href="/register" class="btn btn-outline-success">Registrarse</a>
+                            </li>
+                        {{/if}}
+                    </ul>
                 </div>
-                <a class="nav-icon d-none d-lg-inline" href="#" data-bs-toggle="modal" data-bs-target="#templatemo_search">
-                    <i class="fa fa-fw fa-search text-dark mr-2"></i>
-                </a>
-                <a class="nav-icon position-relative text-decoration-none" href="#">
-                    <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
-                    <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark"></span>
-                </a>
-            </div> --}}
-
-            <div class="navbar align-self-center" id="navbarNav">
-                <ul class="navbar d-flex justify-content-between mx-lg-auto">
-                    {{#if username}}
-                        <li class="nav-link">
-                            <span class="nav-link font-weight-bold">{{username}}</span>
-                        </li>
-                        <li class="nav-link">
-                            <a href="/logout" class="btn btn-danger">Logout</a>
-                        </li>
-                    {{else}}
-                        <li class="nav-link">
-                            <a href="/login" class="btn btn-success">Login</a>
-                        </li>
-                        <li class="nav-link">
-                            <a href="/register" class="btn btn-outline-success">Register</a>
-                        </li>
-                    {{/if}}
-                </ul>
             </div>
         </div>
-    </div>
-</nav>
-<!-- Close Header -->
+    </nav>
+    <!-- Close Header -->
 
-<!-- Modal -->
-{{!-- <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="w-100 pt-1 mb-5 text-right">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form action="" method="get" class="modal-content modal-body border-0 p-0">
-            <div class="input-group mb-2">
-                <label for="inputModalSearch"></label><input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
-                <button type="submit" class="input-group-text bg-success text-light">
-                    <i class="fa fa-fw fa-search text-white"></i>
-                </button>
+    <!-- Modal -->
+    {{!-- <div class="modal fade bg-white" id="templatemo_search" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="w-100 pt-1 mb-5 text-right">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-        </form>
-    </div>
-</div> --}}
-<!-- End Modal -->
-
-{{{body}}}
-
-<!-- Start Footer -->
-<footer class="bg-dark" id="tempaltemo_footer">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-success border-bottom pb-3 border-light logo">Spa Sentirse Bien</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li>
-                        <i class="fas fa-map-marker-alt fa-fw"></i>
-                        123 Consectetur at ligula 10660
-                    </li>
-                    <li>
-                        <i class="fa fa-phone fa-fw"></i>
-                        <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-envelope fa-fw"></i>
-                        <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">Servicios</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="#">Luxury</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
-                    <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
-                    <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
-                    <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
-                    <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 pt-5">
-                <h2 class="h2 text-light border-bottom pb-3 border-light">More info</h2>
-                <ul class="list-unstyled text-light footer-link-list">
-                    <li><a class="text-decoration-none" href="/">Home</a></li>
-                    <li><a class="text-decoration-none" href="/about">About Us</a></li>
-                    <li><a class="text-decoration-none" href="/shop">Noticias</a></li>
-                    <li><a class="text-decoration-none" href="/contact">Empleos</a></li>
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="row text-light mb-4">
-            <div class="col-12 mb-3">
-                <div class="w-100 my-3 border-top border-light"></div>
-            </div>
-            <div class="col-auto me-auto">
-                <ul class="list-inline text-left footer-icons">
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
-                    </li>
-                    <li class="list-inline-item border border-light rounded-circle text-center">
-                        <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-auto">
-                <label class="sr-only" for="subscribeEmail">Email address</label>
+            <form action="" method="get" class="modal-content modal-body border-0 p-0">
                 <div class="input-group mb-2">
-                    <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                    <div class="input-group-text btn-success text-light">Subscribe</div>
+                    <label for="inputModalSearch"></label><input type="text" class="form-control" id="inputModalSearch" name="q" placeholder="Search ...">
+                    <button type="submit" class="input-group-text bg-success text-light">
+                        <i class="fa fa-fw fa-search text-white"></i>
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
-    </div>
+    </div> --}}
+    <!-- End Modal -->
 
-    <div class="w-100 bg-black py-3">
+    {{{body}}}
+
+    <!-- Start Footer -->
+
+    <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
-            <div class="row pt-2">
-                <div class="col-12">
-                    <p class="text-left text-light">
-                        Copyright &copy; 2021 Company Name
-                        | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
-                    </p>
+            <div class="row">
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-success border-bottom pb-3 border-light logo">Spa Sentirse Bien</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li>
+                            <i class="fas fa-map-marker-alt fa-fw"></i>
+                            123 Consectetur at ligula 10660
+                        </li>
+                        <li>
+                            <i class="fa fa-phone fa-fw"></i>
+                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope fa-fw"></i>
+                            <a class="text-decoration-none" href="mailto:info@company.com">info@company.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">Servicios</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                        <li><a class="text-decoration-none" href="#">Sport Wear</a></li>
+                        <li><a class="text-decoration-none" href="#">Men's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Women's Shoes</a></li>
+                        <li><a class="text-decoration-none" href="#">Popular Dress</a></li>
+                        <li><a class="text-decoration-none" href="#">Gym Accessories</a></li>
+                        <li><a class="text-decoration-none" href="#">Sport Shoes</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="h2 text-light border-bottom pb-3 border-light">More info</h2>
+                    <ul class="list-unstyled text-light footer-link-list">
+                        <li><a class="text-decoration-none" href="/">Home</a></li>
+                        <li><a class="text-decoration-none" href="/about">About Us</a></li>
+                        <li><a class="text-decoration-none" href="/shop">Noticias</a></li>
+                        <li><a class="text-decoration-none" href="/contact">Empleos</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="row text-light mb-4">
+                <div class="col-12 mb-3">
+                    <div class="w-100 my-3 border-top border-light"></div>
+                </div>
+                <div class="col-auto me-auto">
+                    <ul class="list-inline text-left footer-icons">
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                        </li>
+                        <li class="list-inline-item border border-light rounded-circle text-center">
+                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-auto">
+                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
+                        <div class="input-group-text btn-success text-light">Subscribe</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-</footer>
-<!-- End Footer -->
+        <div class="w-100 bg-black py-3">
+            <div class="container">
+                <div class="row pt-2">
+                    <div class="col-12">
+                        <p class="text-left text-light">
+                            Copyright &copy; 2021 Company Name
+                            | Designed by <a rel="sponsored" href="https://templatemo.com" target="_blank">TemplateMo</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<!-- Start Script -->
-<script src="js/jquery-1.11.0.min.js"></script>
-<script src="js/jquery-migrate-1.2.1.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/templatemo.js"></script>
+    </footer>
+    <!-- End Footer -->
 
-<script src="js/mobiscroll.javascript.min.js"></script>
-<script>
-    mobiscroll.setOptions({
-        locale: mobiscroll.localeEs,             // Specify language like: locale: mobiscroll.localePl or omit setting to use default
-        theme: 'material',                            // Specify theme like: theme: 'ios' or omit setting to use default
-        themeVariant: 'light'                  // More info about themeVariant: https://mobiscroll.com/docs/javascript/datepicker/api#opt-themeVariant
-    });
-
-    var min = '2024-09-13T08:00';
-    var max = '2024-12-31T15:30';
-
-    mobiscroll.datepicker('#demo-booking-datetime', {
-        display: 'inline',                       // Specify display mode like: display: 'bottom' or omit setting to use default
-        touchUi: 'false',
-        controls: ['calendar', 'timegrid'],      // More info about controls: https://mobiscroll.com/docs/javascript/datepicker/api#opt-controls
-        min: min,                                // More info about min: https://mobiscroll.com/docs/javascript/datepicker/api#opt-min
-        max: max,                                // More info about max: https://mobiscroll.com/docs/javascript/datepicker/api#opt-max
-        minTime: '08:00',
-        maxTime: '15:59',
-        stepMinute: 30,
-        width: 800,                             // More info about width: https://mobiscroll.com/docs/javascript/datepicker/api#opt-width
-        onPageLoading: function (event, inst) {  // More info about onPageLoading: https://mobiscroll.com/docs/javascript/datepicker/api#event-onPageLoading
-            getDatetimes(event.firstDay, function callback(bookings) {
-                inst.setOptions({
-                    labels: bookings.labels,           // More info about labels: https://mobiscroll.com/docs/javascript/datepicker/api#opt-labels
-                    invalid: bookings.invalid,         // More info about invalid: https://mobiscroll.com/docs/javascript/datepicker/api#opt-invalid
-                });
-            });
-        },
-    });
-
-    function getDatetimes(day, callback) {
-        var invalid = [];
-        var labels = [];
-
-        mobiscroll.getJson(
-            'https://trial.mobiscroll.com/getbookingtime/?year=' + day.getFullYear() + '&month=' + day.getMonth(),
-            function (bookings) {
-                for (var i = 0; i < bookings.length; ++i) {
-                    var booking = bookings[i];
-                    var bDate = new Date(booking.d);
-
-                    if (booking.nr > 0) {
-                        labels.push({
-                            start: bDate,
-                            title: booking.nr + ' SPOTS',
-                            textColor: '#e1528f',
-                        });
-                        invalid = invalid.concat(booking.invalid);
-                    }
-                    else {
-                        invalid.push(bDate);
-                    }
-                }
-                callback({ labels: labels, invalid: invalid });
-            },
-            'jsonp',
-        );
-    }
-
-    function getBookings(d, callback) {
-        var invalid = [];
-        var labels = [];
-
-        mobiscroll.getJson(
-            'https://trial.mobiscroll.com/getbookings/?year=' + d.getFullYear() + '&month=' + d.getMonth(),
-            function (bookings) {
-                for (var i = 0; i < bookings.length; ++i) {
-                    var booking = bookings[i];
-                    var d = new Date(booking.d);
-
-                    if (booking.nr > 0) {
-                        labels.push({
-                            start: d,
-                            title: booking.nr + ' SPOTS',
-                            textColor: '#e1528f',
-                        });
-                    }
-                    else {
-                        invalid.push(d);
-                    }
-                }
-                callback({ labels: labels, invalid: invalid });
-            },
-            'jsonp',
-        );
-    }
-</script>
-
-{{!-- <script>
-    mobiscroll.setOptions({
-        locale: mobiscroll.localeEs,             // Specify language like: locale: mobiscroll.localePl or omit setting to use default
-        theme: 'material',                            // Specify theme like: theme: 'ios' or omit setting to use default
-        themeVariant: 'light'                  // More info about themeVariant: https://mobiscroll.com/docs/javascript/datepicker/api#opt-themeVariant
-    });
-
-    var min = '2024-09-13T08:00';
-    var max = '2024-12-31T15:30';
-
-    mobiscroll.datepicker('#demo-booking-datetime', {
-        controls: ['calendar', 'timegrid'],
-        min: '2024-09-14T00:00',
-        max: '2025-03-14T00:00',
-        minTime: '08:00',
-        maxTime: '19:59',
-        stepMinute: 60,
-        // example for today's labels and invalids
-        labels: [{
-            start: '2024-09-13',
-            textColor: '#e1528f',
-            title: '4 SPOTS'
-        }],
-        invalid: [{
-            start: '2024-09-14T08:00',
-            end: '2024-09-14T13:00'
-        }, {
-            start: '2024-09-14T15:00',
-            end: '2024-09-14T17:00'
-        }, {
-            start: '2024-09-14T19:00',
-            end: '2024-09-14T20:00'
-        }]
-    });
-</script> --}}
-
-<!-- End Script -->
+    <!-- Start Script -->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/templatemo.js"></script>
+    <!-- End Script -->
 
 </body>
 </html>
