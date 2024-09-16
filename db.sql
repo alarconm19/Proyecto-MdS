@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
     role ENUM('cliente', 'empleado', 'admin') NOT NULL DEFAULT 'cliente'
 );
 
-
 CREATE TABLE IF NOT EXISTS Turnos (
     turno_id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_id INT NOT NULL,

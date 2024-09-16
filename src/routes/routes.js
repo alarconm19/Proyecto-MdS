@@ -40,6 +40,9 @@ router.get('/shop', (req, res) => {
 // Ruta para reservar un turno
 router.post('/about', databaseController.insertQuery);
 
+router.get('/reserved-slots', databaseController.sendReservedSlots);
+
+
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {
     res.status(404).render('404');

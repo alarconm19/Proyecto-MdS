@@ -11,7 +11,7 @@ const loginRoutes = require('./routes/login');
 const routes = require('./routes/routes');
 
 const app = express();
-app.set('port', 4000);
+const PORT = process.env.PORT || 8080;
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
@@ -23,13 +23,12 @@ app.set('view engine', '.hbs');
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use(myconection(mysql, {
-    host: 'localhost',
-    user: 'root',
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
     password: process.env.DB_PASS,
     port: 3306,
     database: 'pweb'
 }, 'single'));
-
 
 app.use(session({
     secret: 'your-secret-key',
@@ -41,8 +40,8 @@ app.use(session({
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.listen(app.get('port'), () => {
-    console.log('Server on port', app.get('port'));
+app.listen(PORT, () => {
+    console.log(`Server on port ${PORT}`);
 });
 
 app.use('/', loginRoutes);
