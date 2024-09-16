@@ -6,8 +6,9 @@ const session = require ('express-session');
 const bodyParser = require ('body-parser');
 const path = require('path');
 require('dotenv').config();
-const turnoRutas = require('./routes/turno');
+
 const loginRoutes = require('./routes/login');
+const routes = require('./routes/routes');
 
 const app = express();
 app.set('port', 4000);
@@ -19,7 +20,7 @@ app.engine('.hbs', engine ({
 app.set('view engine', '.hbs');
 
 // Configura la carpeta public para archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use(myconection(mysql, {
     host: 'localhost',
@@ -45,42 +46,5 @@ app.listen(app.get('port'), () => {
 });
 
 app.use('/', loginRoutes);
-app.use('/about', turnoRutas);
+app.use('/', routes);
 
-app.get('/', (req, res) => {
-    if(req.session.loggedin) res.render('index', { username: req.session.username });
-    else res.render('index');
-
-    // if (!req.session.loggedin) res.redirect('/login');
-	// else res.render('home');
-});
-
-app.get('/about', (req, res) => {
-    if(req.session.loggedin) res.render('about', { username: req.session.username });
-    else res.render('about');
-});
-
-app.get('/contact', (req, res) => {
-    if(req.session.loggedin) res.render('contact', { username: req.session.username });
-    else res.render('contact');
-});
-
-app.get('/shop', (req, res) => {
-    if(req.session.loggedin) res.render('shop', { username: req.session.username });
-    else res.render('shop');
-});
-
-app.get('/index', (req, res) => {
-    if(req.session.loggedin) res.render('index', { username: req.session.username });
-    else res.render('index');
-});
-
-app.get('/turnos', (req, res) => {
-    if(req.session.loggedin) res.render('turnos', { username: req.session.username });
-    else res.render('turnos');
-});
-
-// Middleware para manejar errores 404 (Página no encontrada)
-app.use((req, res, next) => {
-    res.status(404).render('404');
-});
