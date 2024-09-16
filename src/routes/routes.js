@@ -22,19 +22,19 @@ router.get('/profile', (req, res) => {
 router.get('/profile', profileController.showProfile);
 router.post('/profile/update', profileController.updateProfile);
 
-router.get('/about', (req, res) => {
-    if(req.session.loggedin) res.render('about', { username: req.session.username });
-    else res.render('about');
+router.get('/servicios', (req, res) => {
+    if(req.session.loggedin) res.render('servicios', { username: req.session.username });
+    else res.render('servicios');
 });
 
-router.get('/contact', (req, res) => {
-    if(req.session.loggedin) res.render('contact', { username: req.session.username });
-    else res.render('contact');
+router.get('/noticias', (req, res) => {
+    if(req.session.loggedin) res.render('noticias', { username: req.session.username });
+    else res.render('noticias');
 });
 
-router.get('/shop', (req, res) => {
-    if(req.session.loggedin) res.render('shop', { username: req.session.username });
-    else res.render('shop');
+router.get('/empleos', (req, res) => {
+    if(req.session.loggedin) res.render('empleos', { username: req.session.username });
+    else res.render('empleos');
 });
 
 // Ruta para reservar un turno
