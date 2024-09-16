@@ -60,7 +60,9 @@ function storeUser(req, res) {
                         // Insertar nuevo usuario con nombre de usuario, correo y contraseña
                         conn.query('INSERT INTO users SET ?', [data], (err, rows) => {
                             req.session.loggedin = true;
-                            req.session.username = data.username;
+                            req.session.username = data.username;                            
+                            req.session.userId = rows.insertId;
+                            req.session.email = data.email;
 
                             res.redirect('/');
                         });
