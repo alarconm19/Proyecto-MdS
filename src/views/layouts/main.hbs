@@ -268,17 +268,31 @@
         document.getElementById('appointment-date').setAttribute('min', min);
         document.getElementById('appointment-date').setAttribute('max', max);
 
-        // Establecer la fecha mínima en el input de fecha
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateInput = document.getElementById('appointment-date');
-            dateInput.value = min; // Establecer el valor mínimo de la fecha
-        });
+        const dateInput = document.getElementById('appointment-date');
+        dateInput.value = min; // Establecer el valor mínimo de la fecha
 
         // Array que simula horarios reservados (lo ideal sería traer esta info de una base de datos)
-        const reservedSlots = {
-            '2024-09-20': ['09:00', '10:30', '13:00'], // Ejemplo de horas ya reservadas para una fecha
-            '2024-09-21': ['08:00', '14:00'],
-        };
+        //*
+        let reservedSlots;
+        //*/
+        // Establecer la fecha mínima en el input de fecha
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hacer una solicitud fetch para obtener los horarios reservados desde el servidor
+            fetch('/reserved-slots')
+                .then(response => response.json())
+                .then(data => {
+                    // Asignar los datos obtenidos a la variable reservedSlots
+                    reservedSlots = data;
+                    console.log('Horarios reservados:', reservedSlots);
+
+                    // Una vez obtenidos los horarios reservados, actualizamos los slots disponibles
+                    updateTimeSlots();
+                })
+                .catch(error => {
+                    console.error('Error al obtener los horarios reservados:', error);
+
+                });
+        });
 
         // Array con los horarios disponibles
         const timeSlots = [
@@ -287,7 +301,6 @@
         ];
 
         const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-        const dateInput = document.getElementById('appointment-date');
         const confirmButton = document.getElementById('confirm-btn');
         let selectedTime = null;
 
