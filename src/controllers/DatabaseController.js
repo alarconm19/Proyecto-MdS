@@ -4,7 +4,7 @@ function insertQuery(req, res) {
 
     if (req.session) {
         req.getConnection((err, conn) => {
-            conn.query('INSERT INTO turnos (cliente_id, nombre_servicio, fecha, hora) VALUES (?, ?, ?, ?)', [req.session.user_id, req.body.selectedtreatment, req.body.selecteddate, req.body.selectedtime], (err, results) => {
+            conn.query('INSERT INTO Turnos (cliente_id, nombre_servicio, fecha, hora) VALUES (?, ?, ?, ?)', [req.session.user_id, req.body.selectedtreatment, req.body.selecteddate, req.body.selectedtime], (err, results) => {
                 if (err) {
                     console.error(err);
                     console.err('Error al guardar el turno');
@@ -27,7 +27,7 @@ function sendReservedSlots(req, res) {
         }
 
         // Consulta para obtener fechas y horas de turnos reservados
-        const query = 'SELECT fecha, hora FROM turnos WHERE fecha >= CURDATE()';
+        const query = 'SELECT fecha, hora FROM Turnos WHERE fecha >= CURDATE()';
 
         conn.query(query, (err, results) => {
             if (err) {
