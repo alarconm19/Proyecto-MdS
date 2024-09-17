@@ -38,7 +38,7 @@ router.get('/empleos', (req, res) => {
 });
 
 // Ruta para reservar un turno
-router.post('/about', databaseController.insertQuery);
+router.post('/servicios', databaseController.insertQuery);
 
 router.get('/reserved-slots', databaseController.sendReservedSlots);
 

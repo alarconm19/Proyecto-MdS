@@ -1,6 +1,3 @@
-// controllers/profileController.js
-const express = require('express');
-
 
 // Mostrar perfil
 const showProfile = (req, res) => {
@@ -17,23 +14,47 @@ const showProfile = (req, res) => {
 };
 
 // Actualizar perfil
+// const updateProfile = (req, res) => {
+//     const { username, email, direccion, telefono } = req.body;
+
+//     req.getConnection((err, conn) => {
+//         if (err) throw err;
+
+//         conn.query('UPDATE users SET email = ?, direccion = ?, telefono = ? WHERE username = ?', [email, direccion, telefono, req.session.username], (err, result) => {
+//             if (err) throw err;
+
+//             req.session.username = username;
+//             req.session.email = email;
+//             req.session.direccion = direccion;
+//             req.session.telefono = telefono;
+
+//             res.redirect('/profile');
+//         });
+//     });
+// };
+
 const updateProfile = (req, res) => {
     const { username, email, direccion, telefono } = req.body;
 
-    req.getConnection((err, conn) => {
-        if (err) throw err;
+    // Verificar si la conexión a la base de datos está disponible
+    if (req.conn) {
+        const query = 'UPDATE users SET email = ?, direccion = ?, telefono = ? WHERE username = ?';
+        const values = [email, direccion, telefono, req.session.username];
 
-        conn.query('UPDATE users SET email = ?, direccion = ?, telefono = ? WHERE username = ?', [email, direccion, telefono, req.session.username], (err, result) => {
-            if (err) throw err;
+        req.conn.query(query, values, (err, result) => {
+            if (err) console.error('Error al actualizar el perfil:', err);
 
+            // Actualizar los datos de la sesión
             req.session.username = username;
             req.session.email = email;
             req.session.direccion = direccion;
             req.session.telefono = telefono;
 
+            // Redirigir al perfil actualizado
             res.redirect('/profile');
         });
-    });
+    } else console.error('Conexión a la base de datos no disponible');
+
 };
 
 module.exports = { showProfile, updateProfile };
