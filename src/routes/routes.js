@@ -40,10 +40,11 @@ router.get('/empleos', (req, res) => {
     else res.render('empleos');
 });
 
+
 // Ruta para reservar un turno
 router.post('/servicios', databaseController.insertQuery);
-
 router.get('/reserved-slots', databaseController.sendReservedSlots);
+
 
 // Ruta para mostrar los comentarios
 router.get('/comentarios', (req, res) => {
@@ -52,7 +53,11 @@ router.get('/comentarios', (req, res) => {
             console.error('Error al obtener los comentarios:', err);
             return res.status(500).send('Error al obtener los comentarios.');
         }
-        res.render('comentarios', { comentarios: results });
+        res.render('comentarios', { 
+            comentarios: results,
+            loggedin: req.session.loggedin, // Información de sesión
+            username: req.session.username // Nombre de usuario
+        });
     });
 });
 
@@ -69,7 +74,7 @@ router.post('/comentarios', (req, res) => {
         fecha: new Date()
     };
 
-    req.conn.query('INSERT INTO comentarios SET ?', newComment, (err, result) => {
+    req.conn.query('INSERT INTO comentarios SET ?', newComment, (err) => {
         if (err) {
             console.error('Error al añadir el comentario:', err);
             return res.status(500).send('Error al añadir el comentario.');

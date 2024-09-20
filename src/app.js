@@ -73,6 +73,7 @@ app.use((req, res, next) => {
 
 
 
+
 // const mysql2 = require('promise-mysql');
 
 // // createUnixSocketPool initializes a Unix socket connection pool for
@@ -96,7 +97,7 @@ app.use(session({
     secret: 'your-secret-key',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Cambia a true si usas HTTPS
+    cookie: { secure: false } 
 }));
 
 app.use(express.urlencoded({ extended: true }));
@@ -108,4 +109,5 @@ app.listen(PORT, () => {
 
 app.use('/', loginRoutes);
 app.use('/', routes);
+
 

@@ -26,3 +26,15 @@ CREATE TABLE comentarios (
     comentario TEXT,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS consultas (
+    consulta_id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_id INT,
+    empleado_id INT,
+    consulta TEXT NOT NULL,
+    respuesta TEXT,
+    fecha_consulta TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    fecha_respuesta TIMESTAMP,
+    FOREIGN KEY (cliente_id) REFERENCES users(user_id),
+    FOREIGN KEY (empleado_id) REFERENCES users(user_id)
+);

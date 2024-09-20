@@ -1,0 +1,45 @@
+<h1>Todas las Consultas</h1>
+
+{{#if consultas.length}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Cliente</th>
+        <th>Título</th>
+        <th>Mensaje</th>
+        <th>Respuesta</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each consultas}}
+        <tr>
+          <td>{{this.cliente}}</td>
+          <td>{{this.titulo}}</td>
+          <td>{{this.mensaje}}</td>
+          <td>{{#if this.respuesta}}
+                {{this.respuesta}} - Respondido por: {{this.empleado}}
+              {{else}}
+                <span class="text-danger">Sin respuesta</span>
+              {{/if}}
+          </td>
+          <td>
+            {{#if this.respuesta}}
+              <button class="btn btn-secondary" disabled>Ya Respondida</button>
+            {{else}}
+              <form action="/consultas/responder-consulta/{{this.consulta_id}}" method="POST">
+    <div class="form-group">
+        <textarea class="form-control" name="respuesta" rows="2" placeholder="Escribe tu respuesta aquí" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Responder</button>
+</form>
+
+            {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>No hay consultas disponibles.</p>
+{{/if}}
