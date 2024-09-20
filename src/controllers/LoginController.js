@@ -60,6 +60,8 @@ function auth (req, res) {
                     req.session.email = results[0].email;
                     req.session.direccion = results[0].direccion;
                     req.session.telefono = results[0].telefono;
+                    req.session.role = results[0].role; 
+                    console.log('Rol guardado en sesión:', req.session.role);
 
                     res.redirect('/');
                 }
