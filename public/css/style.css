@@ -345,11 +345,13 @@ textarea {
 .carousel-control-next {
     background-color: transparent; /* Fondo transparente */
     border: none; /* Eliminar bordes si hay */
+
 }
 
 .carousel-control-prev-icon, 
 .carousel-control-next-icon {
     filter: invert(1); /* Cambia el color del icono a blanco */
+    
 }
 
 img {

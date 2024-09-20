@@ -96,7 +96,72 @@ function sendReservedSlots(req, res) {
     });
 }
 
+// Función para crear una consulta
+function crearConsulta(req, res) {
+    const consulta = {
+        cliente_id: req.session.user_id,
+        consulta: req.body.consulta
+    };
+    const sql = 'INSERT INTO consultas (cliente_id, consulta) VALUES (?, ?)';
+    req.conn.query(sql, [consulta.cliente_id, consulta.consulta], (err, results) => {
+        if (err) {
+            console.error('Error al crear la consulta:', err);
+            return res.status(500).send('Error al crear la consulta.');
+        }
+        res.redirect('/mis-consultas'); // Redirigir a la vista de consultas
+    });
+}
+
+// Función para obtener consultas del cliente
+function obtenerConsultasCliente(req, res) {
+    const cliente_id = req.session.user_id;
+    const sql = 'SELECT * FROM consultas WHERE cliente_id = ?';
+    req.conn.query(sql, [cliente_id], (err, results) => {
+        if (err) {
+            console.error('Error al obtener consultas:', err);
+            return res.status(500).send('Error al obtener consultas.');
+        }
+        res.render('misConsultas', { consultas: results }); // Renderizar vista
+    });
+}
+
+function obtenerTodasConsultas(req, res) {
+    const sql = `
+        SELECT consultas.*, users.username AS cliente_nombre 
+        FROM consultas 
+        JOIN users ON consultas.cliente_id = users.user_id
+    `;
+    req.conn.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error al obtener todas las consultas:', err);
+            return res.status(500).send('Error al obtener todas las consultas.');
+        }
+        res.render('todasConsultas', { consultas: results }); // Renderizar vista con nombre del cliente
+    });
+}
+
+
+// Función para responder una consulta
+function responderConsulta(req, res) {
+    const consulta_id = req.params.id;
+    const respuesta = req.body.respuesta;
+    const sql = 'UPDATE consultas SET respuesta = ?, fecha_respuesta = NOW() WHERE consulta_id = ?';
+    req.conn.query(sql, [respuesta, consulta_id], (err, results) => {
+        if (err) {
+            console.error('Error al responder la consulta:', err);
+            return res.status(500).send('Error al responder la consulta.');
+        }
+        res.redirect('/todas'); // Redirigir a la vista de todas las consultas
+    });
+}
+
+
+
 module.exports = {
     insertQuery,
-    sendReservedSlots
+    sendReservedSlots,
+    crearConsulta,
+    obtenerConsultasCliente,
+    obtenerTodasConsultas,
+    responderConsulta 
 };
