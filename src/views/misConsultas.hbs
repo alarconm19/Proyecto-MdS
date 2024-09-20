@@ -1,0 +1,42 @@
+<h1>Mis Consultas</h1>
+
+{{#if consultas.length}}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Mensaje</th>
+        <th>Respuesta</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each consultas}}
+        <tr>
+          <td>{{this.titulo}}</td>
+          <td>{{this.mensaje}}</td>
+          <td>{{#if this.respuesta}}
+                {{this.respuesta}} - Respondido por: {{this.empleado}}
+              {{else}}
+                <span class="text-danger">Sin respuesta</span>
+              {{/if}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+{{else}}
+  <p>No tienes consultas aún.</p>
+{{/if}}
+
+<h2>Nueva Consulta</h2>
+<form action="/consultas/nueva-consulta" method="POST">
+  <div class="form-group">
+    <label for="titulo">Título</label>
+    <input type="text" class="form-control" id="titulo" name="titulo" required>
+  </div>
+  <div class="form-group">
+    <label for="mensaje">Mensaje</label>
+    <textarea class="form-control" id="mensaje" name="mensaje" rows="4" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Enviar Consulta</button>
+</form>
