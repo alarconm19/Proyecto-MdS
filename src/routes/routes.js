@@ -3,10 +3,19 @@ const router = express.Router();
 const profileController = require('../controllers/ProfileController');
 const databaseController = require('../controllers/DatabaseController');
 
+// Middleware para verificar la sesión
+const addSessionData = (req, res, next) => {
+    res.locals.loggedin = req.session.loggedin || false;
+    res.locals.username = req.session.username || '';
+    next();
+};
+
+// Aplicar el middleware a todas las rutas
+router.use(addSessionData);
+
 // Rutas principales
 router.get('/', (req, res) => {
-    if (req.session.loggedin) res.render('index', { username: req.session.username });
-    else res.render('index');
+    res.render('index', { username: req.session.username });
 });
 
 router.get('/profile', (req, res) => {
@@ -18,33 +27,25 @@ router.get('/profile', (req, res) => {
             telefono: req.session.telefono
         });
     } else {
-        res.render('');
+        res.render(''); // Asegúrate de renderizar algo aquí o redirigir
     }
 });
 
-router.get('/profile', profileController.showProfile);
-router.post('/profile/update', profileController.updateProfile);
-
 router.get('/servicios', (req, res) => {
-    if (req.session.loggedin) res.render('servicios', { username: req.session.username });
-    else res.render('servicios');
+    res.render('servicios', { username: req.session.username });
 });
 
 router.get('/noticias', (req, res) => {
-    if (req.session.loggedin) res.render('noticias', { username: req.session.username });
-    else res.render('noticias');
+    res.render('noticias', { username: req.session.username });
 });
 
 router.get('/empleos', (req, res) => {
-    if (req.session.loggedin) res.render('empleos', { username: req.session.username });
-    else res.render('empleos');
+    res.render('empleos', { username: req.session.username });
 });
-
 
 // Ruta para reservar un turno
 router.post('/servicios', databaseController.insertQuery);
 router.get('/reserved-slots', databaseController.sendReservedSlots);
-
 
 // Ruta para mostrar los comentarios
 router.get('/comentarios', (req, res) => {
@@ -54,9 +55,7 @@ router.get('/comentarios', (req, res) => {
             return res.status(500).send('Error al obtener los comentarios.');
         }
         res.render('comentarios', { 
-            comentarios: results,
-            loggedin: req.session.loggedin, // Información de sesión
-            username: req.session.username // Nombre de usuario
+            comentarios: results
         });
     });
 });
@@ -83,6 +82,26 @@ router.post('/comentarios', (req, res) => {
     });
 });
 
+// Ruta para crear consulta
+router.post('/consultas/crear', databaseController.crearConsulta);
+
+// Ruta para obtener consultas del cliente
+router.get('/mis-consultas', databaseController.obtenerConsultasCliente);
+
+// Ruta para obtener todas las consultas (empleados)
+router.get('/todas', (req, res) => {
+    databaseController.obtenerTodasConsultas(req, res, (err, consultas) => {
+        if (err) {
+            return res.status(500).send('Error al obtener consultas.');
+        }
+        res.render('todas-consultas', {
+            consultas: consultas
+        });
+    });
+});
+
+// Ruta para responder a una consulta
+router.post('/responder/:id', databaseController.responderConsulta);
 
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {

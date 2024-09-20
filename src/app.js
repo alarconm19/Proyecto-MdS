@@ -15,9 +15,14 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 8080;
 
+
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
-    extname: '.hbs'
+    extname: '.hbs',
+    helpers: {
+        eq: (a, b) => a === b // Helper para comparar dos valores
+    }
+    
 }));
 app.set('view engine', '.hbs');
 
@@ -99,6 +104,14 @@ app.use(session({
     saveUninitialized: true,
     cookie: { secure: false } 
 }));
+
+
+// Middleware para pasar información de sesión a las vistas
+app.use((req, res, next) => {
+    res.locals.loggedin = req.session.loggedin || false; // Valor por defecto
+    res.locals.username = req.session.username || ''; // Valor por defecto
+    next();
+});
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
