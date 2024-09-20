@@ -1,0 +1,32 @@
+
+
+<section class="bg-white py-5">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comentarios</title>
+    <link rel="stylesheet" href="/css/comentarios.css"> <!-- Ruta al CSS -->
+</head>
+<body>
+    <div id="comentarios-section">
+        <h2>Comentarios</h2>
+
+        {{#each comentarios}}
+        <div class="comentario">
+            <h4>{{this.nombre}}</h4>
+            <p>{{this.comentario}}</p>
+        </div>
+        {{/each}}
+
+        <form id="comentarios-form" method="post" action="/comentarios">
+            <input type="text" name="nombre" placeholder="Tu nombre" required>
+            <textarea name="comentario" placeholder="Escribe tu comentario" required></textarea>
+            <button type="submit">Añadir Comentario</button>
+        </form>
+    </div>
+</body>
+</html>
+
+</section>
