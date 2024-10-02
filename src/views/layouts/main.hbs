@@ -24,8 +24,54 @@
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
-
     <style>
+        /* Estilo para el sidebar */
+        #sidebar {
+            height: 100%;
+            width: 0; /* Inicialmente escondido */
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #111;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 20px;
+        }
+
+        #sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+        }
+
+        #sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        #sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0; /* Inicialmente sin margen */
+        }
+
+        @media screen and (max-width: 768px) {
+            .toggle-btn {
+                display: block;
+            }
+        }
+
         /* Solo afecta a los elementos dentro de .time-picker-section */
         .time-picker-section .grid-container {
             display: grid;
@@ -47,91 +93,82 @@
     </style>
 </head>
 
-<body class="bg-gray-200">
+<body>
 
-    <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light shadow">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a href="/">
-            <img src="./img/favicon.png" alt="Logo" class="img-fluid" style="max-height: 100px;">
-        </a>
-            <a class="navbar-brand text-success logo h1 align-self-center " href="/">Spa</a>
-            <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="/">Inicio</a>
+        <a href="/servicios">Servicios</a>
+        <a href="/comentarios">Comentarios</a>
+        <a href="/mis-consultas">Mis Consultas</a>
+        <a href="/todas">Responder Consultas</a>
+    </div>
 
-            <div class="align-self-center collapse navbar-collapse flex-fill  d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
-                <div class="flex-fill">
-                    <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">Quienes Somos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/servicios">Servicios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/noticias">Noticias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/empleos">Empleos</a>
-                        </li>
-                         <li class="nav-item"></li>
-                            <a class="nav-link" href="/comentarios">Comentarios</a>
-                        </li>
-                         <li class="nav-item"></li>
-                            <a class="nav-link" href="/mis-consultas">Consultar</a>
-                        </li>
-                         <li class="nav-item"></li>
-                            <a class="nav-link" href="/todas">Responder</a>
-                        </li>
-                    </ul>
-                </div>
+    <!-- Main content -->
+    <div id="main">
 
-                <div class="navbar align-self-center" id="navbarNav">
-                    <ul class="navbar d-flex justify-content-between mx-lg-auto">
-                        {{#if username}}
-                            <li class="nav-link">
-                                <a href="/profile" class="btn btn">{{username}}</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="/logout" class="btn btn-danger">Salir</a>
-                            </li>
-                        {{else}}
-                            <li class="nav-link">
-                                <a href="/login" class="btn btn-success">Acceder</a>
-                            </li>
-                            <li class="nav-link">
-                                <a href="/register" class="btn btn-outline-success">Registrarse</a>
-                            </li>
-                        {{/if}}
-                    </ul>
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg navbar-light shadow">
+            <div class="container d-flex justify-content-between align-items-center">
+                   <!-- Botón para abrir el sidebar -->
+        <span class="toggle-btn" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+                <a href="/">
+                    <img src="./img/favicon.png" alt="Logo" class="img-fluid" style="max-height: 70px;">
+                </a>
+                <a class="navbar-brand text-success logo h1 align-self-center" href="/">Spa</a>
+                <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
+
+                <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
+                    <div class="flex-fill">
+                        <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                            <li class="nav-item"><a class="nav-link" href="/">Quienes Somos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/servicios">Servicios</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/noticias">Noticias</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/empleos">Empleos</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/comentarios">Comentarios</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/mis-consultas">Consultar</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/todas">Responder</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="navbar align-self-center" id="navbarNav">
+                        <ul class="navbar d-flex justify-content-between mx-lg-auto">
+                            {{#if username}}
+                                <li class="nav-link">
+                                    <a href="/profile" class="btn btn">{{username}}</a>
+                                </li>
+                                <li class="nav-link">
+                                    <a href="/logout" class="btn btn-danger">Salir</a>
+                                </li>
+                            {{else}}
+                                <li class="nav-link">
+                                    <a href="/login" class="btn btn-success">Acceder</a>
+                                </li>
+                                <li class="nav-link">
+                                    <a href="/register" class="btn btn-outline-success">Registrarse</a>
+                                </li>
+                            {{/if}}
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
-    <!-- End Header -->
+        </nav>
+        <!-- End Header -->
 
-
-    {{{body}}}
+        {{{body}}}
+    </div>
 
     <!-- Start Footer -->
     <footer class="bg-dark" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
-
                 <div class="col-md-6 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">Spa Sentirse Bien</h2>
                     <ul class="list-unstyled text-light footer-link-list">
-                        <li>
-                            <i class="fas fa-map-marker-alt fa-fw"></i>
-                            French 414
-                        </li>
-                        <li>
-                            <i class="fa fa-phone fa-fw"></i>
-                            <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a>
-                        </li>
-                        <li>
-                            <i class="fa fa-envelope fa-fw"></i>
-                            <a class="text-decoration-none" href="mailto:info@spasentirsebien.com">info@spasentirsebien.com</a>
-                        </li>
+                        <li><i class="fas fa-map-marker-alt fa-fw"></i> French 414</li>
+                        <li><i class="fa fa-phone fa-fw"></i> <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a></li>
+                        <li><i class="fa fa-envelope fa-fw"></i> <a class="text-decoration-none" href="mailto:info@spasentirsebien.com">info@spasentirsebien.com</a></li>
                     </ul>
                 </div>
 
@@ -142,10 +179,8 @@
                         <li><a class="text-decoration-none" href="/servicios">Servicios</a></li>
                         <li><a class="text-decoration-none" href="/noticias">Noticias</a></li>
                         <li><a class="text-decoration-none" href="/empleos">Empleos</a></li>
-
                     </ul>
                 </div>
-
             </div>
 
             <div class="row text-light mb-4">
@@ -155,176 +190,41 @@
                 <div class="col-auto me-auto">
                     <ul class="list-inline text-left footer-icons">
                         <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
+                            <a class="text-light text-decoration-none" href="http://facebook.com/"><i class="fab fa-facebook-f fa-lg fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
+                            <a class="text-light text-decoration-none" href="https://www.instagram.com/"><i class="fab fa-instagram fa-lg fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
+                            <a class="text-light text-decoration-none" href="https://www.youtube.com/"><i class="fab fa-youtube fa-lg fa-fw"></i></a>
                         </li>
                         <li class="list-inline-item border border-light rounded-circle text-center">
-                            <a class="text-light text-decoration-none" target="_blank" href="https://www.linkedin.com/"><i class="fab fa-linkedin fa-lg fa-fw"></i></a>
+                            <a class="text-light text-decoration-none" href="https://twitter.com/"><i class="fab fa-twitter fa-lg fa-fw"></i></a>
                         </li>
                     </ul>
                 </div>
-
-            </div>
-        </div>
-
-        <div class="w-100 bg-black py-3">
-            <div class="container">
-                <div class="row pt-2">
-                    <div class="col-12">
-                        <p class="text-left text-light">
-                            Copyright &copy; 2024 Triple A
-                            | Designed by <a rel="sponsored" target="_blank">Grupo 19</a>
-                        </p>
+                <div class="col-auto">
+                    <label class="sr-only" for="subscribeEmail">Email address</label>
+                    <div class="input-group mb-2">
+                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
+                        <div class="input-group-text btn-success text-light">Subscribirse</div>
                     </div>
                 </div>
             </div>
         </div>
-
     </footer>
     <!-- End Footer -->
 
-    <!-- Start Script -->
-    <script src="js/jquery-1.11.0.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/templatemo.js"></script>
-    <!-- End Script -->
-
     <script>
-        // Obtener la fecha actual y sumar un día para establecer la fecha mínima
-        let min = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
-        let max = new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0];
-
-        // Establecer la fecha mínima y máxima en el input de fecha
-        document.getElementById('appointment-date').setAttribute('min', min);
-        document.getElementById('appointment-date').setAttribute('max', max);
-
-        const dateInput = document.getElementById('appointment-date');
-        dateInput.value = min; // Establecer el valor mínimo de la fecha
-
-        // Array que simula horarios reservados (lo ideal sería traer esta info de una base de datos)
-        //*
-        let reservedSlots;
-        //*/
-        // Establecer la fecha mínima en el input de fecha
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hacer una solicitud fetch para obtener los horarios reservados desde el servidor
-            fetch('/reserved-slots')
-                .then(response => response.json())
-                .then(data => {
-                    // Asignar los datos obtenidos a la variable reservedSlots
-                    reservedSlots = data;
-                    console.log('Horarios reservados:', reservedSlots);
-
-                    // Una vez obtenidos los horarios reservados, actualizamos los slots disponibles
-                    updateTimeSlots();
-                })
-                .catch(error => {
-                    console.error('Error al obtener los horarios reservados:', error);
-
-                });
-        });
-
-        // Array con los horarios disponibles
-        const timeSlots = [
-            '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
-            '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30'
-        ];
-
-        const timeSlotsContainer = document.getElementById('timeSlotsContainer');
-        const confirmButton = document.getElementById('confirm-btn');
-        let selectedTime = null;
-
-        // Función para actualizar los horarios según la fecha seleccionada
-        function updateTimeSlots() {
-            const selectedDate = dateInput.value;
-            timeSlotsContainer.innerHTML = ''; // Limpiar los botones de horarios
-            selectedTime = null;
-            confirmButton.disabled = true;
-
-            if (selectedDate) {
-                const reservedForDate = reservedSlots[selectedDate] || [];
-
-                // Crear un contenedor de grilla solo si no existe
-                let grid = document.querySelector('.time-picker-section .grid-container');
-                if (!grid) {
-                    grid = document.createElement('div');
-                    grid.classList.add('grid-container');
-                    timeSlotsContainer.appendChild(grid); // Añadir la grilla al contenedor principal
-                } else {
-                    grid.innerHTML = ''; // Limpiar los botones si la grilla ya existe
-                }
-
-                timeSlots.forEach(time => {
-                    const isReserved = reservedForDate.includes(time);
-                    const button = document.createElement('button');
-                    button.classList.add('btn', 'btn-outline-primary', 'time-slot-btn');
-                    button.textContent = time;
-
-                    if (isReserved) {
-                        button.classList.add('disabled');
-                        button.disabled = true;
-                    } else {
-                        button.addEventListener('click', () => {
-                            event.preventDefault(); // Prevenir el envío del formulario
-
-                            // Deseleccionar el anterior botón si había uno seleccionado
-                            const selectedBtn = document.querySelector('.time-slot-btn.selected');
-                            if (selectedBtn) {
-                                selectedBtn.classList.remove('selected');
-                            }
-
-                            selectedTime = time;
-                            confirmButton.disabled = false; // Habilitar el botón de confirmar
-                        });
-                    }
-                    grid.appendChild(button);
-                });
-            }
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
         }
 
-
-        // Al cambiar la fecha, se actualizan los horarios
-        dateInput.addEventListener('change', updateTimeSlots);
-
-        // Al cargar la página, se actualizan los horarios
-        document.addEventListener('DOMContentLoaded', updateTimeSlots);
-
-        // Obtén el elemento select por su ID
-        const selectElement = document.getElementById('selectTratBelleza');
-
-        // Función para obtener el valor seleccionado
-        function obtenerValorSeleccionado() {
-            const valorSeleccionado = selectElement.value; // Obtiene el valor del select
-            console.log(valorSeleccionado); // Muestra el valor en la consola
-            // Aquí puedes hacer lo que necesites con el valor seleccionado
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
         }
-
-        // Confirmación del turno
-        confirmButton.addEventListener('click', () => {
-            if (selectedTime && selectElement.value && dateInput.value) {
-
-                document.getElementById('selectedtime').value = selectedTime;
-                document.getElementById('selecteddate').value = dateInput.value;
-                document.getElementById('selectedtreatment').value = selectElement.value;
-
-                document.querySelector('Form').submit();
-
-                alert(`Turno confirmado para el servicio ${selectElement.value} el día ${dateInput.value} a las ${selectedTime}`);
-            } else {
-                alert('Por favor, completa todos los campos.');
-            }
-
-            selectedTime = null;
-            confirmButton.disabled = true;
-        });
-
     </script>
-
 </body>
 </html>
