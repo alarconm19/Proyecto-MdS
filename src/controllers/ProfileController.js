@@ -14,25 +14,6 @@ const showProfile = (req, res) => {
 };
 
 // Actualizar perfil
-// const updateProfile = (req, res) => {
-//     const { username, email, direccion, telefono } = req.body;
-
-//     req.getConnection((err, conn) => {
-//         if (err) throw err;
-
-//         conn.query('UPDATE users SET email = ?, direccion = ?, telefono = ? WHERE username = ?', [email, direccion, telefono, req.session.username], (err, result) => {
-//             if (err) throw err;
-
-//             req.session.username = username;
-//             req.session.email = email;
-//             req.session.direccion = direccion;
-//             req.session.telefono = telefono;
-
-//             res.redirect('/profile');
-//         });
-//     });
-// };
-
 const updateProfile = (req, res) => {
     const { username, email, direccion, telefono } = req.body;
 
