@@ -36,6 +36,8 @@ const updateProfile = (req, res) => {
         });
     } else console.error('Conexión a la base de datos no disponible');
 
+
+
 };
 
 module.exports = { showProfile, updateProfile };
