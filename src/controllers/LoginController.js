@@ -8,35 +8,37 @@ function login (req, res) {
 // Función de login (acepta usuario o correo electrónico)
 function auth (req, res) {
     const data = req.body;
-    const query = data.login.includes('@') ? 'SELECT * FROM users WHERE email = ?' : 'SELECT * FROM users WHERE username = ?';
 
-    req.conn.query(query, [data.login], (err, results) => {
-        if (err) {
-            console.error('Error en la consulta SQL:', err);
-            return;
+    // Enviar la información a la API para autenticar
+    fetch('https://proyectomdsapidb.azurewebsites.net/api/httpTriggerAuth', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            login: data.login,
+            password: data.password
+        })
+    })
+    .then(response => response.json())
+    .then(result => {
+        if (result.error) {
+            res.render('login/login', { error: result.error });
+        } else {
+            // Guardar datos en la sesión
+            req.session.loggedin = true;
+            req.session.user_id = result.user_id;
+            req.session.username = result.username;
+            req.session.email = result.email;
+            req.session.direccion = result.direccion;
+            req.session.telefono = result.telefono;
+
+            res.redirect('/');
         }
-
-        if (results.length > 0) {
-            // Comparar la contraseña encriptada
-            argon2.verify(results[0].password, data.password)
-                .then(isMatch => {
-                    if (!isMatch) {
-                        res.render('login/login', { error: 'Error: Contraseña incorrecta.' });
-                    } else {
-                        // Guardar datos en la sesión
-                        req.session.loggedin = true;
-                        req.session.user_id = results[0].user_id;
-                        req.session.username = results[0].username;
-                        req.session.email = results[0].email;
-                        req.session.direccion = results[0].direccion;
-                        req.session.telefono = results[0].telefono;
-
-                        res.redirect('/');
-                    }
-                })
-        } else
-            res.render('login/login', { error: 'Error: Usuario o correo no encontrado.' });
-
+    })
+    .catch(err => {
+        console.error('Error en la API:', err);
+        res.status(500).send('Error en el inicio de sesión.');
     });
 };
 
