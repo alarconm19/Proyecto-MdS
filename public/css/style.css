@@ -245,7 +245,6 @@ textarea {
     }
 }
 
-/*comentarios
 /* Estilos específicos para la sección de comentarios */
 #comentarios-section {
     margin: 40px auto;
@@ -269,18 +268,18 @@ textarea {
     border-radius: 10px;
     margin-bottom: 15px;
     border: 1px solid #fae5eb ;
-    background-color:#fae5eb ;
+    background-color:#891a4d ;
 }
 
 .comentario h4 {
     font-size: 1.2rem;
     margin-bottom: 5px;
-    color: #333;
+    color: white;
 }
 
 .comentario p {
     font-size: 1rem;
-    color: #666;
+    color: white;
     line-height: 1.6;
 }
 
@@ -368,3 +367,101 @@ h2.h2 {
     margin-top: 0; /* Elimina el margen superior */
 }
 
+/* Estilos personalizados para la vista de clientes */
+.table {
+    background-color: #f8f9fa; /* Color de fondo de la tabla */
+}
+
+.table th {
+    background-color: #186f8e; /* Color de fondo de los encabezados */
+    color: white; /* Color del texto de los encabezados */
+}
+
+.alert {
+    margin-top: 20px; /* Espacio en la parte superior de la alerta */
+}
+
+/* Puedes ajustar los márgenes y el padding según tus preferencias */
+.fondo1, .py-5 {
+    background-color: rgb(255, 254, 184);
+
+}
+
+/*////////////////////////////*/
+ /* Estilo para el sidebar */
+ #sidebar {
+    height: 100%;
+    width: 0; /* Inicialmente escondido */
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #891a4d;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+}
+
+#sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #ffffff;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidebar a:hover {
+    color: #fffb26;
+}
+
+#sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main{
+    transition: margin-left .5s;
+    padding: 16px;
+    margin-left: 0; /* Inicialmente sin margen */
+}
+
+@media screen and (max-width: 768px) {
+    .toggle-btn {
+        display: block;
+    }
+}
+
+/* Solo afecta a los elementos dentro de .time-picker-section */
+.time-picker-section .grid-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr); /* Ajusta a 3 columnas fijas */
+    gap: 10px; /* Espaciado entre los botones */
+    margin-top: 20px;
+}
+
+.time-picker-section .time-slot-btn {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+}
+
+.custom-date-input {
+    width: 100%; /* Ajusta al 100% del contenedor */
+    max-width: 300px; /* Puedes cambiar el tamaño máximo aquí */
+}
+
+.footer1  
+{
+    background-color: #891a4d;
+    
+}
+
+#header1, .navbar .navbar-expand-lg .navbar-light ,shadow
+{
+   padding: 0%;
+    
+}

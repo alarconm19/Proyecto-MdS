@@ -1,4 +1,4 @@
-<div class="container my-5">
+<div class="container fondo1 my-5">
     <h2 class="text-center">Todas las Consultas</h2>
     {{#if (eq userRole 'empleado')}}
         <div class="row">
@@ -16,7 +16,7 @@
                                     {{#if (eq this.respuesta null)}}
                                         <form action="/responder/{{this.consulta_id}}" method="POST" class="form-inline">
                                             <textarea class="form-control mb-2 mr-sm-2" name="respuesta" rows="1" required placeholder="Escribe tu respuesta"></textarea>
-                                            <button type="submit" class="btn btn-primary">Responder</button>
+                                            <button type="submit" class="btn btn-success">Responder</button>
                                         </form>
                                     {{else}}
                                         <div class="alert alert-info" role="alert">
