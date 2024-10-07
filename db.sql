@@ -38,3 +38,8 @@ CREATE TABLE IF NOT EXISTS consultas (
     FOREIGN KEY (cliente_id) REFERENCES users(user_id),
     FOREIGN KEY (empleado_id) REFERENCES users(user_id)
 );
+
+CREATE VIEW vista_clientes AS
+SELECT user_id, username, email, telefono, direccion
+FROM users
+WHERE role = 'cliente';

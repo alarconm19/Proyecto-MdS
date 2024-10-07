@@ -17,9 +17,12 @@ const PORT = process.env.PORT || 8080;
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
+    helpers: {
+        eq: (a, b) => a === b },
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
+
 
 // Configura la carpeta public para archivos estáticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
@@ -91,6 +94,7 @@ app.use((req, res, next) => {
 //     ...config,
 //   });
 // };
+
 
 app.use(session({
     secret: 'your-secret-key',

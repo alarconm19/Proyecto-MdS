@@ -24,73 +24,7 @@
     <!-- Load map styles -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
-    <style>
-        /* Estilo para el sidebar */
-        #sidebar {
-            height: 100%;
-            width: 0; /* Inicialmente escondido */
-            position: fixed;
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: #111;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 20px;
-        }
-
-        #sidebar a {
-            padding: 10px 15px;
-            text-decoration: none;
-            font-size: 25px;
-            color: #818181;
-            display: block;
-            transition: 0.3s;
-        }
-
-        #sidebar a:hover {
-            color: #f1f1f1;
-        }
-
-        #sidebar .closebtn {
-            position: absolute;
-            top: 0;
-            right: 25px;
-            font-size: 36px;
-            margin-left: 50px;
-        }
-
-        #main {
-            transition: margin-left .5s;
-            padding: 16px;
-            margin-left: 0; /* Inicialmente sin margen */
-        }
-
-        @media screen and (max-width: 768px) {
-            .toggle-btn {
-                display: block;
-            }
-        }
-
-        /* Solo afecta a los elementos dentro de .time-picker-section */
-        .time-picker-section .grid-container {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr); /* Ajusta a 3 columnas fijas */
-            gap: 10px; /* Espaciado entre los botones */
-            margin-top: 20px;
-        }
-
-        .time-picker-section .time-slot-btn {
-            width: 100%;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .custom-date-input {
-            width: 100%; /* Ajusta al 100% del contenedor */
-            max-width: 300px; /* Puedes cambiar el tamaño máximo aquí */
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -99,14 +33,13 @@
     <div id="sidebar">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="/">Inicio</a>
-        <a href="/servicios">Servicios</a>
-        <a href="/comentarios">Comentarios</a>
+        <a href="/clientes">Clientes</a>
         <a href="/mis-consultas">Mis Consultas</a>
         <a href="/todas">Responder Consultas</a>
     </div>
 
     <!-- Main content -->
-    <div id="main">
+    <div id="header1">
 
         <!-- Header -->
         <nav class="navbar navbar-expand-lg navbar-light shadow">
@@ -116,8 +49,8 @@
                 <a href="/">
                     <img src="./img/favicon.png" alt="Logo" class="img-fluid" style="max-height: 70px;">
                 </a>
-                <a class="navbar-brand text-success logo h1 align-self-center" href="/">Spa</a>
-                <a class="navbar-brand text-success logo h2 align-self-center" href="/">Sentirse Bien</a>
+                <a class="navbar-brand text-success logo h2 align-self-center" href="/">SPA</a>
+                <a class="navbar-brand text-success logo h4 align-self-center" href="/">SENTIRSE BIEN</a>
 
                 <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between" id="templatemo_main_nav">
                     <div class="flex-fill">
@@ -127,8 +60,6 @@
                             <li class="nav-item"><a class="nav-link" href="/noticias">Noticias</a></li>
                             <li class="nav-item"><a class="nav-link" href="/empleos">Empleos</a></li>
                             <li class="nav-item"><a class="nav-link" href="/comentarios">Comentarios</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/mis-consultas">Consultar</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/todas">Responder</a></li>
                         </ul>
                     </div>
 
@@ -155,17 +86,18 @@
             </div>
         </nav>
         <!-- End Header -->
-
+ </div>
+  <div id="main">
         {{{body}}}
-    </div>
+   </div>
 
     <!-- Start Footer -->
-    <footer class="bg-dark" id="tempaltemo_footer">
+    <footer class="footer1" id="tempaltemo_footer">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 pt-5">
                     <h2 class="h2 text-success border-bottom pb-3 border-light logo">Spa Sentirse Bien</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
+                    <ul class="list-unstyled text-white footer-link-list">
                         <li><i class="fas fa-map-marker-alt fa-fw"></i> French 414</li>
                         <li><i class="fa fa-phone fa-fw"></i> <a class="text-decoration-none" href="tel:010-020-0340">010-020-0340</a></li>
                         <li><i class="fa fa-envelope fa-fw"></i> <a class="text-decoration-none" href="mailto:info@spasentirsebien.com">info@spasentirsebien.com</a></li>
@@ -173,8 +105,8 @@
                 </div>
 
                 <div class="col-md-6 pt-5">
-                    <h2 class="h2 text-light border-bottom pb-3 border-light">Servicios</h2>
-                    <ul class="list-unstyled text-light footer-link-list">
+                    <h2 class="h2 text-white border-bottom pb-3 border-light">Servicios</h2>
+                    <ul class="list-unstyled text-white footer-link-list">
                         <li><a class="text-decoration-none" href="/">Quienes Somos</a></li>
                         <li><a class="text-decoration-none" href="/servicios">Servicios</a></li>
                         <li><a class="text-decoration-none" href="/noticias">Noticias</a></li>
@@ -205,10 +137,7 @@
                 </div>
                 <div class="col-auto">
                     <label class="sr-only" for="subscribeEmail">Email address</label>
-                    <div class="input-group mb-2">
-                        <input type="text" class="form-control bg-dark border-light" id="subscribeEmail" placeholder="Email address">
-                        <div class="input-group-text btn-success text-light">Subscribirse</div>
-                    </div>
+                   
                 </div>
             </div>
         </div>

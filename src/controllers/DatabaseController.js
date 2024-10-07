@@ -155,6 +155,19 @@ function responderConsulta(req, res) {
     });
 }
 
+// Función para obtener solo los usuarios con rol de cliente
+function obtenerClientes(req, res) {
+    const sql = 'SELECT user_id, username, email, telefono, direccion FROM users WHERE role = "cliente"';
+    
+    req.conn.query(sql, (err, results) => {
+        if (err) {
+            console.error('Error al obtener los clientes:', err);
+            return res.status(500).send('Error al obtener los clientes.');
+        }
+        res.render('clientes', { clientes: results }); // Renderizar la vista 'clientes' pasando los datos
+    });
+}
+
 
 
 module.exports = {
@@ -163,5 +176,6 @@ module.exports = {
     crearConsulta,
     obtenerConsultasCliente,
     obtenerTodasConsultas,
-    responderConsulta 
+    responderConsulta, 
+    obtenerClientes
 };

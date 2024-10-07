@@ -44,6 +44,8 @@ router.get('/empleos', (req, res) => {
     res.render('empleos', { username: req.session.username });
 });
 
+
+
 // Ruta para reservar un turno
 router.post('/servicios', databaseController.insertQuery);
 router.get('/reserved-slots', databaseController.sendReservedSlots);
@@ -115,6 +117,12 @@ router.get('/todas', isEmpleado, (req, res) => {
 
 // Ruta para responder a una consulta
 router.post('/responder/:id', isEmpleado, databaseController.responderConsulta);
+
+// Ruta para mostrar solo los clientes
+router.get('/clientes', (req, res) => {
+    databaseController.obtenerClientes(req, res);
+});
+
 
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {
