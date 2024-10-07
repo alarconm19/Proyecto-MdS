@@ -1,0 +1,32 @@
+<div class="container fondo1 mt-5">
+    <h2 class="text-center mb-4">Mis Consultas</h2>
+
+    <ul class="list-group">
+        {{#each consultas}}
+            <li class="list-group-item">
+                <strong>Consulta:</strong> {{this.consulta}} <br>
+                <strong>Estado:</strong> 
+                <span class="badge {{#if this.respuesta}}bg-success{{else}}bg-warning{{/if}} badge-pill">
+                    {{#if this.respuesta}}Respondida{{else}}Pendiente{{/if}}
+                </span>
+                {{#if this.respuesta}}
+                    <div class="mt-2">
+                        <strong>Respuesta:</strong> {{this.respuesta}}
+                    </div>
+                {{/if}}
+            </li>
+        {{/each}}
+    </ul>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h4 class="card-title">Envía una nueva consulta</h4>
+            <form action="/consultas/crear" method="POST">
+                <div class="form-group">
+                    <textarea name="consulta" class="form-control" rows="3" required placeholder="Escribe tu consulta"></textarea>
+                </div>
+                <button type="submit" class="btn btn-success mt-3">Enviar Consulta</button>
+            </form>
+        </div>
+    </div>
+</div>
