@@ -24,15 +24,9 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 var config =
 {
-<<<<<<< Updated upstream
     host: process.env.AZDB_HOST,
     user: process.env.AZDB_USER,
     password: process.env.AZDB_PASS,
-=======
-    host: 'localhost',
-    user: 'root',
-    password: 'nocrala',
->>>>>>> Stashed changes
     database: 'pweb',
     port: 3306,
     ssl: {
