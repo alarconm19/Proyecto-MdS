@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
@@ -24,9 +24,15 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 var config =
 {
+<<<<<<< Updated upstream
     host: process.env.AZDB_HOST,
     user: process.env.AZDB_USER,
     password: process.env.AZDB_PASS,
+=======
+    host: 'localhost',
+    user: 'root',
+    password: 'nocrala',
+>>>>>>> Stashed changes
     database: 'pweb',
     port: 3306,
     ssl: {
