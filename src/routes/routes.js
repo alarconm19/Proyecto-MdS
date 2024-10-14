@@ -44,6 +44,9 @@ router.get('/empleos', (req, res) => {
     res.render('empleos', { username: req.session.username });
 });
 
+router.get('/admin', (req, res) => {
+    res.render('admin/dashboard', { username: req.session.username });
+});
 
 // Ruta para reservar un turno
 router.post('/servicios', databaseController.insertQuery);
