@@ -4,6 +4,7 @@ const session = require ('express-session');
 const path = require('path');
 const mysql2 = require('mysql2');
 const fs = require('fs');
+const hbs = require('hbs');
 const loginRoutes = require('./routes/login');
 const routes = require('./routes/routes');
 const certPath = path.join(__dirname, '../certificates/DigiCertGlobalRootCA.crt.pem');
@@ -11,16 +12,21 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
+    helpers: {
+        eq: (a, b) => a === b },
     extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
 
+
 // Configura la carpeta public para archivos estáticos
 app.use(express.static(path.join(__dirname, '..', 'public')));
+// Registrar los partials
+hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
 var config =
 {
@@ -35,6 +41,14 @@ var config =
     }
 };
 
+var config2 =
+{
+    host: "localhost",
+    user: "root",
+    password: process.env.DB_PASS,
+    database: 'pweb',
+    port: 3306
+};
 
 // Middleware para conectar la base de datos
 app.use((req, res, next) => {
