@@ -54,10 +54,18 @@ var config2 =
 
 // Middleware para conectar la base de datos
 app.use((req, res, next) => {
-    req.conn = mysql2.createConnection(config);
+    if (process.env.ENVIRONMENT === 'production') {
+        console.log("Usando API para la autenticación y conexión remota.");
+        // Aquí puedes conectar a la API en lugar de la base de datos local
+        req.conn = mysql2.createConnection(config);
+    } else {
+        console.log("Usando base de datos local para desarrollo.");
+        req.conn = mysql2.createConnection(config2);
+    }
+
     req.conn.connect(function (err) {
         if (err) {
-            console.log("!!! Cannot connect !!! Error:");
+            console.log("!!! No se puede conectar !!! Error:");
             next(err);
         } else {
             next();

@@ -65,7 +65,7 @@ function updateTimeSlots() {
         timeSlots.forEach(time => {
             const isReserved = reservedForDate.includes(time);
             const button = document.createElement('button');
-            button.classList.add('btn', 'btn-outline-primary', 'time-slot-btn');
+            button.classList.add('btn', 'btn-secondary', 'time-slot-btn');
             button.textContent = time;
 
             if (isReserved) {
