@@ -1,22 +1,32 @@
 const express = require('express');
 const router = express.Router();
-const profileController = require('../controllers/ProfileController');
-const databaseController = require('../controllers/DatabaseController');
 
-// Middleware para verificar la sesión
-const addSessionData = (req, res, next) => {
-    res.locals.loggedin = req.session.loggedin || false;
-    res.locals.username = req.session.username || '';
-    res.locals.userRole = req.session.role || '';
-    next();
-};
+// // Middleware para verificar la sesión
+// const addSessionData = (req, res, next) => {
+//     res.locals.loggedin = req.session.loggedin || false;
+//     res.locals.username = req.session.username || '';
+//     res.locals.userRole = req.session.role || '';
+//     next();
+// };
 
-// Aplicar el middleware a todas las rutas
-router.use(addSessionData);
+// // Aplicar el middleware a todas las rutas
+// router.use(addSessionData);
 
 // Rutas principales
 router.get('/', (req, res) => {
     res.render('index', { username: req.session.username });
+});
+
+router.get('/servicios', (req, res) => {
+    res.render('servicios', { username: req.session.username });
+});
+
+router.get('/noticias', (req, res) => {
+    res.render('noticias', { username: req.session.username });
+});
+
+router.get('/empleos', (req, res) => {
+    res.render('empleos', { username: req.session.username });
 });
 
 router.get('/profile', (req, res) => {
@@ -32,27 +42,7 @@ router.get('/profile', (req, res) => {
     }
 });
 
-router.get('/servicios', (req, res) => {
-    res.render('servicios', { username: req.session.username });
-});
 
-router.get('/noticias', (req, res) => {
-    res.render('noticias', { username: req.session.username });
-});
-
-router.get('/empleos', (req, res) => {
-    res.render('empleos', { username: req.session.username });
-});
-
-router.get('/admin', (req, res) => {
-    res.render('admin/dashboard', { username: req.session.username });
-});
-
-// Ruta para reservar un turno
-router.post('/servicios', databaseController.insertQuery);
-router.get('/reserved-slots', databaseController.sendReservedSlots);
-
-// Ruta para mostrar los comentarios
 router.get('/comentarios', (req, res) => {
     req.conn.query('SELECT * FROM comentarios ORDER BY fecha DESC', (err, results) => {
         if (err) {
@@ -86,45 +76,6 @@ router.post('/comentarios', (req, res) => {
         res.redirect('/comentarios');
     });
 });
-
-// Ruta para crear consulta
-router.post('/consultas/crear', databaseController.crearConsulta);
-
-// Ruta para obtener consultas del cliente
-router.get('/mis-consultas', databaseController.obtenerConsultasCliente);
-
-// Middleware para verificar si el usuario es empleado
-function isEmpleado(req, res, next) {
-    console.log('Middleware isEmpleado ejecutado');
-    console.log('Rol de usuario:', req.session.role);
-    if (req.session.loggedin && req.session.role === 'empleado') {
-        return next();
-    }
-    console.log('Acceso denegado');
-    res.redirect('/'); // Redirige si no es empleado
-}
-
-
-// Ruta para obtener todas las consultas (empleados)
-router.get('/todas', isEmpleado, (req, res) => {
-    databaseController.obtenerTodasConsultas(req, res, (err, consultas) => {
-        if (err) {
-            return res.status(500).send('Error al obtener consultas.');
-        }
-        res.render('todas-consultas', {
-            consultas: consultas
-        });
-    });
-});
-
-// Ruta para responder a una consulta
-router.post('/responder/:id', isEmpleado, databaseController.responderConsulta);
-
-// Ruta para mostrar solo los clientes
-router.get('/clientes', (req, res) => {
-    databaseController.obtenerClientes(req, res);
-});
-
 
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {

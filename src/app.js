@@ -5,7 +5,9 @@ const path = require('path');
 const mysql2 = require('mysql2');
 const fs = require('fs');
 const hbs = require('hbs');
-const loginRoutes = require('./routes/login');
+const adminRoutes = require('./routes/admin.routes');
+const databaseRoutes = require('./routes/database.routes');
+const loginRoutes = require('./routes/login.routes');
 const routes = require('./routes/routes');
 const certPath = path.join(__dirname, '../certificates/DigiCertGlobalRootCA.crt.pem');
 require('dotenv').config();
@@ -78,4 +80,6 @@ app.listen(PORT, () => {
 });
 
 app.use('/', loginRoutes);
+app.use('/', adminRoutes);
+app.use('/', databaseRoutes);
 app.use('/', routes);
