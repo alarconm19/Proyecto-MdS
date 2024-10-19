@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 // Registrar los partials
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
-var config =
+var AZURE_DB =
 {
     host: process.env.AZDB_HOST,
     user: process.env.AZDB_USER,
@@ -43,7 +43,7 @@ var config =
     }
 };
 
-var config2 =
+var Local_DB =
 {
     host: "localhost",
     user: "root",
@@ -57,10 +57,10 @@ app.use((req, res, next) => {
     if (process.env.ENVIRONMENT === 'production') {
         console.log("Usando API para la autenticación y conexión remota.");
         // Aquí puedes conectar a la API en lugar de la base de datos local
-        req.conn = mysql2.createConnection(config);
+        req.conn = mysql2.createConnection(AZURE_DB);
     } else {
         console.log("Usando base de datos local para desarrollo.");
-        req.conn = mysql2.createConnection(config2);
+        req.conn = mysql2.createConnection(Local_DB);
     }
 
     req.conn.connect(function (err) {
