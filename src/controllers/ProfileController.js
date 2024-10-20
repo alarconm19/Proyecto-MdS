@@ -2,7 +2,7 @@
 // Mostrar perfil
 const showProfile = (req, res) => {
     if (req.session.loggedin) {
-        res.render('spa/profile', {
+        res.render('profile', {
             username: req.session.username,
             email: req.session.email,
             direccion: req.session.direccion,
@@ -35,6 +35,9 @@ const updateProfile = (req, res) => {
             res.redirect('/profile');
         });
     } else console.error('Conexión a la base de datos no disponible');
+
+
+
 };
 
 module.exports = { showProfile, updateProfile };
