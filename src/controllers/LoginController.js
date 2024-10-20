@@ -68,7 +68,7 @@ function auth(req, res) {
                         if (await argon2.verify(user.password, data.password)) {
                             // Guardar datos en la sesión
                             req.session.loggedin = true;
-                            req.session.user_id = user.id;
+                            req.session.user_id = user.user_id;
                             req.session.username = user.username;
                             req.session.email = user.email;
                             req.session.direccion = user.direccion;

@@ -84,7 +84,7 @@
                         <div class="card-body text-center">
                             <h2 class="h4" style="color: palevioletred;">Tratamientos Faciales</h2>
                             <ul class="list-unstyled mt-3">
-                                <li>Punta de Diamante: Microexfoliación</li>
+                                <li>Punta de Diamante: microexfoliación</li>
                                 <li>Limpieza profunda + Hidratación</li>
                                 <li>Crio frecuencia facial: efecto lifting</li>
                             </ul>
@@ -98,7 +98,7 @@
                         <div class="card-body text-center">
                             <h2 class="h4" style="color: palevioletred;">Tratamientos Corporales</h2>
                             <ul class="list-unstyled mt-3">
-                                <li>VelaSlim: Reducción corporal y celulitis</li>
+                                <li>VelaSlim: reducción corporal y celulitis</li>
                                 <li>DermoHealth: drenaje linfático</li>
                                 <li>Criofrecuencia: efecto lifting instantáneo</li>
                                 <li>Ultracavitación: Técnica reductora</li>
@@ -109,9 +109,10 @@
                 </div>
             </div>
         </div>
+        
         <div class="container">
             <div class="row justify-content-center">
-
+                <!--
                 <select class="form-select mt-3" style="width: min-content;" name="selectTratBelleza"
                     id="selectTratBelleza">
                     <option value="">Seleccione un tratamiento</option>
@@ -125,22 +126,33 @@
                     <option value="Depilación facial">Depilación facial</option>
                     <option value="Belleza de manos y pies">Belleza de manos y pies</option>
 
-                    <option value="Punta de Diamante: Microexfoliación">Punta de Diamante: Microexfoliación</option>
+                    <option value="Punta de Diamante: Microexfoliación">Punta de Diamante: microexfoliación</option>
                     <option value="Limpieza profunda + Hidratación">Limpieza profunda + Hidratación</option>
                     <option value="Crio frecuencia facial: efecto lifting">Crio frecuencia facial: efecto lifting
                     </option>
 
-                    <option value="VelaSlim: Reducción corporal y celulitis">VelaSlim: Reducción corporal y celulitis
+                    <option value="VelaSlim: Reducción corporal y celulitis">VelaSlim: reducción corporal y celulitis
                     </option>
                     <option value="DermoHealth: drenaje linfático">DermoHealth: drenaje linfático</option>
                     <option value="Criofrecuencia: efecto lifting instantáneo">Criofrecuencia: efecto lifting
                         instantáneo</option>
                     <option value="Ultracavitación: Técnica reductora">Ultracavitación: Técnica reductora</option>
 
-                </select>
+                </select>  -->
 
-            </div>
+        
+        
+
+                
+                <select class="form-select mt-3" style="width: min-content;" name="selectTratBelleza" id="selectTratBelleza">
+                    <option value="">Seleccione un servicio</option>
+                        {{#each servicios}}
+                            <option value="{{this.id}}">{{this.id}}. {{this.nombre_servicio}}</option>
+                        {{/each}}
+                </select>
         </div>
+    </div>
+
     </section>
     <!-- End Services Section -->
 

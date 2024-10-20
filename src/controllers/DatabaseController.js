@@ -33,13 +33,12 @@ function insertQuery(req, res) {
     } else {
         // Asegurarse de que el usuario esté autenticado y obtener su ID
         if (req.session && req.session.user_id) {
-            const query = 'INSERT INTO turnos (cliente_id, nombre_servicio, fecha, hora) VALUES (?, ?, ?, ?)';
-            const values = [req.session.user_id, req.body.selectedtreatment, req.body.selecteddate, req.body.selectedtime];
+            const query = 'INSERT INTO turnos (cliente_id,  profesional_id, servicio_id, fecha, hora) VALUES (?, ?, ?, ?, ?)';
+            const values = [req.session.user_id, 1, req.body.selectedtreatment, req.body.selecteddate, req.body.selectedtime];
 
             req.conn.query(query, values, (err, results) => {
                 if (err) console.error('Error al guardar el turno:', err);
 
-                console.log('Turno reservado con éxito');
                 res.redirect('/servicios'); // Redirigir a una página de éxito o a la vista de perfil
             });
         } else {

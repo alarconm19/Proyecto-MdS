@@ -2,6 +2,19 @@ const express = require('express');
 const router = express.Router();
 const databaseController = require('../controllers/DatabaseController');
 
+router.get('/cancelar-turno/:id', (req, res) => {
+    const turnoId = req.params.id;
+    
+    req.conn.query('DELETE FROM turnos WHERE turno_id = ?', [turnoId], (err, result) => {
+        if (err) {
+            console.error('Error al cancelar el turno:', err);
+            return res.status(500).send('Error al cancelar el turno');
+        }
+        // Redirigir de vuelta al perfil del usuario
+        res.redirect('/profile');
+    });
+});
+
 
 // Ruta para reservar un turno
 router.post('/servicios', databaseController.insertQuery);

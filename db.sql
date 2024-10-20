@@ -72,3 +72,19 @@ CREATE VIEW vista_clientes AS
 SELECT user_id, username, email, telefono, direccion
 FROM users
 WHERE role = 'cliente';
+
+INSERT INTO servicios(nombre_servicio, precio)
+VALUES ('Anti-stress', 1),
+('Descontracturantes', 1),
+('Masajes con piedras calientes',  1),
+('Circulatorios', 1),
+('Lifting de pestaña', 1),
+('Depilación facial', 1),
+('Belleza de manos y pies', 1),
+('Punta de Diamante: Microexfoliación',  1),
+('Limpieza profunda + Hidratación',  1),
+('Crio frecuencia facial: efecto lifting',  1),
+('VelaSlim: Reducción corporal y celulitis',  1),
+('DermoHealth: drenaje linfático',  1),
+('Criofrecuencia: efecto lifting instantáneo',  1),
+('Ultracavitación: Técnica reductora',  1);
