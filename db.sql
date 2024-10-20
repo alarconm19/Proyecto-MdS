@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS turnos (
     hora TIME NOT NULL,
     FOREIGN KEY (cliente_id) REFERENCES users(user_id),
     FOREIGN KEY (profesional_id) REFERENCES users(user_id),
-    FOREIGN KEY (servicio_id) REFERENCES servicios(servicio_id)
+    FOREIGN KEY (servicio_id) REFERENCES servicios(id)
 );
 
 -- Tabla de pagos con integración de MercadoPago
