@@ -1,0 +1,47 @@
+<!-- Header -->
+<nav class="navbar navbar-expand-lg navbar-light shadow">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a href="/">
+            <img src="./img/favicon.png" alt="Logo" class="img-fluid" style="max-height: 70px;">
+        </a>
+        <a class="navbar-brand text-success logo h1 align-self-center" style="font-family: 'Courier New', Courier, monospace;" href="/">SPA</a>
+        <a class="navbar-brand text-success logo h3 align-self-center" style="font-family: cursive;" href="/">Sentirse bien</a>
+
+        <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
+            id="templatemo_main_nav">
+            <div class="flex-fill">
+                <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Quienes Somos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/servicios">Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/noticias">Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/empleos">Empleos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/comentarios">Comentarios</a></li>
+                </ul>
+            </div>
+
+            <div class="navbar align-self-center" id="navbarNav">
+                <ul class="navbar d-flex justify-content-between mx-lg-auto">
+                    {{#if username}}
+                    <li class="nav-link">
+                        <a href="/profile" class="btn btn">{{username}}</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="/logout" class="btn btn-danger">Salir</a>
+                    </li>
+                    {{else}}
+                    <li class="nav-link">
+                        <a href="/login" class="btn btn-success">Acceder</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="/register" class="btn btn-outline-success">Registrarse</a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="/admin" class="btn btn-info">Administrador</a>
+                    </li>
+                    {{/if}}
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+<!-- End Header -->

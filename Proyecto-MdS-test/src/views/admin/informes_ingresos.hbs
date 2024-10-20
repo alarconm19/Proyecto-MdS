@@ -1,0 +1,23 @@
+<form action="/informes/ingresos" method="POST">
+  <div class="form-group">
+    <label for="start_date">Fecha de Inicio:</label>
+    <input type="date" class="form-control" id="start_date" name="start_date" required>
+  </div>
+
+  <div class="form-group">
+    <label for="end_date">Fecha de Fin:</label>
+    <input type="date" class="form-control" id="end_date" name="end_date" required>
+  </div>
+
+  <div class="form-group">
+    <label for="payment_type">Tipo de Pago:</label>
+    <select class="form-control" id="payment_type" name="payment_type" required>
+      <option value="all">Todos</option>
+      <option value="tarjeta">Tarjeta</option>
+      <option value="efectivo">Efectivo</option>
+      <option value="transferencia">Transferencia</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Generar Informe</button>
+</form>
