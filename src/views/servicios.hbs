@@ -2,6 +2,41 @@
 <form action="" method="post">
     <section class="bg-light py-5">
         <div class="container">
+            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="2000">
+                        <img src="./img/gallery_01.jpg" class="d-block w-100" alt="Masajes">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>MASAJES</h2>
+                            <p>Servicio de masajes</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="./img/gallery_02.jpg" class="d-block w-100" alt="Limpieza Facial">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>LIMPIEZA FACIAL</h2>
+                            <p>Servicio de limpieza</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="2000">
+                        <img src="./img/gallery_03.jpg" class="d-block w-100" alt="Exfoliación">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h2>EXFOLIACIÓN</h2>
+                            <p>Servicio de exfoliación corporal</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
             <div class="row text-center">
                 <div class="col-lg-6 m-auto">
                     <h1 class="h1">Nuestros Servicios</h1>
@@ -143,39 +178,3 @@
 </form>
 
 <!-- End Turnos Section -->
-
-
-{{!-- <script>
-    function mostrarOpciones(categoria) {
-        console.log('Función mostrarOpciones llamada para:', categoria);
-
-        // Oculta todos los selects primero
-        document.querySelectorAll('.form-select').forEach(select => {
-            select.style.display = 'none';
-        });
-
-        // Muestra el select correspondiente a la categoría
-        const select = document.getElementById('select' + categoria);
-        if (select) {
-            select.style.display = 'block';
-            select.onchange = function() {
-                if (this.value !== '') {
-                    // Enviar los datos al servidor mediante fetch
-                    fetch('/about', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ servicio: this.value })
-                    })
-                    .catch(error => {
-                        console.error('Error al enviar el servicio:', error);
-                    });
-                }
-            };
-        } else {
-            console.log('No se encontró el elemento select para la categoría:', categoria);
-        }
-    }
-</script> --}}
-
