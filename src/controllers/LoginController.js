@@ -1,0 +1,205 @@
+const argon2 = require('argon2');
+
+function login(req, res) {
+    if (req.session.loggedin) {
+        res.redirect('/');
+    } else {
+        res.render('login/login');
+    }
+}
+
+// Función de login (acepta usuario o correo electrónico)
+function auth(req, res) {
+    const data = req.body;
+
+    // Determina si estás en producción o desarrollo
+    if (process.env.ENVIRONMENT === 'production') {
+        // En producción, usa la API
+        console.log("Usando API para autenticación");
+
+        // Enviar la información a la API para autenticar
+        fetch('https://proyectomdsapidb.azurewebsites.net/api/httpTriggerAuth', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                login: data.login,
+                password: data.password
+            })
+        })
+            .then(response => response.json())
+            .then(result => {
+                if (result.error) {
+                    res.render('login/login', { error: result.error });
+                } else {
+                    // Guardar datos en la sesión
+                    req.session.loggedin = true;
+                    req.session.user_id = result.user_id;
+                    req.session.username = result.username;
+                    req.session.email = result.email;
+                    req.session.direccion = result.direccion;
+                    req.session.telefono = result.telefono;
+                    req.session.role = result.role;  // Guardar rol en la sesión
+
+                    res.redirect('/');
+                }
+            })
+            .catch(err => {
+                console.error('Error en la API:', err);
+                res.status(500).send('Error en el inicio de sesión.');
+            });
+    } else {
+        // En desarrollo, usa la base de datos local
+        console.log("Usando base de datos local para autenticación");
+
+        req.conn.query(
+            'SELECT * FROM users WHERE username = ? OR email = ?',
+            [data.login, data.login],
+            async (err, results) => {
+                if (err) {
+                    console.error("Error en la consulta de la base de datos:", err);
+                    res.status(500).send("Error en el inicio de sesión.");
+                } else if (results.length === 0) {
+                    res.render('login/login', { error: "Usuario no encontrado" });
+                } else {
+                    const user = results[0];
+                    try {
+                        // Verificar la contraseña
+                        if (await argon2.verify(user.password, data.password)) {
+                            // Guardar datos en la sesión, incluyendo el rol
+                            req.session.loggedin = true;
+                            req.session.user_id = user.user_id;
+                            req.session.username = user.username;
+                            req.session.email = user.email;
+                            req.session.direccion = user.direccion;
+                            req.session.telefono = user.telefono;
+                            req.session.role = user.role;  // Guardar rol en la sesión
+
+                            res.redirect('/');
+                        } else {
+                            res.render('login/login', { error: "Contraseña incorrecta" });
+                        }
+                    } catch (err) {
+                        console.error("Error al verificar la contraseña:", err);
+                        res.status(500).send("Error en el inicio de sesión.");
+                    }
+                }
+            }
+        );
+    }
+}
+
+function register(req, res) {
+    if (req.session.loggedin) {
+        res.redirect('/');
+    } else {
+        res.render('login/register');
+    }
+}
+
+// Función de registro (verifica usuario y correo electrónico)
+function storeUser(req, res) {
+    const data = req.body;
+
+    // Encriptar la contraseña antes de enviarla a la API o DB local
+    argon2.hash(data.password)
+        .then(hashedPassword => {
+            data.password = hashedPassword;
+
+            if (process.env.ENVIRONMENT === 'production') {
+                // En producción, usar la API
+                console.log("Usando API para registro");
+
+                fetch('https://proyectomdsapidb.azurewebsites.net/api/httptriggerstoreuser', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        username: data.username,
+                        email: data.email,
+                        password: data.password,
+                        direccion: data.direccion,
+                        telefono: data.telefono,
+                        role: 'cliente'  // Asignar rol por defecto
+                    })
+                })
+                    .then(response => response.json())
+                    .then(result => {
+                        if (result.error) {
+                            res.render('login/register', { error: result.error });
+                        } else {
+                            // Guardar datos en la sesión
+                            req.session.loggedin = true;
+                            req.session.user_id = result.userId;
+                            req.session.username = data.username;
+                            req.session.email = data.email;
+                            req.session.direccion = data.direccion;
+                            req.session.telefono = data.telefono;
+                            req.session.role = 'cliente';  // Guardar rol en la sesión
+
+                            res.redirect('/');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Error en la API:', err);
+                        res.status(500).send('Error en el registro.');
+                    });
+            } else {
+                // En desarrollo, usar la base de datos local
+                console.log("Usando base de datos local para registro");
+
+                req.conn.query(
+                    'INSERT INTO users (username, email, password, direccion, telefono, role) VALUES (?, ?, ?, ?, ?, ?)',
+                    [data.username, data.email, data.password, data.direccion, data.telefono, 'cliente'],  // Asignar rol por defecto
+                    (err, result) => {
+                        if (err) {
+                            console.error("Error en la base de datos:", err);
+                            res.status(500).send("Error en el registro.");
+                        } else {
+                            // Guardar datos en la sesión
+                            req.session.loggedin = true;
+                            req.session.user_id = result.insertId;
+                            req.session.username = data.username;
+                            req.session.email = data.email;
+                            req.session.direccion = data.direccion;
+                            req.session.telefono = data.telefono;
+                            req.session.role = 'cliente';  // Guardar rol en la sesión
+
+                            res.redirect('/');
+                        }
+                    }
+                );
+            }
+        })
+        .catch(err => {
+            console.error("Error al encriptar la contraseña:", err);
+            res.status(500).send("Error en el registro.");
+        });
+}
+
+function logout(req, res) {
+    if (req.session.loggedin) {
+        req.session.destroy();
+    }
+    res.redirect('/');
+}
+
+// Función para verificar si el usuario es administrador
+function isAdmin(req, res, next) {
+    if (req.session && req.session.role === 'admin') {  // Verificar el rol directamente
+       return next();
+    } else {
+       return res.status(403).send('Acceso denegado. Solo los administradores pueden realizar esta acción.');
+    }
+}
+
+module.exports = {
+    isAdmin,
+    login,
+    register,
+    storeUser,
+    auth,
+    logout
+};
