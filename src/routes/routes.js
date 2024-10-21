@@ -17,10 +17,6 @@ router.get('/', (req, res) => {
     res.render('index', { username: req.session.username });
 });
 
-/* router.get('/servicios', (req, res) => {
-    res.render('servicios', { username: req.session.username, servicios: servicios });
-}); */
-
 router.get('/servicios', (req, res) => {
     // Asegúrate de tener la conexión de base de datos disponible como req.conn
     req.conn.query('SELECT * FROM servicios', (err, results) => {
@@ -44,47 +40,6 @@ router.get('/noticias', (req, res) => {
 router.get('/empleos', (req, res) => {
     res.render('empleos', { username: req.session.username });
 });
-
-/*
-router.get('/profile', (req, res) => {
-    if (req.session.loggedin) {
-        res.render('profile', {
-            username: req.session.username,
-            email: req.session.email,
-            direccion: req.session.direccion,
-            telefono: req.session.telefono
-        });
-    } else {
-        res.render(''); // Asegúrate de renderizar algo aquí o redirigir
-    }
-}); 
-
-router.get('/profile', (req, res) => {
-    // Verificar si el usuario está autenticado
-    if (!req.session.loggedin) {
-        return res.redirect('/login'); // Redirigir al login si no está autenticado
-    }
-
-    // Consulta para obtener los datos del usuario
-    const userId = req.session.user_id; // Obtener el ID del usuario desde la sesión
-    
-    // Consulta para obtener los turnos del usuario
-    req.conn.query('SELECT * FROM turnos WHERE cliente_id = ?', [userId], (err, turnos) => {
-        if (err) {
-            console.error('Error al obtener los turnos:', err);
-            return res.status(500).send('Error al cargar los turnos');
-        }
-
-        // Renderizar la vista del perfil, pasando los datos del usuario y los turnos
-        res.render('profile', { 
-            username: req.session.username, 
-            email: req.session.email, 
-            direccion: req.session.direccion, 
-            telefono: req.session.telefono,
-            turnos: turnos // Enviamos la lista de turnos
-        });
-    });
-}); */
 
 router.get('/profile', (req, res) => {
     // Verificar si el usuario está autenticado
