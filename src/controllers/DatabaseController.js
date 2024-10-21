@@ -1,5 +1,3 @@
-
-
 function insertQuery(req, res) {
     if (process.env.ENVIRONMENT === 'production') {
 

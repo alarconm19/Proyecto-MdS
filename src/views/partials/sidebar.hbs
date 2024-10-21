@@ -2,71 +2,62 @@
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
         <div class="sb-sidenav-menu">
             <div class="nav">
-                <div class="sb-sidenav-menu-heading">Core</div>
+
                 <a class="nav-link" href="/admin">
-                    <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                    Dashboard
+                    <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
+                    Inicio
                 </a>
-                <div class="sb-sidenav-menu-heading">Interface</div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts"
-                    aria-expanded="false" aria-controls="collapseLayouts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                    Layouts
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+
+                <div class="sb-sidenav-menu-heading">Gestión de Clientes</div>
+                <a class="nav-link" href="/admin/clientes">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Listado de Clientes
                 </a>
-                <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
-                    data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav">
-                        <a class="nav-link" href="/layout-static">Static Navigation</a>
-                        <a class="nav-link" href="/layout-sidenav-light">Light Sidenav</a>
-                    </nav>
-                </div>
-                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages"
-                    aria-expanded="false" aria-controls="collapsePages">
-                    <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                    Pages
-                    <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                <a class="nav-link" href="/admin/turnosPorDia">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-day"></i></div>
+                    Clientes por Día
                 </a>
-                <div class="collapse" id="collapsePages" aria-labelledby="headingTwo"
-                    data-bs-parent="#sidenavAccordion">
-                    <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
-                            Authentication
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/admin/login">Login</a>
-                                <a class="nav-link" href="/admin/register">Register</a>
-                                <a class="nav-link" href="/admin/password">Forgot Password</a>
-                            </nav>
-                        </div>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
-                            data-bs-target="#pagesCollapseError" aria-expanded="false"
-                            aria-controls="pagesCollapseError">
-                            Error
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne"
-                            data-bs-parent="#sidenavAccordionPages">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="/401">401 Page</a>
-                                <a class="nav-link" href="/404">404 Page</a>
-                                <a class="nav-link" href="/500">500 Page</a>
-                            </nav>
-                        </div>
-                    </nav>
-                </div>
-                <div class="sb-sidenav-menu-heading">Addons</div>
-                <a class="nav-link" href="/charts">
-                    <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                    Charts
+                <a class="nav-link" href="/admin/clientes-profesional">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-md"></i></div>
+                    Clientes por Profesional
                 </a>
-                <a class="nav-link" href="/tables">
-                    <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                    Tables
+
+                <div class="sb-sidenav-menu-heading">Gestión de Turnos</div>
+                <a class="nav-link" href="/admin/turnos">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-check"></i></div>
+                    Administrar Turnos
+                </a>
+                <a class="nav-link" href="/admin/servicios-dia">
+                    <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
+                    Servicios del Día
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Gestión de Pagos</div>
+                <a class="nav-link" href="/admin/pagos">
+                    <div class="sb-nav-link-icon"><i class="fas fa-credit-card"></i></div>
+                    Registrar Pagos
+                </a>
+                <a class="nav-link" href="/admin/informes-ingresos">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    Informe de Ingresos
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Informes</div>
+                <a class="nav-link" href="/admin/informes-servicios">
+                    <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                    Informe de Servicios
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Usuarios</div>
+                <a class="nav-link" href="/admin/usuarios">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                    Gestión de Usuarios
+                </a>
+
+                <div class="sb-sidenav-menu-heading">Ajustes</div>
+                <a class="nav-link" href="/admin/configuracion">
+                    <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
+                    Configuración
                 </a>
             </div>
         </div>
