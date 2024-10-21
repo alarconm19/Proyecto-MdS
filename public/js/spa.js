@@ -1,5 +1,5 @@
 // Obtener la fecha actual y sumar un día para establecer la fecha mínima
-let min = new Date(new Date().setDate(new Date().getDate() + 1)).toISOString().split('T')[0];
+let min = new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().split('T')[0];
 let max = new Date(new Date().setMonth(new Date().getMonth() + 1)).toISOString().split('T')[0];
 
 // Establecer la fecha mínima y máxima en el input de fecha

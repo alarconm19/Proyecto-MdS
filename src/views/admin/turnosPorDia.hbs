@@ -1,0 +1,53 @@
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Listado de Turnos por Día</h1>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Turnos del {{fecha}}</li>
+            </ol>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-calendar me-1"></i>
+                    Turnos Programados
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID Turno</th>
+                                <th>Cliente</th>
+                                <th>Profesional</th>
+                                <th>Servicio</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each turnos}}
+                                <tr>
+                                    <td>{{turno_id}}</td>
+                                    <td>{{cliente}}</td>
+                                    <td>{{profesional}}</td>
+                                    <td>{{servicio}}</td>
+                                    <td>{{fecha}}</td>
+                                    <td>{{hora}}</td>
+                                </tr>
+                            {{else}}
+                            <tr>
+                                <td colspan="7" class="text-center">No hay turnos para mostrar.</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="py-4 bg-light mt-auto">
+        <div class="container-fluid px-4">
+            <div class="d-flex align-items-center justify-content-between small">
+                <div class="text-muted">Copyright &copy; Grupo 19 2024</div>
+            </div>
+        </div>
+    </footer>
+</div>
