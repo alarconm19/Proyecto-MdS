@@ -48,16 +48,15 @@ function getClientesPorProfesional(req, res) {
     LEFT JOIN users c ON t.cliente_id = c.user_id
     LEFT JOIN servicios s ON t.servicio_id = s.id
     WHERE p.role = 'profesional'
-    ORDER BY p.username, t.fecha, t.hora
-`;
+    ORDER BY p.username, t.fecha, t.hora`;
 
-req.conn.query(queryTurnos, (err, results) => {
-    if (err) {
-        console.error('Error al obtener turnos:', err);
-        return res.status(500).send('Error al obtener turnos.');
-    }
-    res.render('admin/clientesPorProfesional', { layout: 'admin', username: req.session.username, turnos: results, fecha });
-});
+    req.conn.query(queryTurnos, (err, results) => {
+        if (err) {
+            console.error('Error al obtener turnos:', err);
+            return res.status(500).send('Error al obtener turnos.');
+        }
+        res.render('admin/clientesPorProfesional', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+    });
 }
 
 module.exports = {
