@@ -14,22 +14,24 @@
                     <table id="datatablesSimple" class="table table-striped table-bordered">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
                                 <th>Email</th>
+                                <th>Nombre de usuario</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
                                 <th>Teléfono</th>
                                 <th>Dirección</th>
                             </tr>
                         </thead>
                         <tbody>
                             {{#each clientes}}
-                                <tr>
-                                    <td>{{this.user_id}}</td>
-                                    <td>{{this.username}}</td>
-                                    <td>{{this.email}}</td>
-                                    <td>{{this.telefono}}</td>
-                                    <td>{{this.direccion}}</td>
-                                </tr>
+                            <tr>
+                                <td>{{this.email}}</td>
+                                <td>{{this.username}}</td>
+                                <td>{{this.nombre}}</td>
+                                <td>{{this.apellido}}</td>
+                                <td>{{this.telefono}}</td>
+                                <td>{{this.direccion}}</td>
+                            </tr>
                             {{/each}}
                         </tbody>
                     </table>

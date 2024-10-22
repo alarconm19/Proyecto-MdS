@@ -1,29 +1,34 @@
 <section class="bg-light py-5">
     <div id="comentarios-section">
         <h1>Lista de Clientes</h1>
-        <table>
+        <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre de Usuario</th>
                     <th>Email</th>
+                    <th>Nombre de Usuario</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
                     <th>Teléfono</th>
                     <th>Dirección</th>
                 </tr>
             </thead>
             <tbody>
-
                 {{#each clientes}}
                 <tr class="comentario">
-
-                    <td>{{this.user_id}}</td>
-                    <td>{{this.username}}</td>
                     <td>{{this.email}}</td>
+                    <td>{{this.username}}</td>
+                    <td>{{this.nombre}}</td>
+                    <td>{{this.apellido}}</td>
                     <td>{{this.telefono}}</td>
                     <td>{{this.direccion}}</td>
+                </tr>
+                {{/each}}
+                {{#unless clientes.length}}
+                <tr>
+                    <td colspan="5" class="text-center">No hay clientes para mostrar.</td>
+                </tr>
+                {{/unless}}
+            </tbody>
+        </table>
     </div>
-    </tr>
-    {{/each}}
-    </tbody>
-    </table>
 </section>

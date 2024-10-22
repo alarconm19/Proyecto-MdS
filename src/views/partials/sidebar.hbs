@@ -1,5 +1,6 @@
 <div id="layoutSidenav_nav">
     <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+        {{#if admin}}
         <div class="sb-sidenav-menu">
             <div class="nav">
                 <div class="sb-sidenav-menu-heading">Gestión de Clientes</div>
@@ -45,6 +46,37 @@
                 </a>
             </div>
         </div>
+        {{/if}}
+        {{#if secretaria}}
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Gestión de Pagos</div>
+                <a class="nav-link" href="/admin/informes-ingresos">
+                    <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    Informe de Ingresos
+                </a>
+            </div>
+        </div>
+        {{/if}}
+        {{#if profesional}}
+        <div class="sb-sidenav-menu">
+            <div class="nav">
+                <div class="sb-sidenav-menu-heading">Gestión de Clientes</div>
+                <a class="nav-link" href="/admin/clientes">
+                    <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                    Listado de Clientes
+                </a>
+                <a class="nav-link" href="/admin/turnosPorDia">
+                    <div class="sb-nav-link-icon"><i class="fas fa-calendar-day"></i></div>
+                    Clientes por Día
+                </a>
+                <a class="nav-link" href="/admin/clientes-profesional">
+                    <div class="sb-nav-link-icon"><i class="fas fa-user-md"></i></div>
+                    Clientes por Profesional
+                </a>
+            </div>
+        </div>
+        {{/if}}
         <div class="sb-sidenav-footer">
             <div class="small">Iniciaste sesión como:</div>
             {{#if username}}
