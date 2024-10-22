@@ -19,10 +19,7 @@ router.get('/servicios', (req, res) => {
         }
 
         // Renderiza la vista pasando el username y la lista de servicios obtenidos
-        res.render('spa/servicios', {
-            username: req.session.username,
-            servicios: results // Aquí envías los servicios obtenidos de la base de datos
-        });
+        res.render('spa/servicios', { username: req.session.username, servicios: results });
     });
 });
 
@@ -102,8 +99,7 @@ router.get('/profile', (req, res) => {
         WHERE
             t.cliente_id = ?
         ORDER BY
-            t.fecha, t.hora
-    `;
+            t.fecha, t.hora`;
 
     req.conn.query(query, [userId], (err, turnos) => {
         if (err) {
@@ -134,9 +130,7 @@ router.get('/comentarios', (req, res) => {
             console.error('Error al obtener los comentarios:', err);
             return res.render('spa/404');
         }
-        res.render('spa/comentarios', {
-            comentarios: results
-        });
+        res.render('spa/comentarios', { comentarios: results });
     });
 });
 
