@@ -1,5 +1,5 @@
 function getClientes(req, res) {
-    const query = 'SELECT user_id, username, email, telefono, direccion, role FROM users WHERE role = "cliente"';
+    const query = 'SELECT email, username, nombre, apellido, telefono, direccion, role FROM users WHERE role = "cliente"';
 
     req.conn.query(query, (err, results) => {
         if (err) {
@@ -18,11 +18,18 @@ function getTurnosPorDia(req, res) {
 
     // Consulta para obtener los turnos por fecha
     const queryTurnos = `
-        SELECT t.turno_id, c.username AS cliente, p.username AS profesional, s.nombre_servicio AS servicio, t.fecha, t.hora
+        SELECT t.id,
+               c.username AS cliente, c.nombre as nombreCliente, c.apellido as apellidoCliente,
+               p.username AS profesional, p.nombre as nombreProfesional, p.apellido as apellidoProfesional,
+               s.nombre AS servicio,
+               DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, TIME_FORMAT(t.hora, '%H:%i') AS hora
+
         FROM turnos t
-        JOIN users c ON t.cliente_id = c.user_id
-        JOIN users p ON t.profesional_id = p.user_id
-        JOIN servicios s ON t.servicio_id = s.id
+
+        JOIN users c ON t.cliente_email = c.email
+        JOIN users p ON t.profesional_email = p.email
+        JOIN servicios s ON t.nombre_servicio = s.nombre
+
         WHERE t.fecha = ?`;
 
     req.conn.query(queryTurnos, [fecha], (err, results) => {
@@ -38,14 +45,19 @@ function getClientesPorProfesional(req, res) {
     const fecha = new Date().toISOString().split('T')[0];
 
     const queryTurnos = `
-    SELECT p.user_id AS profesional_id, p.username AS profesional,
-           c.username AS cliente, s.nombre_servicio AS servicio,
-           t.fecha, t.hora
+    SELECT p.email AS emailProfesional, p.username AS profesional, p.nombre AS nombreProfesional, p.apellido AS apellidoProfesional,
+           c.email AS emailCliente, c.username AS cliente, c.nombre AS nombreCliente, c.apellido AS apellidoCliente,
+           s.nombre AS servicio,
+           DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, TIME_FORMAT(t.hora, '%H:%i') AS hora
+
     FROM users p
-    LEFT JOIN turnos t ON p.user_id = t.profesional_id
-    LEFT JOIN users c ON t.cliente_id = c.user_id
-    LEFT JOIN servicios s ON t.servicio_id = s.id
+
+    LEFT JOIN turnos t ON p.email = t.profesional_email
+    LEFT JOIN users c ON t.cliente_email = c.email
+    LEFT JOIN servicios s ON t.nombre_servicio = s.nombre
+
     WHERE p.role = 'profesional'
+
     ORDER BY p.username, t.fecha, t.hora`;
 
     req.conn.query(queryTurnos, (err, results) => {
