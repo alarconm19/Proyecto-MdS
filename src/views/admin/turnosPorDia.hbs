@@ -11,7 +11,8 @@
                     Turnos Programados
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table table-striped table-bordered" width="100%" cellspacing="0">
+                    <table id="datatablesSimple" class="table table-striped table-bordered" width="100%"
+                        cellspacing="0">
                         <thead>
                             <tr>
                                 <th>ID Turno</th>
@@ -24,14 +25,14 @@
                         </thead>
                         <tbody>
                             {{#each turnos}}
-                                <tr>
-                                    <td>{{turno_id}}</td>
-                                    <td>{{cliente}}</td>
-                                    <td>{{profesional}}</td>
-                                    <td>{{servicio}}</td>
-                                    <td>{{fecha}}</td>
-                                    <td>{{hora}}</td>
-                                </tr>
+                            <tr>
+                                <td>{{id}}</td>
+                                <td>{{apellidoCliente}}, {{nombreCliente}} ({{cliente}})</td>
+                                <td>{{apellidoProfesional}}, {{nombreProfesional}} ({{profesional}})</td>
+                                <td>{{servicio}}</td>
+                                <td>{{fecha}}</td>
+                                <td>{{hora}}</td>
+                            </tr>
                             {{else}}
                             <tr>
                                 <td colspan="7" class="text-center">No hay turnos para mostrar.</td>

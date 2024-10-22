@@ -5,7 +5,7 @@ const databaseController = require('../controllers/DatabaseController');
 router.get('/cancelar-turno/:id', (req, res) => {
     const turnoId = req.params.id;
 
-    req.conn.query('DELETE FROM turnos WHERE turno_id = ?', [turnoId], (err, result) => {
+    req.conn.query('DELETE FROM turnos WHERE id = ?', [turnoId], (err, result) => {
         if (err) {
             console.error('Error al cancelar el turno:', err);
             return res.status(500).send('Error al cancelar el turno');
@@ -30,7 +30,7 @@ router.get('/mis-consultas', databaseController.obtenerConsultasCliente);
 function isEmpleado(req, res, next) {
     console.log('Middleware isEmpleado ejecutado');
     console.log('Rol de usuario:', req.session.role);
-    if (req.session.loggedin && req.session.role === 'empleado') {
+    if (req.session.loggedin && req.session.role !== 'cliente') {
         return next();
     }
     console.log('Acceso denegado');

@@ -3,7 +3,7 @@ const router = express.Router();
 const adminController = require('../controllers/AdminController');
 
 router.get('/admin', (req, res) => {
-    res.render('admin/dashboard', { layout: 'admin', title: 'Admin - Dashboard', username: req.session.username});
+    res.render('admin/dashboard', { layout: 'admin', username: req.session.username});
 });
 
 router.get('/admin/clientes', adminController.getClientes);

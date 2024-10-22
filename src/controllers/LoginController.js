@@ -31,9 +31,10 @@ function auth(req, res) {
                     } else if (isMatch) {
                         // Guardar datos en la sesión
                         req.session.loggedin = true;
-                        req.session.user_id = user.user_id;
-                        req.session.username = user.username;
                         req.session.email = user.email;
+                        req.session.username = user.username;
+                        req.session.nombre = user.nombre;
+                        req.session.apellido = user.apellido;
                         req.session.direccion = user.direccion;
                         req.session.telefono = user.telefono;
                         req.session.role = user.role;
@@ -93,9 +94,10 @@ function storeUser(req, res) {
 
                     // Guardar datos en la sesión
                     req.session.loggedin = true;
-                    req.session.user_id = result.insertId; // ID del nuevo usuario
-                    req.session.username = data.username;
                     req.session.email = data.email;
+                    req.session.username = data.username;
+                    req.session.nombre = data.nombre;
+                    req.session.apellido = data.apellido;
                     req.session.direccion = data.direccion;
                     req.session.telefono = data.telefono;
                     req.session.role = data.role;
