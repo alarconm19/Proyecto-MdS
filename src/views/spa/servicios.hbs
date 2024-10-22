@@ -111,13 +111,13 @@
 
         <div class="container">
             <div class="row justify-content-center">
-
                 <select class="form-select mt-3" style="width: min-content;" name="selectTratBelleza"
                     id="selectTratBelleza">
-                    <option value="">Seleccione un servicio</option>
+                    {{!-- <option value="">Seleccione un servicio</option>
                     {{#each servicios}}
-                    <option value="{{this.id}}">{{this.id}}. {{this.nombre_servicio}}</option>
-                    {{/each}}
+                    <option value="{{this.nombre}}">{{this.nombre}}</option>
+                    {{/each}} --}}
+                    <option value="">Seleccione un servicio</option>
                 </select>
             </div>
         </div>
@@ -126,9 +126,7 @@
     <!-- End Services Section -->
 
     <!-- Start Turnos Section -->
-
     <section class="bg-light py-5">
-
         <div class="container">
             <div class="row text-center">
                 <div class="col-lg-12 m-auto">
@@ -164,5 +162,5 @@
     <input type="hidden" name="selectedtime" id="selectedtime">
     <input type="hidden" name="selectedtreatment" id="selectedtreatment">
     <input type="hidden" name="selecteddate" id="selecteddate">
+    <!-- End Turnos Section -->
 </form>
-<!-- End Turnos Section -->

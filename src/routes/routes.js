@@ -1,128 +1,26 @@
 const express = require('express');
 const router = express.Router();
+const profileController = require('../controllers/ProfileController');
 
 // Rutas principales
 router.get('/', (req, res) => {
     res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
 });
 
-/* router.get('/servicios', (req, res) => {
-    res.render('servicios', { username: req.session.username, servicios: servicios });
-}); */
-
 router.get('/servicios', (req, res) => {
-    // Asegúrate de tener la conexión de base de datos disponible como req.conn
-    req.conn.query('SELECT * FROM servicios', (err, results) => {
-        if (err) {
-            console.error('Error al obtener los servicios:', err);
-            return res.status(500).send('Error al cargar los servicios');
-        }
-
-        // Renderiza la vista pasando el username y la lista de servicios obtenidos
-        res.render('spa/servicios', { username: req.session.username, servicios: results });
-    });
+    res.render('spa/servicios', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 router.get('/noticias', (req, res) => {
-    res.render('spa/noticias', { username: req.session.username });
+    res.render('spa/noticias', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 router.get('/empleos', (req, res) => {
-    res.render('spa/empleos', { username: req.session.username });
+    res.render('spa/empleos', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
-/*
-router.get('/profile', (req, res) => {
-    if (req.session.loggedin) {
-        res.render('spa/profile', {
-            username: req.session.username,
-            email: req.session.email,
-            direccion: req.session.direccion,
-            telefono: req.session.telefono
-        });
-    } else {
-        res.render('spa/'); // Asegúrate de renderizar algo aquí o redirigir
-    }
-});
-
-router.get('/profile', (req, res) => {
-    // Verificar si el usuario está autenticado
-    if (!req.session.loggedin) {
-        return res.redirect('/login'); // Redirigir al login si no está autenticado
-    }
-
-    // Consulta para obtener los datos del usuario
-    const userId = req.session.user_id; // Obtener el ID del usuario desde la sesión
-
-    // Consulta para obtener los turnos del usuario
-    req.conn.query('SELECT * FROM turnos WHERE cliente_id = ?', [userId], (err, turnos) => {
-        if (err) {
-            console.error('Error al obtener los turnos:', err);
-            return res.status(500).send('Error al cargar los turnos');
-        }
-
-        // Renderizar la vista del perfil, pasando los datos del usuario y los turnos
-        res.render('spa/profile', {
-            username: req.session.username,
-            email: req.session.email,
-            direccion: req.session.direccion,
-            telefono: req.session.telefono,
-            turnos: turnos // Enviamos la lista de turnos
-        });
-    });
-}); */
-
-router.get('/profile', (req, res) => {
-    // Verificar si el usuario está autenticado
-    if (!req.session.loggedin) {
-        return res.redirect('/login'); // Redirigir al login si no está autenticado
-    }
-
-    const userId = req.session.user_id; // Obtener el ID del usuario desde la sesión
-
-    if (!userId) {
-        console.error('Error: user_id no está definido en la sesión');
-        return res.status(500).send('Error de sesión');
-    }
-
-    // Consulta para obtener los turnos del usuario con el nombre del servicio
-    const query = `
-        SELECT
-            t.turno_id,
-            s.nombre_servicio AS servicio,
-            DATE_FORMAT(t.fecha, '%Y-%m-%d') AS fecha,
-            TIME_FORMAT(t.hora, '%H:%i:%s') AS hora
-        FROM
-            turnos t
-        JOIN
-            servicios s ON t.servicio_id = s.id
-        WHERE
-            t.cliente_id = ?
-        ORDER BY
-            t.fecha, t.hora`;
-
-    req.conn.query(query, [userId], (err, turnos) => {
-        if (err) {
-            console.error('Error al obtener los turnos:', err);
-            console.error('Query:', query);
-            console.error('UserId:', userId);
-            return res.status(500).send('Error al cargar los turnos: ' + err.message);
-        }
-
-        console.log('Turnos obtenidos:', turnos); // Log para verificar los datos recibidos
-
-        // Renderizar la vista del perfil, pasando los datos del usuario y los turnos
-        res.render('spa/profile', {
-            username: req.session.username,
-            email: req.session.email,
-            direccion: req.session.direccion,
-            telefono: req.session.telefono,
-            turnos: turnos // Enviamos la lista de turnos con la información completa
-        });
-    });
-});
-
-
+router.get('/profile', profileController.showProfile);
+router.post('/profile/update', profileController.updateProfile);
 
 router.get('/comentarios', (req, res) => {
     req.conn.query('SELECT * FROM comentarios ORDER BY fecha DESC', (err, results) => {
@@ -130,7 +28,7 @@ router.get('/comentarios', (req, res) => {
             console.error('Error al obtener los comentarios:', err);
             return res.render('spa/404');
         }
-        res.render('spa/comentarios', { comentarios: results });
+        res.render('spa/comentarios', { comentarios: results, username: req.session.username, role: req.session.role != 'cliente' });
     });
 });
 
@@ -156,9 +54,64 @@ router.post('/comentarios', (req, res) => {
     });
 });
 
+// Ruta para mostrar el formulario de pago
+router.get('/payment/:servicio/:id', (req, res) => {
+    const servicio = req.params.servicio;
+    const id = req.params.id;
+    res.render('spa/payment', { servicio, id, username: req.session.username });
+});
+
+
+//Ruta para procesar el pago
+router.post('/process-payment', (req, res) => {
+    const { cardType, servicio, id } = req.body;
+
+    // Primero obtenemos el monto del turno
+    req.conn.query('SELECT precio FROM servicios WHERE nombre = ?', [servicio], (err, precio) => {
+        if (err) {
+            console.error('Error al obtener el turno:', err);
+            return res.redirect('/payment/${servicio}/${id}');
+        }
+
+
+        if (!precio) {
+            console.error('Precio no encontrado');
+            return res.redirect('/payment/${servicio}/${id}');
+        }
+
+        const monto = precio[0].precio;
+
+        // Insertar el pago
+        const query = 'INSERT INTO pagos (cliente_email, turno_id, tipo, monto) VALUES (?, ?, ?, ?)';
+
+        req.conn.query(query, [req.session.email, id, cardType, monto], (err) => {
+            if (err) {
+                console.error('Error al guardar el pago:', err);
+                return res.redirect('/payment/${servicio}/${id}');
+            }
+            // Actualizar el turno como pagado
+            const updateQuery =
+                `UPDATE turnos
+                SET pagado = 1
+                WHERE id = ?`;
+
+            req.conn.query(updateQuery, [id], (err) => {
+                if (err) {
+                    console.error('Error al actualizar el estado del turno:', err);
+                    return res.redirect('/payment/${servicio}/${id}');
+                }
+
+                // Redirigir al perfil después de actualizar
+                res.redirect('/profile');
+            });
+        });
+    });
+});
+
+
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {
-    res.render('spa/404');
+    res.render('spa/404', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 // Exporta el router

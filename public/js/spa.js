@@ -10,7 +10,6 @@ const dateInput = document.getElementById('appointment-date');
 dateInput.value = min; // Establecer el valor mínimo de la fecha
 
 // Array que simula horarios reservados (lo ideal sería traer esta info de una base de datos)
-
 let reservedSlots;
 
 // Establecer la fecha mínima en el input de fecha
@@ -30,6 +29,27 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error al obtener los horarios reservados:', error);
 
         });
+
+    fetch('/obtenerServicios') // Cambia la URL según tu configuración del backend
+        .then(response => response.json())
+        .then(data => {
+            const selectElement = document.getElementById('selectTratBelleza');
+
+            // Limpiar opciones existentes, excepto la opción por defecto
+            selectElement.innerHTML = '<option value="">Seleccione un servicio</option>';
+
+            // Llenar el select con los servicios obtenidos
+            data.forEach(servicio => {
+                const option = document.createElement('option');
+                option.value = servicio.nombre; // O el campo que uses para el valor
+                option.textContent = servicio.nombre; // O el campo que uses para mostrar
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener los servicios:', error);
+        });
+
 });
 
 // Array con los horarios disponibles

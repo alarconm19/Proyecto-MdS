@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS pagos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_email VARCHAR(255) NOT NULL,
     turno_id INT NOT NULL UNIQUE,  -- Un turno solo puede tener un pago asociado
+    pagado TINYINT(1) DEFAULT 0,
     tipo ENUM('credito', 'debito') NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

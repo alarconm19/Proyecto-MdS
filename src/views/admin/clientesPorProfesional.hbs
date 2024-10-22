@@ -25,11 +25,17 @@
                             <tbody>
                                 {{#each turnos}}
                                 <tr>
-                                    <td>{{this.profesional}}</td>
-                                    <td>{{#if this.cliente}}{{this.cliente}}{{else}}Sin Cliente{{/if}}</td>
+                                    <td>{{this.apellidoProfesional}}, {{this.nombreProfesional}} ({{this.profesional}})
+                                    </td>
+                                    <td>{{#if this.cliente}}{{this.apellidoCliente}}, {{this.nombreCliente}}
+                                        ({{this.cliente}}){{else}}Sin Cliente{{/if}}</td>
                                     <td>{{#if this.servicio}}{{this.servicio}}{{else}}Sin Servicio{{/if}}</td>
                                     <td>{{#if this.fecha}}{{this.fecha}}{{else}}--{{/if}}</td>
                                     <td>{{#if this.hora}}{{this.hora}}{{else}}--{{/if}}</td>
+                                </tr>
+                                {{else}}
+                                <tr>
+                                    <td colspan="5" class="text-center">No hay turnos para mostrar.</td>
                                 </tr>
                                 {{/each}}
                             </tbody>

@@ -10,14 +10,24 @@
                         <!-- Formulario para actualizar datos -->
                         <form action="/profile/update" method="post">
                             <div class="mb-3">
+                                <label for="email" class="form-label h3">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" value="{{email}}"
+                                    required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="username" class="form-label h3">Nombre de usuario</label>
                                 <input type="text" id="username" name="username" class="form-control"
                                     value="{{username}}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label h3">Email</label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{email}}"
+                                <label for="nombre" class="form-label h3">Nombre</label>
+                                <input type="text" id="nombre" name="nombre" class="form-control" value="{{nombre}}"
                                     required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="apellido" class="form-label h3">Apellido</label>
+                                <input type="text" id="apellido" name="apellido" class="form-control"
+                                    value="{{apellido}}" required>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label h3">Dirección</label>
@@ -37,7 +47,7 @@
         </div>
     </div>
 
-    <div class="container ">
+    {{!-- <div class="container">
         <div class="row">
             <div class="col-md-8 offset-md-3 mb-4">
                 <div class="card mt-5">
@@ -60,7 +70,7 @@
                                     <td>{{this.fecha}}</td>
                                     <td>{{this.hora}}</td>
                                     <td>
-                                        <a href="/cancelar-turno/{{this.turno_id}}" class="btn btn-danger">Cancelar</a>
+                                        <a href="/cancelar-turno/{{this.id}}" class="btn btn-danger">Cancelar</a>
                                     </td>
                                 </tr>
                                 {{/each}}
@@ -73,5 +83,57 @@
                 </div>
             </div>
         </div>
+    </div> --}}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-3 mb-4">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h2 class="card-title">Turnos</h2>
+                        {{#if turnos.length}}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Servicio</th>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Pago</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each turnos}}
+                                <tr>
+                                    <td>{{this.servicio}}</td>
+                                    <td>{{this.fecha}}</td>
+                                    <td>{{this.hora}}</td>
+                                    <td>
+                                        {{#if this.pagado}}
+                                        Sí
+                                        {{else}}
+                                        No
+                                        {{/if}}
+                                    </td>
+                                    <td>
+                                        {{#if this.pagado}}
+                                        <a href="/cancelar-turno/{{this.id}}" class="btn btn-danger">Cancelar</a>
+                                        {{else}}
+                                        <a href="/payment/{{this.servicio}}/{{this.id}}" class="btn btn-success">Pagar</a>
+                                        <a href="/cancelar-turno/{{this.id}}" class="btn btn-danger">Cancelar</a>
+                                        {{/if}}
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                        {{else}}
+                        <p>No tienes turnos reservados actualmente.</p>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+        </div>
+            
     </div>
 </section>
