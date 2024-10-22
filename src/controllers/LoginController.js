@@ -100,7 +100,7 @@ function storeUser(req, res) {
                     req.session.apellido = data.apellido;
                     req.session.direccion = data.direccion;
                     req.session.telefono = data.telefono;
-                    req.session.role = data.role;
+                    req.session.role = 'cliente';
 
                     res.redirect('/');
                 });

@@ -33,11 +33,11 @@ router.get('/admin/clientes-profesional', adminController.getClientesPorProfesio
 // Rutas para la generación de informes solo accesibles para administradores
 router.get('/admin/informe-ingresos', informesController.renderInformeIngresos);
 router.post('/admin/generar-informe-ingresos', informesController.generarInformeIngresos);
-router.get('/admin/descargar-informe-ingresos-pdf', informesController.descargarInformeIngresosPDF);
+// router.get('/admin/descargar-informe-ingresos-pdf', informesController.descargarInformeIngresosPDF);
 
 router.get('/admin/informe-servicios', informesController.renderInformeServicios);
 router.post('/admin/generar-informe-servicios', informesController.generarInformeServicios);
-router.get('/admin/descargar-informe-servicios-pdf', informesController.descargarInformeServiciosPDF);
+// router.get('/admin/descargar-informe-servicios-pdf', informesController.descargarInformeServiciosPDF);
 
 
 module.exports = router;
