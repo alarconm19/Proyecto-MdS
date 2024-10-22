@@ -13,7 +13,7 @@ require('dotenv').config();
 
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.set('views', __dirname + '/views');
 app.engine('.hbs', engine ({
@@ -34,15 +34,6 @@ var AZURE_DB =
         rejectUnauthorized: true,
         ca: fs.readFileSync(certPath, "utf8")
     }
-};
-
-var Local_DB =
-{
-    host: 'localhost',
-    user: 'root',
-    password: process.env.DB_PASS,
-    database: 'pweb',
-    port: 3306,
 };
 
 // Middleware para conectar la base de datos

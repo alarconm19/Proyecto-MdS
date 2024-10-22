@@ -1,0 +1,83 @@
+<style>
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    #seccion-para-imprimir, #seccion-para-imprimir * {
+      visibility: visible;
+    }
+    #seccion-para-imprimir {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+    }
+    .no-imprimir {
+      display: none;
+    }
+    .logo-print {
+      display: block;
+      max-width: 200px;
+      margin: 0 auto 20px;
+    }
+  }
+  .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .logo-print {
+    max-width: 200px;
+  }
+</style>
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Resultado Informe de Servicios</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div id="seccion-para-imprimir">
+                        <div class="logo-container">
+                            <img src="/images/logo.png" alt="Logo de la empresa" class="logo-print">
+                        </div>
+                        <h2>Informe de Servicios</h2>
+                        <p>Fecha Inicio: {{fechaInicio}}</p>
+                        <p>Fecha Fin: {{fechaFin}}</p>
+                        <p>Profesional: {{profesionalEmail}}</p>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Servicio</th>
+                                    <th>Cliente</th>
+                                    <th>Profesional</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each resultados}}
+                                    <tr>
+                                        <td>{{this.fecha}}</td>
+                                        <td>{{this.hora}}</td>
+                                        <td>{{this.nombre_servicio}}</td>
+                                        <td>{{this.nombre_cliente}} {{this.apellido_cliente}}</td>
+                                        <td>{{this.nombre_profesional}} {{this.apellido_profesional}}</td>
+                                    </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                    <button onclick="imprimirInforme()" class="btn btn-secondary no-imprimir">Imprimir</button>
+                    <a href="/admin/descargar-informe-servicios-pdf?fechaInicio={{fechaInicio}}&fechaFin={{fechaFin}}&profesionalEmail={{profesionalEmail}}" class="btn btn-primary no-imprimir">Descargar PDF</a>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+function imprimirInforme() {
+    window.print();
+}
+</script>
