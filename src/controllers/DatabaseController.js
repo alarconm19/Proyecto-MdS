@@ -68,7 +68,33 @@ function sendReservedSlots(req, res) {
         // Enviar los turnos reservados al frontend
         res.json(reservedSlots);
     });
+}
 
+function cancelarTurno(req, res) {
+    const turnoId = req.params.id;
+
+    req.conn.query('DELETE FROM turnos WHERE id = ?', [turnoId], (err, result) => {
+        if (err) {
+            console.error('Error al cancelar el turno:', err);
+            return res.status(500).send('Error al cancelar el turno');
+        }
+        // Redirigir de vuelta al perfil del usuario
+        res.redirect('/profile');
+    });
+}
+
+function obtenerSevicios(req, res) {
+    // Asegúrate de tener la conexión de base de datos disponible como req.conn
+    req.conn.query('SELECT * FROM servicios', (err, results) => {
+        if (err) {
+            console.error('Error al obtener los servicios:', err);
+            return res.status(500).send('Error al cargar los servicios');
+        }
+
+        // Renderiza la vista pasando el username y la lista de servicios obtenidos
+        //res.render('spa/servicios', { username: req.session.username, servicios: results, role: req.session.role != 'cliente' });
+        res.json(results);
+    });
 }
 
 // Función para crear una consulta
@@ -129,26 +155,13 @@ function responderConsulta(req, res) {
     });
 }
 
-// Función para obtener solo los usuarios con rol de cliente
-function obtenerClientes(req, res) {
-    const sql = 'SELECT email, username, nombre, apellido, telefono, direccion FROM users WHERE role = "cliente"';
-
-    req.conn.query(sql, (err, results) => {
-        if (err) {
-            console.error('Error al obtener los clientes:', err);
-            return res.status(500).send('Error al obtener los clientes.');
-        }
-        res.render('spa/clientes', { clientes: results }); // Renderizar la vista 'clientes' pasando los datos
-    });
-}
-
-
 module.exports = {
     insertQuery,
     sendReservedSlots,
+    cancelarTurno,
+    obtenerSevicios,
     crearConsulta,
     obtenerConsultasCliente,
     obtenerTodasConsultas,
-    responderConsulta,
-    obtenerClientes
+    responderConsulta
 };

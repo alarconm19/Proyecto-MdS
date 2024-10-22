@@ -30,8 +30,9 @@ const showProfile = (req, res) => {
         SELECT
             t.id,
             s.nombre AS servicio,
-            DATE_FORMAT(t.fecha, '%Y-%m-%d') AS fecha,
-            TIME_FORMAT(t.hora, '%H:%i:%s') AS hora
+            DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha,
+            TIME_FORMAT(t.hora, '%H:%i') AS hora,
+            t.pagado
         FROM
             turnos t
         JOIN
@@ -49,7 +50,7 @@ const showProfile = (req, res) => {
             return res.status(500).send('Error al cargar los turnos: ' + err.message);
         }
 
-        console.log('Turnos obtenidos:', turnos); // Log para verificar los datos recibidos
+        //console.log('Turnos obtenidos:', turnos); // Log para verificar los datos recibidos
 
         // Renderizar la vista del perfil, pasando los datos del usuario y los turnos
         res.render('spa/profile', {
