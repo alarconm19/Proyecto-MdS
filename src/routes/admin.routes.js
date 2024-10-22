@@ -7,7 +7,7 @@ router.get('/admin', (req, res) => {
     if (req.session.role === 'admin' || req.session.role === 'profesional') {
         res.redirect('/admin/clientes');
     } else if (req.session.role === 'secretaria') {
-        res.redirect('/admin/informes-ingresos');
+        res.redirect('/admin/informe-ingresos');
     } else {
         // Si el rol no coincide con ninguno, podrías redirigir a una página de error o hacer otra acción
         res.redirect('/');

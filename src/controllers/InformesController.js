@@ -125,7 +125,17 @@ exports.descargarInformeIngresosPDF = (req, res) => {
 };
 
 exports.renderInformeServicios = (req, res) => {
-    res.render('admin/informe_servicios', { layout: 'admin', title: 'Informe de Servicios' });
+    if (!req.session.loggedin || req.session.role == 'cliente') {
+        return res.redirect('/');
+    } else {
+        res.render('admin/informe_servicios', {
+            layout: 'admin',
+            username: req.session.username,
+            admin: req.session.role == 'admin',
+            profesional: req.session.role == 'profesional',
+            secretaria: req.session.role == 'secretaria',
+        });
+    }
 };
 
 exports.generarInformeServicios = (req, res) => {
