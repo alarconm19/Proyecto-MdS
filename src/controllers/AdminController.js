@@ -14,7 +14,6 @@ function getClientes(req, res) {
 };
 
 function getTurnosPorDia(req, res) {
-    // Suponiendo que tienes acceso a la conexión de la base de datos a través de req.conn
     const fecha = new Date().toISOString().split('T')[0];
 
     // Consulta para obtener los turnos por fecha
@@ -24,8 +23,7 @@ function getTurnosPorDia(req, res) {
         JOIN users c ON t.cliente_id = c.user_id
         JOIN users p ON t.profesional_id = p.user_id
         JOIN servicios s ON t.servicio_id = s.id
-        WHERE t.fecha = ?
-    `;
+        WHERE t.fecha = ?`;
 
     req.conn.query(queryTurnos, [fecha], (err, results) => {
         if (err) {

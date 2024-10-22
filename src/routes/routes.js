@@ -3,7 +3,7 @@ const router = express.Router();
 
 // Rutas principales
 router.get('/', (req, res) => {
-    res.render('spa/index', { username: req.session.username });
+    res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
 });
 
 /* router.get('/servicios', (req, res) => {
