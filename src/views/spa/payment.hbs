@@ -1,0 +1,71 @@
+<section>
+    <div class="container mt-4 mb-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card" style="border-radius: 12px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <div class="card-header"
+                        style="background-color: #c23f7c; color: white; border-radius: 12px 12px 0 0;">
+                        <h3 class="mb-0">Formulario de Pago</h3>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <form action="/process-payment" method="POST">
+                            <input type="hidden" name="servicio" value="{{servicio}}">
+                            <input type="hidden" name="id" value="{{id}}">
+
+                            <div class="form-group">
+                                <label>Tipo de Tarjeta</label>
+                                <select name="cardType" required>
+                                    <option value="credito">Crédito</option>
+                                    <option value="debito">Débito</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" style="color: #333;">Nombre en la tarjeta</label>
+                                <input type="text" class="form-control" name="cardName"
+                                    placeholder="Como aparece en la tarjeta"
+                                    style="border: 1px solid #ddd; border-radius: 8px; padding: 12px;" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" style="color: #333;">Número de tarjeta</label>
+                                <input type="text" class="form-control" name="cardNumber"
+                                    placeholder="1234 5678 9012 3456"
+                                    style="border: 1px solid #ddd; border-radius: 8px; padding: 12px;" pattern="\d{16}"
+                                    maxlength="16" required>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" style="color: #333;">Fecha de expiración</label>
+                                    <input type="text" class="form-control" name="expDate" placeholder="MM/YY"
+                                        style="border: 1px solid #ddd; border-radius: 8px; padding: 12px;"
+                                        pattern="\d{2}/\d{2}" required>
+                                </div>
+
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label" style="color: #333;">CVV</label>
+                                    <input type="text" class="form-control" name="cvv" placeholder="123"
+                                        style="border: 1px solid #ddd; border-radius: 8px; padding: 12px;"
+                                        pattern="\d{3,4}" maxlength="4" required>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-4">
+                                <button type="submit"
+                                    style="background-color: #237a30; color: white; padding: 12px 25px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s;">
+                                    Procesar Pago
+                                </button>
+                                <a href="/profile"
+                                    style="background-color: #c23f7c; color: white; padding: 12px 25px; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s; text-decoration: none; text-align: center;">
+                                    Volver al perfil
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

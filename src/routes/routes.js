@@ -8,29 +8,19 @@ router.get('/', (req, res) => {
 });
 
 router.get('/servicios', (req, res) => {
-    // Asegúrate de tener la conexión de base de datos disponible como req.conn
-    req.conn.query('SELECT * FROM servicios', (err, results) => {
-        if (err) {
-            console.error('Error al obtener los servicios:', err);
-            return res.status(500).send('Error al cargar los servicios');
-        }
-
-        // Renderiza la vista pasando el username y la lista de servicios obtenidos
-        res.render('spa/servicios', { username: req.session.username, servicios: results });
-    });
+    res.render('spa/servicios', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 router.get('/noticias', (req, res) => {
-    res.render('spa/noticias', { username: req.session.username });
+    res.render('spa/noticias', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 router.get('/empleos', (req, res) => {
-    res.render('spa/empleos', { username: req.session.username });
+    res.render('spa/empleos', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 router.get('/profile', profileController.showProfile);
-
-router.get('/profile/update', profileController.updateProfile);
+router.post('/profile/update', profileController.updateProfile);
 
 router.get('/comentarios', (req, res) => {
     req.conn.query('SELECT * FROM comentarios ORDER BY fecha DESC', (err, results) => {
@@ -38,7 +28,7 @@ router.get('/comentarios', (req, res) => {
             console.error('Error al obtener los comentarios:', err);
             return res.render('spa/404');
         }
-        res.render('spa/comentarios', { comentarios: results });
+        res.render('spa/comentarios', { comentarios: results, username: req.session.username, role: req.session.role != 'cliente' });
     });
 });
 
@@ -64,9 +54,64 @@ router.post('/comentarios', (req, res) => {
     });
 });
 
+// Ruta para mostrar el formulario de pago
+router.get('/payment/:servicio/:id', (req, res) => {
+    const servicio = req.params.servicio;
+    const id = req.params.id;
+    res.render('spa/payment', { servicio, id, username: req.session.username });
+});
+
+
+//Ruta para procesar el pago
+router.post('/process-payment', (req, res) => {
+    const { cardType, servicio, id } = req.body;
+
+    // Primero obtenemos el monto del turno
+    req.conn.query('SELECT precio FROM servicios WHERE nombre = ?', [servicio], (err, precio) => {
+        if (err) {
+            console.error('Error al obtener el turno:', err);
+            return res.redirect('/payment/${servicio}/${id}');
+        }
+
+
+        if (!precio) {
+            console.error('Precio no encontrado');
+            return res.redirect('/payment/${servicio}/${id}');
+        }
+
+        const monto = precio[0].precio;
+
+        // Insertar el pago
+        const query = 'INSERT INTO pagos (cliente_email, turno_id, tipo, monto) VALUES (?, ?, ?, ?)';
+
+        req.conn.query(query, [req.session.email, id, cardType, monto], (err) => {
+            if (err) {
+                console.error('Error al guardar el pago:', err);
+                return res.redirect('/payment/${servicio}/${id}');
+            }
+            // Actualizar el turno como pagado
+            const updateQuery =
+                `UPDATE turnos
+                SET pagado = 1
+                WHERE id = ?`;
+
+            req.conn.query(updateQuery, [id], (err) => {
+                if (err) {
+                    console.error('Error al actualizar el estado del turno:', err);
+                    return res.redirect('/payment/${servicio}/${id}');
+                }
+
+                // Redirigir al perfil después de actualizar
+                res.redirect('/profile');
+            });
+        });
+    });
+});
+
+
 // Middleware para manejar errores 404 (Página no encontrada)
 router.use((req, res, next) => {
-    res.render('spa/404');
+    res.render('spa/404', { username: req.session.username, role: req.session.role != 'cliente' });
 });
 
 // Exporta el router
