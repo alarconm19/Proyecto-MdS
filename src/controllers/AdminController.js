@@ -8,8 +8,20 @@ function getClientes(req, res) {
         }
 
         // Renderiza la vista y pasa los datos obtenidos
-        res.render('admin/clientes', { layout: 'admin', username: req.session.username, clientes: results});
+        //res.render('admin/clientes', { layout: 'admin', username: req.session.username, clientes: results});
 
+        if (!req.session.loggedin || req.session.role == 'cliente') {
+            return res.redirect('/');
+        } else {
+            res.render('admin/clientes', {
+                layout: 'admin',
+                username: req.session.username,
+                admin: req.session.role == 'admin',
+                profesional: req.session.role == 'profesional',
+                secretaria: req.session.role == 'secretaria',
+                clientes: results
+            });
+        }
     });
 };
 
@@ -37,7 +49,20 @@ function getTurnosPorDia(req, res) {
             console.error('Error al obtener turnos:', err);
             return res.status(500).send('Error al obtener turnos.');
         }
-        res.render('admin/turnosPorDia', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+        //res.render('admin/turnosPorDia', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+        if (!req.session.loggedin || req.session.role == 'cliente') {
+            return res.redirect('/');
+        } else {
+            res.render('admin/turnosPorDia', {
+                layout: 'admin',
+                username: req.session.username,
+                admin: req.session.role == 'admin',
+                profesional: req.session.role == 'profesional',
+                secretaria: req.session.role == 'secretaria',
+                turnos: results,
+                fecha
+            });
+        }
     });
 };
 
@@ -65,7 +90,21 @@ function getClientesPorProfesional(req, res) {
             console.error('Error al obtener turnos:', err);
             return res.status(500).send('Error al obtener turnos.');
         }
-        res.render('admin/clientesPorProfesional', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+        //res.render('admin/clientesPorProfesional', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+
+        if (!req.session.loggedin || req.session.role == 'cliente') {
+            return res.redirect('/');
+        } else {
+            res.render('admin/clientesPorProfesional', {
+                layout: 'admin',
+                username: req.session.username,
+                admin: req.session.role == 'admin',
+                profesional: req.session.role == 'profesional',
+                secretaria: req.session.role == 'secretaria',
+                turnos: results,
+                fecha
+            });
+        }
     });
 }
 
