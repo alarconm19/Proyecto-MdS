@@ -28,6 +28,11 @@
                     <li class="nav-link">
                         <a href="/logout" class="btn btn-danger">Salir</a>
                     </li>
+                    {{#if role}}
+                    <li class="nav-link">
+                        <a href="/admin" class="btn btn-info">Administrador</a>
+                    </li>
+                    {{/if}}
                     {{else}}
                     <li class="nav-link">
                         <a href="/login" class="btn btn-success">Acceder</a>
