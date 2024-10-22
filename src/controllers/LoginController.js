@@ -36,6 +36,7 @@ function auth(req, res) {
                         req.session.email = user.email;
                         req.session.direccion = user.direccion;
                         req.session.telefono = user.telefono;
+                        req.session.role = user.role;
 
                         res.redirect('/');
                     } else {
@@ -97,6 +98,7 @@ function storeUser(req, res) {
                     req.session.email = data.email;
                     req.session.direccion = data.direccion;
                     req.session.telefono = data.telefono;
+                    req.session.role = data.role;
 
                     res.redirect('/');
                 });
