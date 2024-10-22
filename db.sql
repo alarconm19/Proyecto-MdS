@@ -3,9 +3,10 @@ USE pweb;
 
 -- Tabla de usuarios
 CREATE TABLE IF NOT EXISTS users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL PRIMARY KEY,
     username VARCHAR(255) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
+    nombre VARCHAR(255) NOT NULL,
+    apellido VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     telefono VARCHAR(20),
     direccion VARCHAR(255),
@@ -14,58 +15,56 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Tabla de servicios
 CREATE TABLE IF NOT EXISTS servicios (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_servicio VARCHAR(255) NOT NULL,
+    nombre VARCHAR(255) PRIMARY KEY,
     descripcion TEXT,
     precio DECIMAL(10,2) NOT NULL
 );
 
 -- Tabla de turnos
 CREATE TABLE IF NOT EXISTS turnos (
-    turno_id INT AUTO_INCREMENT PRIMARY KEY,
-    cliente_id INT NOT NULL,
-    profesional_id INT NOT NULL,
-    servicio_id INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_email VARCHAR(255) NOT NULL,
+    profesional_email VARCHAR(255) NOT NULL,
+    nombre_servicio VARCHAR(255) NOT NULL,
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
-    FOREIGN KEY (cliente_id) REFERENCES users(user_id),
-    FOREIGN KEY (profesional_id) REFERENCES users(user_id),
-    FOREIGN KEY (servicio_id) REFERENCES servicios(id)
+    FOREIGN KEY (cliente_email) REFERENCES users(email),
+    FOREIGN KEY (profesional_email) REFERENCES users(email),
+    FOREIGN KEY (nombre_servicio) REFERENCES servicios(nombre)
 );
 
 -- Tabla de pagos con integración de MercadoPago
 CREATE TABLE IF NOT EXISTS pagos (
-    pago_id INT AUTO_INCREMENT PRIMARY KEY,
-    cliente_id INT NOT NULL,
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cliente_email VARCHAR(255) NOT NULL,
     turno_id INT NOT NULL UNIQUE,  -- Un turno solo puede tener un pago asociado
-    mercadopago_id VARCHAR(255) NOT NULL, -- ID de MercadoPago para la transacción
-    estado_pago ENUM('pendiente', 'completado', 'fallido') NOT NULL DEFAULT 'pendiente',
+    tipo ENUM('credito', 'debito') NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
-    fecha_pago TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (cliente_id) REFERENCES users(user_id),
-    FOREIGN KEY (turno_id) REFERENCES turnos(turno_id)
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (cliente_email) REFERENCES users(email),
+    FOREIGN KEY (turno_id) REFERENCES turnos(id)
 );
 
 -- Tabla de comentarios (simplificada)
 CREATE TABLE IF NOT EXISTS comentarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100),
+    nombre VARCHAR(100) DEFAULT 'Anonimo',
     comentario TEXT NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Tabla de consultas
 CREATE TABLE IF NOT EXISTS consultas (
-    consulta_id INT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     contenido TEXT NOT NULL,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    cliente_id INT NOT NULL, -- Solo clientes registrados pueden hacer consultas
+    cliente_email VARCHAR(255) NOT NULL, -- Solo clientes registrados pueden hacer consultas
     respuesta TEXT, -- Respuesta de un empleado
-    empleado_id INT, -- ID del empleado que responde
+    empleado_email VARCHAR(255), -- email del empleado que responde
     fecha_respuesta TIMESTAMP,
     estado_consulta ENUM('pendiente', 'respondida') DEFAULT 'pendiente',
-    FOREIGN KEY (cliente_id) REFERENCES users(user_id),
-    FOREIGN KEY (empleado_id) REFERENCES users(user_id)
+    FOREIGN KEY (cliente_email) REFERENCES users(email),
+    FOREIGN KEY (empleado_email) REFERENCES users(email)
 );
 
 CREATE VIEW vista_clientes AS
