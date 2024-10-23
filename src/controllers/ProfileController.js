@@ -1,20 +1,5 @@
-
 // Mostrar perfil
 const showProfile = (req, res) => {
-    // if (req.session.loggedin) {
-    //     console.log('Datos de la sesión:', req.session.nombre);
-    //     res.render('spa/profile', {
-    //         email: req.session.email,
-    //         username: req.session.username,
-    //         nombre: req.session.nombre,
-    //         apellido: req.session.apellido,
-    //         direccion: req.session.direccion,
-    //         telefono: req.session.telefono
-    //     });
-    // } else {
-    //     res.redirect('/login');
-    // }
-
     // Verificar si el usuario está autenticado
     if (!req.session.loggedin) {
         return res.redirect('/login'); // Redirigir al login si no está autenticado
@@ -32,7 +17,7 @@ const showProfile = (req, res) => {
             s.nombre AS servicio,
             DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha,
             TIME_FORMAT(t.hora, '%H:%i') AS hora,
-            t.pagado
+            t.estado
         FROM
             turnos t
         JOIN

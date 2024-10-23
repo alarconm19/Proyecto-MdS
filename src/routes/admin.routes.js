@@ -12,18 +12,6 @@ router.get('/admin', (req, res) => {
         // Si el rol no coincide con ninguno, podrías redirigir a una página de error o hacer otra acción
         res.redirect('/');
     }
-
-    // if (!req.session.loggedin || req.session.role == 'cliente') {
-    //     return res.redirect('/');
-    // } else {
-    //     res.render('admin/dashboard', {
-    //         layout: 'admin',
-    //         username: req.session.username,
-    //         admin: req.session.role == 'admin',
-    //         profesional: req.session.role == 'profesional',
-    //         secretaria: req.session.role == 'secretaria',
-    //     });
-    // }
 });
 
 router.get('/admin/clientes', adminController.getClientes);

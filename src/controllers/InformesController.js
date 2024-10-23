@@ -1,9 +1,8 @@
-//const pdf = require('html-pdf');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
 
-exports.renderInformeIngresos = (req, res) => {
+function renderInformeIngresos(req, res){
     //res.render('admin/informe_ingresos', { layout: 'admin', title: 'Informe de Ingresos' });
     if (!req.session.loggedin || req.session.role == 'cliente') {
         return res.redirect('/');
@@ -18,7 +17,7 @@ exports.renderInformeIngresos = (req, res) => {
     }
 };
 
-exports.generarInformeIngresos = (req, res) => {
+function generarInformeIngresos(req, res){
     const { fechaInicio, fechaFin, tipoPago } = req.body;
 
     if (!fechaInicio || !fechaFin || !tipoPago) {
@@ -58,18 +57,10 @@ exports.generarInformeIngresos = (req, res) => {
                 tipoPago
             });
         }
-        // res.render('admin/informe_ingresos_resultado', {
-        //     layout: 'admin',
-        //     resultados,
-        //     title: 'Resultado Informe de Ingresos',
-        //     fechaInicio,
-        //     fechaFin,
-        //     tipoPago
-        // });
     });
 };
 
-// exports.descargarInformeIngresosPDF = (req, res) => {
+// function descargarInformeIngresosPDF(req, res){
 //   const { fechaInicio, fechaFin, tipoPago } = req.query;
 
 //   const consultaSQL = `
@@ -126,7 +117,7 @@ exports.generarInformeIngresos = (req, res) => {
 // };
 
 
-// exports.descargarInformeIngresosPDF = async (req, res) => {
+// function descargarInformeIngresosPDF = async (req, res){
 //     const { fechaInicio, fechaFin, tipoPago } = req.query;
 
 //     const consultaSQL = `
@@ -183,7 +174,7 @@ exports.generarInformeIngresos = (req, res) => {
 // };
 
 
-exports.renderInformeServicios = (req, res) => {
+function renderInformeServicios(req, res){
     if (!req.session.loggedin || req.session.role == 'cliente') {
         return res.redirect('/');
     } else {
@@ -197,7 +188,7 @@ exports.renderInformeServicios = (req, res) => {
     }
 };
 
-exports.generarInformeServicios = (req, res) => {
+function generarInformeServicios(req, res){
     const { fechaInicio, fechaFin, profesionalEmail } = req.body;
 
     if (!fechaInicio || !fechaFin || !profesionalEmail) {
@@ -253,7 +244,7 @@ exports.generarInformeServicios = (req, res) => {
     });
 };
 
-// exports.descargarInformeServiciosPDF = (req, res) => {
+// function descargarInformeServiciosPDF(req, res){
 //   const { fechaInicio, fechaFin, profesionalEmail } = req.query;
 
 //   const consultaSQL = `
@@ -310,3 +301,13 @@ exports.generarInformeServicios = (req, res) => {
 //         });
 //     });
 // };
+
+
+module.exports = {
+    renderInformeIngresos,
+    generarInformeIngresos,
+    // descargarInformeIngresosPDF,
+    renderInformeServicios,
+    generarInformeServicios,
+    // descargarInformeServiciosPDF
+};
