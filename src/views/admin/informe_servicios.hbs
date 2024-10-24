@@ -1,0 +1,52 @@
+<!-- views/informe_servicios.hbs -->
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Informe de Servicios</h1>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <form method="POST" action="/admin/generar-informe-servicios">
+                        <div class="mb-3">
+                            <label for="fechaInicio" class="form-label">Fecha Inicio:</label>
+                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fechaFin" class="form-label">Fecha Fin:</label>
+                            <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="profesionalEmail" class="form-label">Email del Profesional:</label>
+                            <input type="email" class="form-control" id="profesionalEmail" name="profesionalEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generar Informe</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+{{#if resultados}}
+  <h2>Resultados</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Servicio</th>
+        <th>Profesional</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each resultados}}
+        <tr>
+          <td>{{this.fecha}}</td>
+          <td>{{this.servicio}}</td>
+          <td>{{this.profesional}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <button onclick="window.print()">Imprimir</button>
+  <a href="/admin/descargar-informe-servicios-pdf" class="btn btn-primary">Descargar en PDF</a>
+{{/if}}

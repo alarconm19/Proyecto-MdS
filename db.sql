@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS turnos (
     cliente_email VARCHAR(255) NOT NULL,
     profesional_email VARCHAR(255) NOT NULL,
     nombre_servicio VARCHAR(255) NOT NULL,
+    pagado TINYINT(1) DEFAULT 0,
+    estado ENUM('pendiente', 'realizado', 'cancelado') DEFAULT 'pendiente',
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
     FOREIGN KEY (cliente_email) REFERENCES users(email),
@@ -38,7 +40,6 @@ CREATE TABLE IF NOT EXISTS pagos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     cliente_email VARCHAR(255) NOT NULL,
     turno_id INT NOT NULL UNIQUE,  -- Un turno solo puede tener un pago asociado
-    pagado TINYINT(1) DEFAULT 0,
     tipo ENUM('credito', 'debito') NOT NULL,
     monto DECIMAL(10,2) NOT NULL,
     fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -68,12 +69,7 @@ CREATE TABLE IF NOT EXISTS consultas (
     FOREIGN KEY (empleado_email) REFERENCES users(email)
 );
 
-CREATE VIEW vista_clientes AS
-SELECT user_id, username, email, telefono, direccion
-FROM users
-WHERE role = 'cliente';
-
-INSERT INTO servicios(nombre_servicio, precio)
+INSERT INTO servicios(nombre, precio)
 VALUES ('Anti-stress', 1),
 ('Descontracturantes', 1),
 ('Masajes con piedras calientes',  1),
