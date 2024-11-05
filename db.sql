@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS turnos (
     profesional_email VARCHAR(255) NOT NULL,
     nombre_servicio VARCHAR(255) NOT NULL,
     pagado TINYINT(1) DEFAULT 0,
-    estado ENUM('pendiente', 'realizado', 'cancelado') DEFAULT 'pendiente',
     fecha DATE NOT NULL,
     hora TIME NOT NULL,
     FOREIGN KEY (cliente_email) REFERENCES users(email),

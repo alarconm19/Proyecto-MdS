@@ -195,14 +195,16 @@ function generarInformeServicios(req, res){
         return res.status(400).send('Faltan parámetros requeridos');
     }
 
-    const consultaSQL = `
-        SELECT t.fecha, t.hora, t.nombre_servicio,
+    const consultaSQL = `SELECT
+        DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, 
+        TIME_FORMAT(t.hora, '%H:%i') AS hora,
+        t.nombre_servicio,
             uc.nombre as nombre_cliente, uc.apellido as apellido_cliente,
             up.nombre as nombre_profesional, up.apellido as apellido_profesional
         FROM turnos t
         JOIN users uc ON t.cliente_email = uc.email
         JOIN users up ON t.profesional_email = up.email
-        WHERE t.fecha BETWEEN ? AND ? AND t.profesional_email = ? AND t.estado = 'realizado'`;
+        WHERE t.fecha BETWEEN ? AND ? AND t.profesional_email = ? AND t.pagado = 1`;
 
     console.log('Consulta SQL:', consultaSQL);
     console.log('Parámetros:', [fechaInicio, fechaFin, profesionalEmail]);
