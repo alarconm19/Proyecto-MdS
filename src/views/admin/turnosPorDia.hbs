@@ -5,14 +5,21 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Turnos del {{fecha}}</li>
             </ol>
+            <!-- Formulario para seleccionar la fecha -->
+            <form action="/admin/turnosPorDia" method="GET" class="mb-4">
+                <div class="form-group">
+                    <label for="fecha">Seleccionar Fecha:</label>
+                    <input type="date" id="fecha" name="fecha" value="{{fecha}}" required>
+                    <button type="submit" class="btn btn-primary">Ver Turnos</button>
+                </div>
+            </form>
             <div class="card mb-4" style="background-color: olivedrab;">
                 <div class="card-header">
                     <i class="fas fa-calendar me-1"></i>
                     Turnos Programados
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table table-striped table-bordered" width="100%"
-                        cellspacing="0">
+                    <table id="datatablesSimple" class="table table-striped table-bordered" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>ID Turno</th>
@@ -44,11 +51,5 @@
             </div>
         </div>
     </main>
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Grupo 19 2024</div>
-            </div>
-        </div>
-    </footer>
+    {{> footerAdmin}}
 </div>

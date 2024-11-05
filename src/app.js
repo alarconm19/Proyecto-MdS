@@ -47,7 +47,7 @@ var Local_DB =
 
 // Middleware para conectar la base de datos
 app.use((req, res, next) => {
-    req.conn = mysql2.createConnection(Local_DB);
+    req.conn = mysql2.createConnection(AZURE_DB);
     req.conn.connect(function (err) {
         if (err) {
             console.log("!!! No se puede conectar !!! Error:");

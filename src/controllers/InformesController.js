@@ -25,7 +25,7 @@ function generarInformeIngresos(req, res){
     }
 
     const consultaSQL = `
-        SELECT DATE(p.fecha) as fecha, p.tipo, p.monto, u.nombre, u.apellido, t.nombre_servicio
+        SELECT DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, p.tipo, p.monto, u.nombre, u.apellido, t.nombre_servicio
         FROM pagos p
         JOIN users u ON p.cliente_email = u.email
         JOIN turnos t ON p.turno_id = t.id
@@ -196,7 +196,7 @@ function generarInformeServicios(req, res){
     }
 
     const consultaSQL = `SELECT
-        DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, 
+        DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha,
         TIME_FORMAT(t.hora, '%H:%i') AS hora,
         t.nombre_servicio,
             uc.nombre as nombre_cliente, uc.apellido as apellido_cliente,

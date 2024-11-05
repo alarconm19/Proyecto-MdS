@@ -1,4 +1,5 @@
 function getClientes(req, res) {
+    //autorize(req, res);
     const query = 'SELECT email, username, nombre, apellido, telefono, direccion, role FROM users WHERE role = "cliente"';
 
     req.conn.query(query, (err, results) => {
@@ -26,22 +27,20 @@ function getClientes(req, res) {
 };
 
 function getTurnosPorDia(req, res) {
-    const fecha = new Date().toISOString().split('T')[0];
+    //autorize(req, res);
+    // Usa la fecha enviada por el usuario o, si no se ha enviado, la fecha actual
+    const fecha = req.query.fecha || new Date().toISOString().split('T')[0];
 
-    // Consulta para obtener los turnos por fecha
     const queryTurnos = `
         SELECT t.id,
                c.username AS cliente, c.nombre as nombreCliente, c.apellido as apellidoCliente,
                p.username AS profesional, p.nombre as nombreProfesional, p.apellido as apellidoProfesional,
                s.nombre AS servicio,
                DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, TIME_FORMAT(t.hora, '%H:%i') AS hora
-
         FROM turnos t
-
         JOIN users c ON t.cliente_email = c.email
         JOIN users p ON t.profesional_email = p.email
         JOIN servicios s ON t.nombre_servicio = s.nombre
-
         WHERE t.fecha = ?`;
 
     req.conn.query(queryTurnos, [fecha], (err, results) => {
@@ -49,7 +48,7 @@ function getTurnosPorDia(req, res) {
             console.error('Error al obtener turnos:', err);
             return res.status(500).send('Error al obtener turnos.');
         }
-        //res.render('admin/turnosPorDia', { layout: 'admin', username: req.session.username, turnos: results, fecha });
+
         if (!req.session.loggedin || req.session.role == 'cliente') {
             return res.redirect('/');
         } else {
@@ -60,52 +59,78 @@ function getTurnosPorDia(req, res) {
                 profesional: req.session.role == 'profesional',
                 secretaria: req.session.role == 'secretaria',
                 turnos: results,
-                fecha
+                fecha // Pasa la fecha seleccionada a la vista
             });
         }
     });
 };
 
+
 function getClientesPorProfesional(req, res) {
+    //autorize(req, res);
     const fecha = new Date().toISOString().split('T')[0];
 
-    const queryTurnos = `
-    SELECT p.email AS emailProfesional, p.username AS profesional, p.nombre AS nombreProfesional, p.apellido AS apellidoProfesional,
-           c.email AS emailCliente, c.username AS cliente, c.nombre AS nombreCliente, c.apellido AS apellidoCliente,
-           s.nombre AS servicio,
-           DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, TIME_FORMAT(t.hora, '%H:%i') AS hora
+    // Obtén el nombre de usuario del profesional desde la consulta o deja vacío si no se selecciona ninguno
+    const profesionalSeleccionado = req.query.profesional || '';
 
-    FROM users p
+    // Consulta para obtener la lista de profesionales
+    const queryProfesionales = `SELECT username, nombre, apellido FROM users WHERE role = 'profesional'`;
 
-    LEFT JOIN turnos t ON p.email = t.profesional_email
-    LEFT JOIN users c ON t.cliente_email = c.email
-    LEFT JOIN servicios s ON t.nombre_servicio = s.nombre
+    // Consulta para obtener los turnos por profesional seleccionado
+    let queryTurnos = `
+        SELECT t.id,
+               c.username AS cliente, c.nombre as nombreCliente, c.apellido as apellidoCliente,
+               p.username AS profesional, p.nombre as nombreProfesional, p.apellido as apellidoProfesional,
+               s.nombre AS servicio,
+               DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha, TIME_FORMAT(t.hora, '%H:%i') AS hora
+        FROM turnos t
+        JOIN users c ON t.cliente_email = c.email
+        JOIN users p ON t.profesional_email = p.email
+        JOIN servicios s ON t.nombre_servicio = s.nombre`;
 
-    WHERE p.role = 'profesional'
+    // Si se ha seleccionado un profesional, agregamos un filtro a la consulta
+    if (profesionalSeleccionado) {
+        queryTurnos += ` WHERE p.username = ?`;
+    }
 
-    ORDER BY p.username, t.fecha, t.hora`;
-
-    req.conn.query(queryTurnos, (err, results) => {
+    // Ejecuta ambas consultas en paralelo
+    req.conn.query(queryProfesionales, (err, profesionales) => {
         if (err) {
-            console.error('Error al obtener turnos:', err);
-            return res.status(500).send('Error al obtener turnos.');
+            console.error('Error al obtener profesionales:', err);
+            return res.status(500).send('Error al obtener profesionales.');
         }
-        //res.render('admin/clientesPorProfesional', { layout: 'admin', username: req.session.username, turnos: results, fecha });
 
-        if (!req.session.loggedin || req.session.role == 'cliente') {
-            return res.redirect('/');
-        } else {
+        req.conn.query(queryTurnos, profesionalSeleccionado ? [profesionalSeleccionado] : [], (err, turnos) => {
+            if (err) {
+                console.error('Error al obtener turnos:', err);
+                return res.status(500).send('Error al obtener turnos.');
+            }
+
+            // Renderiza la vista con los turnos y los profesionales
             res.render('admin/clientesPorProfesional', {
                 layout: 'admin',
                 username: req.session.username,
-                admin: req.session.role == 'admin',
-                profesional: req.session.role == 'profesional',
-                secretaria: req.session.role == 'secretaria',
-                turnos: results,
+                admin: req.session.role === 'admin',
+                profesional: req.session.role === 'profesional',
+                secretaria: req.session.role === 'secretaria',
+                turnos,
+                profesionales,
+                profesionalSeleccionado,
                 fecha
             });
-        }
+        });
     });
+}
+
+function autorize(req, res) {
+    if (req.session.role === 'admin' || req.session.role === 'profesional') {
+        res.redirect('/admin/clientes');
+    } else if (req.session.role === 'secretaria') {
+        res.redirect('/admin/informe-ingresos');
+    } else {
+        // Si el rol no coincide con ninguno, podrías redirigir a una página de error o hacer otra acción
+        res.redirect('/');
+    }
 }
 
 module.exports = {

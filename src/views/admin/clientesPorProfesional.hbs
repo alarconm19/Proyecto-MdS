@@ -5,6 +5,19 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Turnos por Profesional</li>
             </ol>
+            <!-- Formulario para seleccionar el profesional -->
+            <form action="/admin/clientes-profesional" method="GET" class="mb-4">
+                <div class="form-group">
+                    <label for="profesional">Seleccionar Profesional:</label>
+                    <select id="profesional" name="profesional" class="form-control" required>
+                        <option value="">Todos los Profesionales</option>
+                        {{#each profesionales}}
+                        <option value="{{this.username}}">{{this.nombre}} {{this.apellido}}</option>
+                        {{/each}}
+                    </select>
+                    <button type="submit" class="btn btn-primary mt-2">Filtrar</button>
+                </div>
+            </form>
             <div class="card mb-4" style="background-color: olivedrab;">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
@@ -45,16 +58,5 @@
             </div>
         </div>
     </main>
-    <footer class="py-4 bg-light mt-auto">
-        <div class="container-fluid px-4">
-            <div class="d-flex align-items-center justify-content-between small">
-                <div class="text-muted">Copyright &copy; Grupo 19 2024</div>
-                <div>
-                    <a href="#">Privacy Policy</a>
-                    &middot;
-                    <a href="#">Terms &amp; Conditions</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {{> footerAdmin}}
 </div>

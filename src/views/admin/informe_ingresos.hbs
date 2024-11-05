@@ -1,29 +1,32 @@
-<div id="layoutSidenav_content">
+<div id="layoutSidenav_content" style="background-color: darkgrey;">
     <main>
         <div class="container-fluid px-4">
             <h1 class="mt-4">Informe de Ingresos</h1>
             <div class="card mb-4">
                 <div class="card-body">
                     <form method="POST" action="/admin/generar-informe-ingresos">
-                        <div class="mb-3">
-                            <label for="fechaInicio" class="form-label">Fecha Inicio:</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <label for="fechaInicio" class="form-label">Fecha Inicio:</label>
+                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="fechaFin" class="form-label">Fecha Fin:</label>
+                                <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="fechaFin" class="form-label">Fecha Fin:</label>
-                            <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
-                        </div>
-                        <div class="mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="tipoPago" class="form-label">Tipo de Pago:</label>
                             <select class="form-control" id="tipoPago" name="tipoPago">
                                 <option value="credito">Crédito</option>
                                 <option value="debito">Débito</option>
                             </select>
                         </div>
-                        {{!-- <button type="submit" class="btn btn-primary">Generar Informe</button> --}}
+                        <button type="submit" class="btn btn-primary">Generar Informe</button>
                     </form>
                 </div>
             </div>
         </div>
     </main>
+    {{> footerAdmin}}
 </div>
