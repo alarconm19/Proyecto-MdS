@@ -13,9 +13,7 @@ function auth(req, res) {
     const data = req.body;
 
     req.conn.query(
-        'SELECT * FROM users WHERE username = ? OR email = ?',
-        [data.login, data.login],
-        (err, results) => {
+        'SELECT * FROM users WHERE username = ? OR email = ?', [data.login, data.login], (err, results) => {
             if (err) {
                 console.error("Error en la consulta de la base de datos:", err);
                 res.status(500).send("Error en el inicio de sesión.");
