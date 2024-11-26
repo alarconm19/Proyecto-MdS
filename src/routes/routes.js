@@ -5,7 +5,6 @@ const MobileDetect = require('mobile-detect');
 
 
 
-
 // Rutas principales
 router.get('/', (req, res) => {
     res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
@@ -90,6 +89,12 @@ router.post('/process-payment', (req, res) => {
         }
 
         const monto = precio[0].precio;
+        
+        const md = new MobileDetect(req.headers['user-agent']);
+        if (md.mobile()) {
+            console.log("Es un móvil, aplicando descuento de 10%");
+            monto = monto * 0.9; }
+
 
         // Insertar el pago
         const query = 'INSERT INTO pagos (cliente_email, turno_id, tipo, monto) VALUES (?, ?, ?, ?)';
