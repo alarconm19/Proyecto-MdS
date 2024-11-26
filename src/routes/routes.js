@@ -64,28 +64,32 @@ router.post('/comentarios', (req, res) => {
 });
 
 // Ruta para mostrar el formulario de pago
-router.get('/payment/:servicio/:id', (req, res) => {
+router.get('/payment/:servicio/:id/:precio', (req, res) => {
     const servicio = req.params.servicio;
     const id = req.params.id;
-    res.render('spa/payment', { servicio, id, username: req.session.username });
+    const precio = req.params.precio;
+    const md = new MobileDetect(req.headers['user-agent']);
+    const isMobile = md.mobile() !== null;
+    const descuento = isMobile ? (precio * 0.9).toFixed(2) : precio;
+    res.render('spa/payment', { servicio, id, precio, isMobile, descuento, username: req.session.username });
 });
 
 
 //Ruta para procesar el pago
 router.post('/process-payment', (req, res) => {
-    const { cardType, servicio, id } = req.body;
+    const { cardType, servicio, id} = req.body;
 
     // Primero obtenemos el monto del turno
     req.conn.query('SELECT precio FROM servicios WHERE nombre = ?', [servicio], (err, precio) => {
         if (err) {
             console.error('Error al obtener el turno:', err);
-            return res.redirect('/payment/${servicio}/${id}');
+            return res.redirect('/payment/${servicio}/${id}/${precio}');
         }
 
 
         if (!precio) {
             console.error('Precio no encontrado');
-            return res.redirect('/payment/${servicio}/${id}');
+            return res.redirect('/payment/${servicio}/${id}/${precio}');
         }
 
         let monto = precio[0].precio;

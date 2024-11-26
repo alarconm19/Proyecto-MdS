@@ -17,7 +17,8 @@ const showProfile = (req, res) => {
             s.nombre AS servicio,
             DATE_FORMAT(t.fecha, '%d-%m-%Y') AS fecha,
             TIME_FORMAT(t.hora, '%H:%i') AS hora,
-            t.pagado
+            t.pagado,
+            s.precio
         FROM
             turnos t
         JOIN
