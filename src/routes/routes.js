@@ -1,10 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const profileController = require('../controllers/ProfileController');
+const MobileDetect = require('mobile-detect');
+
+
+
 
 // Rutas principales
 router.get('/', (req, res) => {
     res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
+    const md = new MobileDetect(req.headers['user-agent']);
+    if (md.mobile()) {
+        console.log("Es un móvil");
+    } else {
+        console.log("No es un móvil");
+    }
 });
 
 router.get('/servicios', (req, res) => {
