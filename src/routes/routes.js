@@ -1,7 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
 const profileController = require('../controllers/ProfileController');
 const MobileDetect = require('mobile-detect');
+
+router.get('/download-apk', (req, res) => {
+    const filePath = path.join(__dirname, '../..', 'public/downloads/Spa-Sentirse-Bien.apk');
+    res.download(filePath, 'Spa-Sentirse-Bien.apk', (err) => {
+        if (err) {
+            console.error('Error al enviar el archivo:', err);
+            res.status(500).send('Error al descargar la APK.');
+        }
+    });
+});
+
 
 router.get('/', (req, res) => {
     res.redirect("/inicio");
@@ -9,7 +21,7 @@ router.get('/', (req, res) => {
 
 // Rutas principales
 router.get('/inicio', (req, res) => {
-    res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
+    res.render('spa/index', { username: req.session.username, role: req.session.role != 'cliente' });
     const md = new MobileDetect(req.headers['user-agent']);
     if (md.mobile()) {
         console.log("Es un móvil");
@@ -79,7 +91,7 @@ router.get('/payment/:servicio/:id/:precio', (req, res) => {
 
 //Ruta para procesar el pago
 router.post('/process-payment', (req, res) => {
-    const { cardType, servicio, id} = req.body;
+    const { cardType, servicio, id } = req.body;
 
     // Primero obtenemos el monto del turno
     req.conn.query('SELECT precio FROM servicios WHERE nombre = ?', [servicio], (err, precio) => {
