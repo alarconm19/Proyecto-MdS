@@ -132,12 +132,28 @@ confirmButton.addEventListener('click', () => {
     if (selectedTime && selectElement.value && dateInput.value) {
 
         document.getElementById('selectedtime').value = selectedTime;
+        auxSelectedTime = selectedTime;
         document.getElementById('selecteddate').value = dateInput.value;
         document.getElementById('selectedtreatment').value = selectElement.value;
 
-        document.querySelector('Form').submit();
+        fetch('/check-session', { credentials: 'include' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.loggedin) {
+                console.log('Sesión iniciada:', data.user);
+                document.querySelector('Form').submit();
 
-        alert(`Turno confirmado para el servicio ${selectElement.value} el día ${dateInput.value} a las ${selectedTime}`);
+                alert(`Turno confirmado para el servicio ${selectElement.value} el día ${dateInput.value} a las ${auxSelectedTime}`);
+
+                // Muestra el contenido para usuarios con sesión iniciada
+            } else {
+                console.log('Sesión no iniciada');
+                alert(`Turno no confirmado, inicie sesión.`);
+                // Redirige al usuario a la página de inicio de sesión o muestra contenido no autenticado
+            }
+        });
+
+
     } else {
         alert('Por favor, completa todos los campos.');
     }

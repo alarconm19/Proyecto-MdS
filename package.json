@@ -22,7 +22,7 @@
 		"puppeteer": "^23.6.0"
 	},
 	"devDependencies": {
-		"nodemon": "^3.1.4"
+		"nodemon": "^3.1.7"
 	},
 	"engines": {
 		"node": "20.x"
