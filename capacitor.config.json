@@ -1,5 +1,5 @@
 {
   "appId": "com.spasentirsebien.app",
   "appName": "Spa Sentirse Bien",
-  "webDir": "src/views"
+  "webDir": "www"
 }
