@@ -88,12 +88,13 @@ router.post('/process-payment', (req, res) => {
             return res.redirect('/payment/${servicio}/${id}');
         }
 
-        const monto = precio[0].precio;
+        let monto = precio[0].precio;
         
         const md = new MobileDetect(req.headers['user-agent']);
         if (md.mobile()) {
             console.log("Es un móvil, aplicando descuento de 10%");
-            monto = monto * 0.9; }
+            monto = monto * 0.9;
+        }
 
 
         // Insertar el pago
