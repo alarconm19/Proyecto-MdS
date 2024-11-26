@@ -147,7 +147,7 @@ confirmButton.addEventListener('click', () => {
 
                 // Muestra el contenido para usuarios con sesión iniciada
             } else {
-                console.log('Sesión no iniciada');
+                //console.log('Sesión no iniciada');
                 alert(`Turno no confirmado, inicie sesión.`);
                 // Redirige al usuario a la página de inicio de sesión o muestra contenido no autenticado
             }
