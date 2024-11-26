@@ -5,11 +5,14 @@
         <a href="/">
             <img src="./img/favicon.png" alt="Logo" class="img-fluid" style="max-height: 70px;">
         </a>
-        <a class="navbar-brand text-success logo h1 align-self-center" style="font-family: 'Courier New', Courier, monospace;" href="/">SPA</a>
-        <a class="navbar-brand text-success logo h3 align-self-center" style="font-family: cursive;" href="/">Sentirse bien</a>
+        <a class="navbar-brand text-success logo h1 align-self-center"
+            style="font-family: 'Courier New', Courier, monospace;" href="/">SPA</a>
+        <a class="navbar-brand text-success logo h3 align-self-center" style="font-family: cursive;" href="/">Sentirse
+            bien</a>
 
         <!-- Botón de Colapso -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav"
+            aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -25,29 +28,30 @@
             </div>
 
             <div class="navbar align-self-center">
-                <ul class="navbar-nav d-flex justify-content-between mx-lg-auto">
+                <ul class="navbar-nav d-flex flex-column flex-lg-row justify-content-between mx-lg-auto">
                     {{#if username}}
-                    <li class="nav-item">
-                        <a href="/profile" class="btn btn">{{username}}</a>
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-2">
+                        <a href="/profile" class="btn btn-primary">{{username}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-2">
                         <a href="/logout" class="btn btn-danger">Salir</a>
                     </li>
                     {{#if role}}
-                    <li class="nav-item">
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-2">
                         <a href="/admin" class="btn btn-info">Administrador</a>
                     </li>
                     {{/if}}
                     {{else}}
-                    <li class="nav-item">
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-2">
                         <a href="/login" class="btn btn-success">Acceder</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2 mb-lg-0 me-lg-2">
                         <a href="/register" class="btn btn-outline-success">Registrarse</a>
                     </li>
                     {{/if}}
                 </ul>
             </div>
+
         </div>
     </div>
 </nav>
