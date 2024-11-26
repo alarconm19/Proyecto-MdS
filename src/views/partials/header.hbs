@@ -1,4 +1,5 @@
 <!-- Header -->
+<!-- Header -->
 <nav class="navbar navbar-expand-lg navbar-light shadow">
     <div class="container d-flex justify-content-between align-items-center">
         <a href="/">
@@ -7,8 +8,12 @@
         <a class="navbar-brand text-success logo h1 align-self-center" style="font-family: 'Courier New', Courier, monospace;" href="/">SPA</a>
         <a class="navbar-brand text-success logo h3 align-self-center" style="font-family: cursive;" href="/">Sentirse bien</a>
 
-        <div class="align-self-center collapse navbar-collapse flex-fill d-lg-flex justify-content-lg-between"
-            id="templatemo_main_nav">
+        <!-- Botón de Colapso -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#templatemo_main_nav" aria-controls="templatemo_main_nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="templatemo_main_nav">
             <div class="flex-fill">
                 <ul class="nav navbar-nav d-flex justify-content-between mx-lg-auto">
                     <li class="nav-item"><a class="nav-link" href="/">Quienes Somos</a></li>
@@ -19,25 +24,25 @@
                 </ul>
             </div>
 
-            <div class="navbar align-self-center" id="navbarNav">
-                <ul class="navbar d-flex justify-content-between mx-lg-auto">
+            <div class="navbar align-self-center">
+                <ul class="navbar-nav d-flex justify-content-between mx-lg-auto">
                     {{#if username}}
-                    <li class="nav-link">
+                    <li class="nav-item">
                         <a href="/profile" class="btn btn">{{username}}</a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-item">
                         <a href="/logout" class="btn btn-danger">Salir</a>
                     </li>
                     {{#if role}}
-                    <li class="nav-link">
+                    <li class="nav-item">
                         <a href="/admin" class="btn btn-info">Administrador</a>
                     </li>
                     {{/if}}
                     {{else}}
-                    <li class="nav-link">
+                    <li class="nav-item">
                         <a href="/login" class="btn btn-success">Acceder</a>
                     </li>
-                    <li class="nav-link">
+                    <li class="nav-item">
                         <a href="/register" class="btn btn-outline-success">Registrarse</a>
                     </li>
                     {{/if}}
@@ -46,4 +51,6 @@
         </div>
     </div>
 </nav>
+<!-- End Header -->
+
 <!-- End Header -->
