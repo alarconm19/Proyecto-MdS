@@ -14,18 +14,18 @@
                             <input type="hidden" name="id" value="{{id}}">
                             <input type="hidden" name="precio" value="{{precio}}">
 
-                            
+
                             <!-- Sección para mostrar el precio y el descuento si es móvil -->
                             <div class="mb-3">
                                 <label class="form-label" style="color: #333; font-weight: bold;">Precio: </label>
                                 <span style="font-size: 1.2rem; color: #333;">
                                     ${{precio}}
                                 </span>
-                                
+
                                 {{#if isMobile}}
                                 <div style="font-size: 1rem; color: #f44336;">
                                     <small><s>${{precio}}</s> - 10% descuento = ${{descuento}}</small>
-                                </div>                                                                    
+                                </div>
                                 {{/if}}
                             </div>
 

@@ -10,7 +10,7 @@ router.get('/admin', (req, res) => {
         res.redirect('/admin/informe-ingresos');
     } else {
         // Si el rol no coincide con ninguno, podrías redirigir a una página de error o hacer otra acción
-        res.redirect('/');
+        res.redirect('/inicio');
     }
 });
 

@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 
 function login(req, res) {
     if (req.session.loggedin) {
-        res.redirect('/');
+        res.redirect('/inicio');
     } else {
         res.render('spa/login/login');
     }
@@ -37,7 +37,7 @@ function auth(req, res) {
                         req.session.telefono = user.telefono;
                         req.session.role = user.role;
 
-                        res.redirect('/');
+                        res.redirect('/inicio');
                     } else {
                         res.render('spa/login/login', { error: "Contraseña incorrecta" });
                     }
@@ -49,7 +49,7 @@ function auth(req, res) {
 
 function register(req, res) {
     if (req.session.loggedin) {
-        res.redirect('/');
+        res.redirect('/inicio');
     } else {
         res.render('spa/login/register');
     }
@@ -100,7 +100,7 @@ function storeUser(req, res) {
                     req.session.telefono = data.telefono;
                     req.session.role = 'cliente';
 
-                    res.redirect('/');
+                    res.redirect('/inicio');
                 });
             }
         });
@@ -111,7 +111,7 @@ function logout(req, res) {
     if (req.session.loggedin) {
         req.session.destroy();
     }
-    res.redirect('/');
+    res.redirect('/inicio');
 }
 
 module.exports = {

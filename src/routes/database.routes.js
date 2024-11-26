@@ -26,7 +26,7 @@ function isEmpleado(req, res, next) {
         return next();
     }
     console.log('Acceso denegado');
-    res.redirect('/'); // Redirige si no es empleado
+    res.redirect('/inicio'); // Redirige si no es empleado
 }
 
 // Ruta para obtener todas las consultas (empleados)

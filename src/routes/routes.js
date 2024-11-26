@@ -3,10 +3,12 @@ const router = express.Router();
 const profileController = require('../controllers/ProfileController');
 const MobileDetect = require('mobile-detect');
 
-
+router.get('/', (req, res) => {
+    res.redirect("/inicio");
+});
 
 // Rutas principales
-router.get('/', (req, res) => {
+router.get('/inicio', (req, res) => {
     res.render('spa/index', { username: req.session.username , role: req.session.role != 'cliente' });
     const md = new MobileDetect(req.headers['user-agent']);
     if (md.mobile()) {
@@ -93,7 +95,7 @@ router.post('/process-payment', (req, res) => {
         }
 
         let monto = precio[0].precio;
-        
+
         const md = new MobileDetect(req.headers['user-agent']);
         if (md.mobile()) {
             console.log("Es un móvil, aplicando descuento de 10%");

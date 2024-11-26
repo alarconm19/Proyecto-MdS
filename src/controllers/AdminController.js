@@ -12,7 +12,7 @@ function getClientes(req, res) {
         //res.render('admin/clientes', { layout: 'admin', username: req.session.username, clientes: results});
 
         if (!req.session.loggedin || req.session.role == 'cliente') {
-            return res.redirect('/');
+            return res.redirect('/inicio');
         } else {
             res.render('admin/clientes', {
                 layout: 'admin',
@@ -50,7 +50,7 @@ function getTurnosPorDia(req, res) {
         }
 
         if (!req.session.loggedin || req.session.role == 'cliente') {
-            return res.redirect('/');
+            return res.redirect('/inicio');
         } else {
             res.render('admin/turnosPorDia', {
                 layout: 'admin',
@@ -129,7 +129,7 @@ function autorize(req, res) {
         res.redirect('/admin/informe-ingresos');
     } else {
         // Si el rol no coincide con ninguno, podrías redirigir a una página de error o hacer otra acción
-        res.redirect('/');
+        res.redirect('/inicio');
     }
 }
 

@@ -42,7 +42,7 @@ function insertQuery(req, res) {
         });
     } else {
         console.error('No autorizado');
-        res.redirect('/'); // Redirigir a la página de inicio
+        res.redirect('/inicio'); // Redirigir a la página de inicio
     }
 }
 

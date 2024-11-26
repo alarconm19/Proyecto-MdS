@@ -5,7 +5,7 @@ const path = require('path');
 function renderInformeIngresos(req, res){
     //res.render('admin/informe_ingresos', { layout: 'admin', title: 'Informe de Ingresos' });
     if (!req.session.loggedin || req.session.role == 'cliente') {
-        return res.redirect('/');
+        return res.redirect('/inicio');
     } else {
         res.render('admin/informe_ingresos', {
             layout: 'admin',
@@ -43,7 +43,7 @@ function generarInformeIngresos(req, res){
         console.log('Resultados:', resultados);
 
         if (!req.session.loggedin || req.session.role == 'cliente') {
-            return res.redirect('/');
+            return res.redirect('/inicio');
         } else {
             res.render('admin/informe_ingresos_resultado', {
                 layout: 'admin',
@@ -176,7 +176,7 @@ function generarInformeIngresos(req, res){
 
 function renderInformeServicios(req, res){
     if (!req.session.loggedin || req.session.role == 'cliente') {
-        return res.redirect('/');
+        return res.redirect('/inicio');
     } else {
         res.render('admin/informe_servicios', {
             layout: 'admin',
@@ -228,7 +228,7 @@ function generarInformeServicios(req, res){
         }
 
         if (!req.session.loggedin || req.session.role == 'cliente') {
-            return res.redirect('/');
+            return res.redirect('/inicio');
         } else {
             res.render('admin/informe_servicios_resultado', {
                 layout: 'admin',
